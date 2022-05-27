@@ -1,0 +1,15 @@
+{
+  "name": "ab-poc-layout-core-bundle",
+  "decription": "Layout capabilities of App-builder",
+  "version": "0.0.0",
+  "microservices": [],
+  "microfrontends": [
+    {
+      "name": "app-builder-menu",
+      "stack": "react",
+      "context": "app-builder",
+      "slot": "primary-menu",
+      "customElement": "app-builder-menu"
+    }
+  ]
+}

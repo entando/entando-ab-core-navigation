@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom/client'
 
 import { Menu } from "./components/Menu"
 
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = await import('../mocks/browser')
+
+  worker.start()
+}
+
 class AppBuilderMenu extends HTMLElement {
   shadow: ShadowRoot
 

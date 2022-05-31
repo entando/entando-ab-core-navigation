@@ -1,16 +1,10 @@
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { Menu } from "./Menu";
 
 describe("Menu Test", () => {
-    it("must be rendered", () => {
-        const { getByText } = render(<Menu/>)
+  it("must be rendered", () => {
+    const { getByText } = render(<Menu />);
 
-        expect(getByText("This is the menu")).toBeInTheDocument()
-    })
-
-    it("should match snapshot", () => {
-        const { container } = render(<Menu/>)
-
-        expect(container).toMatchSnapshot()
-    })
-})
+    waitFor(() => expect(getByText("Hello world")).toBeInTheDocument());
+  });
+});

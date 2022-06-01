@@ -1,8 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { StyleSheetManager } from "styled-components";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { StyleSheetManager } from 'styled-components';
 
-import { Menu } from "./components/Menu";
+import { Menu } from './components/Menu';
 
 export class AppBuilderMenu extends HTMLElement {
   shadow: ShadowRoot;
@@ -10,7 +10,7 @@ export class AppBuilderMenu extends HTMLElement {
   constructor() {
     super();
 
-    this.shadow = this.attachShadow({ mode: "open" });
+    this.shadow = this.attachShadow({ mode: 'open' });
   }
 
   connectedCallback() {
@@ -18,8 +18,8 @@ export class AppBuilderMenu extends HTMLElement {
   }
 
   render() {
-    const element = document.createElement("div");
-    const styleParent = document.createElement("div");
+    const element = document.createElement('div');
+    const styleParent = document.createElement('div');
 
     const root = ReactDOM.createRoot(element);
 

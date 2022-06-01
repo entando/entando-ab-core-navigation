@@ -1,10 +1,17 @@
-import { render, waitFor } from "@testing-library/react";
-import { Menu } from "./Menu";
+import {
+  render,
+  waitForElementToBeRemoved,
+  screen
+} from '@testing-library/react';
 
-describe("Menu Test", () => {
-  it("must be rendered", () => {
-    const { getByText } = render(<Menu />);
+import { Menu } from './Menu';
 
-    waitFor(() => expect(getByText("Hello world")).toBeInTheDocument());
+describe('Menu Test', () => {
+  it('must be rendered', async () => {
+    render(<Menu />);
+
+    await waitForElementToBeRemoved(screen.queryByText('Loading...'));
+
+    expect(screen.getByText('hello world')).toBeInTheDocument();
   });
 });

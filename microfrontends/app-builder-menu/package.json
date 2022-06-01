@@ -6,8 +6,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "jest",
-    "prepare": "husky install"
+    "test": "jest"
   },
   "dependencies": {
     "axios": "0.27.2",
@@ -38,13 +37,5 @@
   },
   "msw": {
     "workerDirectory": ""
-  },
-  "lint-staged": {
-    "*.js": "eslint",
-    "*.{ts,tsx,js,jsx,css,md}": [
-      "npm run test",
-      "eslint",
-      "prettier --write"
-    ]
   }
 }

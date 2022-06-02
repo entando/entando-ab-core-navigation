@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
+import MenuUIContext from '../../../MenuUIContext';
 
 const StyledLink = styled.a<{ isActive: boolean }>`
   width: 100%;
@@ -33,14 +35,27 @@ const StyledLabel = styled.span`
 `;
 
 interface Props {
-  isActive: boolean;
+  id: string;
+  label: string;
+  onClick?: () => void;
 }
 
 export default function TertiaryMenuItem(props: Props): JSX.Element {
-  const { isActive } = props;
+  const { id, label, onClick } = props;
+
+  const { activeTertiaryMenuItemId, setActiveTertiaryMenuItemId } =
+    useContext(MenuUIContext);
+
+  const isActive = activeTertiaryMenuItemId === id;
+
+  const handleClick = (): void => {
+    setActiveTertiaryMenuItemId(id);
+    onClick && onClick();
+  };
+
   return (
-    <StyledLink isActive={isActive}>
-      <StyledLabel>Dashboard</StyledLabel>
+    <StyledLink isActive={isActive} onClick={handleClick}>
+      <StyledLabel>{label}</StyledLabel>
     </StyledLink>
   );
 }

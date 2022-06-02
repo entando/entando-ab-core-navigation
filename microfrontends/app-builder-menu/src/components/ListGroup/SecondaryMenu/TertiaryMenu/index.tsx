@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import TertiaryMenuItem from './TertiaryMenuItem';
 
 const StyledSecondaryTertiaryMenu = styled.div<{ isVisible: boolean }>`
   background: #292e34;
@@ -12,7 +11,7 @@ const StyledSecondaryTertiaryMenu = styled.div<{ isVisible: boolean }>`
   overflow-x: hidden;
   overflow-y: auto;
   position: fixed;
-  top: 60px;
+  top: 0px;
   opacity: 0;
   visibility: hidden;
   ${({ isVisible }) => (isVisible ? `opacity: 1; visibility: visible;` : ``)}
@@ -28,16 +27,14 @@ const StyledSecondaryListGroup = styled.ul`
 
 interface Props {
   isOpen: boolean;
+  children?: React.ReactNode;
 }
 
 export default function TertiaryMenu(props: Props): JSX.Element {
-  const { isOpen } = props;
+  const { isOpen, children } = props;
   return (
     <StyledSecondaryTertiaryMenu isVisible={isOpen}>
-      <StyledSecondaryListGroup>
-        <TertiaryMenuItem isActive />
-        <TertiaryMenuItem isActive={false} />
-      </StyledSecondaryListGroup>
+      <StyledSecondaryListGroup>{children}</StyledSecondaryListGroup>
     </StyledSecondaryTertiaryMenu>
   );
 }

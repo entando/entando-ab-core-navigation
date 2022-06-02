@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 import RightArrowIcon from '../Icons/RightArrowIcon';
+import MenuUIContext from '../MenuUIContext';
 import SecondaryMenu from './SecondaryMenu';
 
 interface ListGroupItemProps {
@@ -110,29 +112,61 @@ export const StyledLabel = styled.span`
 `;
 
 interface Props {
-  isActive: boolean;
+  id: string;
   fixBottom?: boolean;
-  hasChildren: boolean;
   label: string;
   renderIcon: ({ fill }: { fill?: string }) => React.ReactNode;
+  children?: React.ReactNode;
+  onClick?: () => void;
 }
 
 export default function ListGroupItem(props: Props): JSX.Element {
-  const { isActive, hasChildren, label, renderIcon, fixBottom } = props;
+  const { label, renderIcon, fixBottom, children, id, onClick } = props;
+
+  const {
+    activeListGroupItemId,
+    setActiveListGroupItemId,
+    setSecondaryMenuOpen,
+    secondaryMenuOpen
+  } = useContext(MenuUIContext);
+
+  const isActive = activeListGroupItemId === id;
+  const hasChildren = !!children;
+
+  const onClickHandler = () => {
+    setActiveListGroupItemId(id);
+    if (hasChildren) {
+      setSecondaryMenuOpen(true);
+    } else {
+      onClick && onClick();
+    }
+  };
+
   return (
-    <StyledListGroupItem isActive={isActive} fixBottom={fixBottom}>
-      <StyledLink isActive={isActive}>
-        <StyledIcon>
-          {renderIcon({ fill: isActive ? '#39a5dc' : '#72767b' })}
-        </StyledIcon>
-        <StyledLabel>{label}</StyledLabel>
-        {hasChildren && (
+    <>
+      <StyledListGroupItem
+        isActive={isActive}
+        fixBottom={fixBottom}
+        onClick={onClickHandler}
+      >
+        <StyledLink isActive={isActive}>
           <StyledIcon>
-            <RightArrowIcon />{' '}
+            {renderIcon({ fill: isActive ? '#39a5dc' : '#72767b' })}
           </StyledIcon>
-        )}
-      </StyledLink>
-      <SecondaryMenu isOpen title={label} />
-    </StyledListGroupItem>
+          <StyledLabel>{label}</StyledLabel>
+          {hasChildren && (
+            <StyledIcon>
+              <RightArrowIcon />{' '}
+            </StyledIcon>
+          )}
+        </StyledLink>
+      </StyledListGroupItem>
+      <SecondaryMenu
+        isOpen={hasChildren && isActive && secondaryMenuOpen}
+        title={label}
+      >
+        {children}
+      </SecondaryMenu>
+    </>
   );
 }

@@ -1,6 +1,7 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 import BackButtonIcon from '../../Icons/BackButtonIcon';
-import SecondaryMenuItem from './SecondaryMenuItem';
+import MenuUIContext from '../../MenuUIContext';
 
 const StyledSecondaryNavMenu = styled.div<{ isVisible: boolean }>`
   background: #393f44;
@@ -13,7 +14,7 @@ const StyledSecondaryNavMenu = styled.div<{ isVisible: boolean }>`
   overflow-x: hidden;
   overflow-y: auto;
   position: fixed;
-  top: 60px;
+  top: 0px;
   opacity: 0;
   visibility: hidden;
   ${({ isVisible }) => (isVisible ? `opacity: 1; visibility: visible;` : ``)}
@@ -49,22 +50,29 @@ const StyledBackButton = styled.div`
 interface Props {
   isOpen: boolean;
   title: string;
+  children?: React.ReactNode;
 }
 
 export default function SecondaryMenu(props: Props): JSX.Element {
-  const { isOpen, title } = props;
+  const { isOpen, title, children } = props;
+
+  const { setSecondaryMenuOpen, setTertiaryMenuOpen } =
+    useContext(MenuUIContext);
+
+  const handleBack = () => {
+    setSecondaryMenuOpen(false);
+    setTertiaryMenuOpen(false);
+  };
+
   return (
     <StyledSecondaryNavMenu isVisible={isOpen}>
       <StyledHeader>
-        <StyledBackButton>
+        <StyledBackButton onClick={handleBack}>
           <BackButtonIcon />
         </StyledBackButton>
         <StyledTitle>{title}</StyledTitle>
       </StyledHeader>
-      <StyledSecondaryListGroup>
-        <SecondaryMenuItem hasChildren isActive />
-        <SecondaryMenuItem hasChildren={false} isActive={false} />
-      </StyledSecondaryListGroup>
+      <StyledSecondaryListGroup>{children}</StyledSecondaryListGroup>
     </StyledSecondaryNavMenu>
   );
 }

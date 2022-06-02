@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 import RightArrowIcon from '../../Icons/RightArrowIcon';
+import MenuUIContext from '../../MenuUIContext';
 import TertiaryMenu from './TertiaryMenu';
 
 const StyledLink = styled.a<{ isActive: boolean }>`
@@ -39,19 +41,45 @@ const StyledSecondaryMenuItem = styled.li`
 `;
 
 interface Props {
-  isActive: boolean;
-  hasChildren: boolean;
+  id: string;
+  children?: React.ReactNode;
+  label: string;
+  onClick?: () => void;
 }
 
 export default function SecondaryMenuItem(props: Props): JSX.Element {
-  const { isActive, hasChildren } = props;
+  const { id, children, label, onClick } = props;
+
+  const {
+    activeSecondaryMenuItemId,
+    setActiveSecondaryMenuItemId,
+    tertiaryMenuOpen,
+    setTertiaryMenuOpen
+  } = useContext(MenuUIContext);
+
+  const hasChildren = !!children;
+  const isActive = activeSecondaryMenuItemId === id;
+
+  const handleClick = (): void => {
+    setActiveSecondaryMenuItemId(id);
+    if (hasChildren) {
+      setTertiaryMenuOpen(true);
+    } else {
+      onClick && onClick();
+    }
+  };
+
   return (
-    <StyledSecondaryMenuItem>
-      <StyledLink isActive={isActive}>
-        <StyledLabel>Dashboard</StyledLabel>
-        {hasChildren && <RightArrowIcon />}
-      </StyledLink>
-      <TertiaryMenu isOpen />
-    </StyledSecondaryMenuItem>
+    <>
+      <StyledSecondaryMenuItem onClick={handleClick}>
+        <StyledLink isActive={isActive}>
+          <StyledLabel>{label}</StyledLabel>
+          {hasChildren && <RightArrowIcon />}
+        </StyledLink>
+      </StyledSecondaryMenuItem>
+      <TertiaryMenu isOpen={hasChildren && isActive && tertiaryMenuOpen}>
+        {children}
+      </TertiaryMenu>
+    </>
   );
 }

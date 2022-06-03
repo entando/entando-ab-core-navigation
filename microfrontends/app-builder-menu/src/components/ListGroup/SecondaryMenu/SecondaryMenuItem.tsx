@@ -45,6 +45,7 @@ interface Props {
   children?: React.ReactNode;
   label: string;
   onClick?: () => void;
+  href?: string;
 }
 
 export default function SecondaryMenuItem(props: Props): JSX.Element {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import MenuUI from './MenuUI';
+import MenuUI, { MfeConfig } from './MenuUI';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
@@ -53,7 +53,13 @@ table {
 }
 `;
 
-export function Menu() {
+interface Props {
+  config: MfeConfig;
+}
+
+export function Menu(props: Props) {
+  const { config } = props;
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -75,7 +81,7 @@ export function Menu() {
   ) : (
     <>
       <GlobalStyle />
-      <MenuUI />
+      <MenuUI config={config} />
     </>
   );
 }

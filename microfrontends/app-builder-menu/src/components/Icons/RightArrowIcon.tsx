@@ -14,9 +14,9 @@ function RightArrowIcon(props: Props): JSX.Element {
       viewBox="0 0 20 20"
       fill="none"
       stroke={fill}
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
       <polyline points="9 18 15 12 9 6"></polyline>
     </svg>

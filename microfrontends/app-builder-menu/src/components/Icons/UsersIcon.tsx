@@ -1,3 +1,5 @@
+import { COLORS } from '../theme';
+
 interface Props {
   width?: number;
   height?: number;
@@ -5,7 +7,7 @@ interface Props {
 }
 
 function UsersIcon(props: Props): JSX.Element {
-  const { width = 18, height = 18, fill = '#72767B' } = props;
+  const { width = 18, height = 18, fill = COLORS.inactive } = props;
   return (
     <svg
       width={`${width}`}

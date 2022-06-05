@@ -1,3 +1,5 @@
+import { COLORS } from '../theme';
+
 interface Props {
   width?: number;
   height?: number;
@@ -5,7 +7,7 @@ interface Props {
 }
 
 function AdministrationIcon(props: Props): JSX.Element {
-  const { fill = '#72767B' } = props;
+  const { fill = COLORS.inactive } = props;
   return (
     <svg
       version="1.1"

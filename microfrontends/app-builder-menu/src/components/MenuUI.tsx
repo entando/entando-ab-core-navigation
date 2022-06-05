@@ -27,11 +27,12 @@ import {
   VIEW_USERS_AND_PROFILES_PERMISSION
 } from '../utils/permissions';
 import { convertToAdminConsoleUrl } from '../utils/links';
+import { COLORS } from './theme';
 
 const MenuCmp = styled.menu`
   height: 100%;
-  background: #292e34;
-  border-right: 1px solid #292e34;
+  background: ${COLORS.primary};
+  border-right: 1px solid ${COLORS.primary};
   bottom: 0;
   left: 0;
   overflow-x: hidden;

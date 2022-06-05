@@ -1,3 +1,5 @@
+import { COLORS } from '../theme';
+
 interface Props {
   width?: number;
   height?: number;
@@ -5,7 +7,7 @@ interface Props {
 }
 
 function RightArrowIcon(props: Props): JSX.Element {
-  const { width = 20, height = 20, fill = '#979797' } = props;
+  const { width = 20, height = 20, fill = COLORS.darkGrey } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

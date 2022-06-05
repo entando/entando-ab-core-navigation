@@ -1,3 +1,5 @@
+import { COLORS } from '../theme';
+
 interface Props {
   width?: number;
   height?: number;
@@ -5,7 +7,7 @@ interface Props {
 }
 
 function BackButtonIcon(props: Props): JSX.Element {
-  const { width = 24, height = 24, fill = '#39a5dc' } = props;
+  const { width = 24, height = 24, fill = COLORS.blue } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

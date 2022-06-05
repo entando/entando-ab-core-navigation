@@ -1,3 +1,5 @@
+import { COLORS } from '../theme';
+
 interface Props {
   width?: number;
   height?: number;
@@ -5,7 +7,7 @@ interface Props {
 }
 
 function PagesIcon(props: Props): JSX.Element {
-  const { width = 20, height = 20, fill = '#72767B' } = props;
+  const { width = 20, height = 20, fill = COLORS.inactive } = props;
   return (
     <svg
       width={width}

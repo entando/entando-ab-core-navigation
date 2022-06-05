@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import RightArrowIcon from '../../Icons/RightArrowIcon';
 import MenuUIContext from '../../MenuUIContext';
 import TertiaryMenu from './TertiaryMenu';
+import { COLORS } from '../../theme';
 
 const StyledLink = styled.a<{ isActive: boolean }>`
   width: 100%;
   background-color: transparent;
-  background-color: ${({ isActive }) => (isActive ? '#4D5257' : 'transparent')};
-  color: ${({ isActive }) => (isActive ? '#fff' : '#d1d1d1')};
+  background-color: ${({ isActive }) =>
+    isActive ? COLORS.secondary : 'transparent'};
+  color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.text)};
   cursor: pointer;
   display: block;
   font-size: 14px;
@@ -23,8 +25,8 @@ const StyledLink = styled.a<{ isActive: boolean }>`
 
   &:hover {
     font-weight: 600;
-    color: #fff;
-    background-color: #4d5257;
+    color: ${COLORS.white};
+    background-color: ${COLORS.secondary};
   }
 `;
 

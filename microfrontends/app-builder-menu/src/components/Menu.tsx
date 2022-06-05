@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import MenuUI from './MenuUI';
+import MenuUI, { MfeConfig } from './MenuUI';
 import { createGlobalStyle } from 'styled-components';
+import { MENU_ITEM, PBC_API_RESPONSE } from '../types/api';
+import { BrowserRouter } from 'react-router-dom';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -53,29 +55,40 @@ table {
 }
 `;
 
-export function Menu() {
+interface Props {
+  config: MfeConfig;
+}
+
+export function Menu(props: Props) {
+  const { config } = props;
+
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
+
+  const [dynamicMenuItems, setDynamicMenuItems] = useState<MENU_ITEM[]>([]);
+
+  const apiUrl = config?.api?.url;
 
   useEffect(() => {
     const request = async () => {
       setLoading(true);
 
-      const { data } = await axios.get<{ message: string }>('/your-endpoint');
+      const { data } = await axios.get<PBC_API_RESPONSE>(apiUrl);
 
-      setMessage(data.message);
+      setDynamicMenuItems(data.data.items);
       setLoading(false);
     };
-
-    request();
-  }, []);
+    if (apiUrl) {
+      request();
+    }
+  }, [apiUrl]);
 
   return loading ? (
     <div>{'Loading...'}</div>
   ) : (
-    <>
+    <BrowserRouter>
+      {/* @TODO remove this before final commit, since css reset should be already presented in other projects where we import this mfe */}
       <GlobalStyle />
-      <MenuUI />
-    </>
+      <MenuUI config={config} dynamicMenuItems={dynamicMenuItems} />
+    </BrowserRouter>
   );
 }

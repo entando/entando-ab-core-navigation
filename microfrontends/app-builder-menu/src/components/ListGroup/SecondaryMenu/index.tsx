@@ -2,10 +2,11 @@ import { useContext } from 'react';
 import styled from 'styled-components';
 import BackButtonIcon from '../../Icons/BackButtonIcon';
 import MenuUIContext from '../../MenuUIContext';
+import { COLORS } from '../../theme';
 
 const StyledSecondaryNavMenu = styled.div<{ isVisible: boolean }>`
-  background: #393f44;
-  border: 1px solid #292e34;
+  background: ${COLORS.active};
+  border: 1px solid ${COLORS.primary};
   border-bottom: none;
   border-top: none;
   bottom: 0;
@@ -25,7 +26,7 @@ const StyledSecondaryNavMenu = styled.div<{ isVisible: boolean }>`
 const StyledHeader = styled.div`
   display: flex;
   align-items: center;
-  color: #d1d1d1;
+  color: ${COLORS.text};
   font-weight: 600;
   margin-top: 19px;
   margin-left: 28px;
@@ -56,12 +57,18 @@ interface Props {
 export default function SecondaryMenu(props: Props): JSX.Element {
   const { isOpen, title, children } = props;
 
-  const { setSecondaryMenuOpen, setTertiaryMenuOpen } =
-    useContext(MenuUIContext);
+  const {
+    setSecondaryMenuOpen,
+    setTertiaryMenuOpen,
+    setActiveSecondaryMenuItemId,
+    setActiveTertiaryMenuItemId
+  } = useContext(MenuUIContext);
 
   const handleBack = () => {
     setSecondaryMenuOpen(false);
     setTertiaryMenuOpen(false);
+    setActiveSecondaryMenuItemId('');
+    setActiveTertiaryMenuItemId('');
   };
 
   return (

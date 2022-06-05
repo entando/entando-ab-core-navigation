@@ -3,12 +3,15 @@ import styled from 'styled-components';
 import RightArrowIcon from '../../Icons/RightArrowIcon';
 import MenuUIContext from '../../MenuUIContext';
 import TertiaryMenu from './TertiaryMenu';
+import { COLORS } from '../../theme';
+import { EPC_DATA } from '../../../types/api';
 
 const StyledLink = styled.a<{ isActive: boolean }>`
   width: 100%;
   background-color: transparent;
-  background-color: ${({ isActive }) => (isActive ? '#4D5257' : 'transparent')};
-  color: ${({ isActive }) => (isActive ? '#fff' : '#d1d1d1')};
+  background-color: ${({ isActive }) =>
+    isActive ? COLORS.secondary : 'transparent'};
+  color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.text)};
   cursor: pointer;
   display: block;
   font-size: 14px;
@@ -23,8 +26,8 @@ const StyledLink = styled.a<{ isActive: boolean }>`
 
   &:hover {
     font-weight: 600;
-    color: #fff;
-    background-color: #4d5257;
+    color: ${COLORS.white};
+    background-color: ${COLORS.secondary};
   }
 `;
 
@@ -45,10 +48,13 @@ interface Props {
   children?: React.ReactNode;
   label: string;
   onClick?: () => void;
+  href?: string;
+  className?: string;
+  epcData?: EPC_DATA;
 }
 
 export default function SecondaryMenuItem(props: Props): JSX.Element {
-  const { id, children, label, onClick } = props;
+  const { id, children, label, onClick, href, epcData, className = '' } = props;
 
   const {
     activeSecondaryMenuItemId,
@@ -71,8 +77,12 @@ export default function SecondaryMenuItem(props: Props): JSX.Element {
 
   return (
     <>
-      <StyledSecondaryMenuItem onClick={handleClick}>
-        <StyledLink isActive={isActive}>
+      <StyledSecondaryMenuItem
+        onClick={handleClick}
+        {...epcData}
+        className={className}
+      >
+        <StyledLink isActive={isActive} href={href}>
           <StyledLabel>{label}</StyledLabel>
           {hasChildren && <RightArrowIcon />}
         </StyledLink>

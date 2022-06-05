@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import RightArrowIcon from '../Icons/RightArrowIcon';
 import MenuUIContext from '../MenuUIContext';
 import SecondaryMenu from './SecondaryMenu';
+import { COLORS } from '../theme';
 
 interface ListGroupItemProps {
   fixBottom?: boolean;
@@ -14,12 +15,12 @@ const StyledListGroupItem = styled.li<ListGroupItemProps>`
   display: block;
   padding: 10px 15px;
   margin-bottom: -1px;
-  border: 1px solid #030303;
+  border: 1px solid ${COLORS.border};
   border-left: 0;
   border-right: 0;
   background-color: transparent;
   padding: 0;
-  color: ${({ isActive }) => (isActive ? '#fff' : '')};
+  color: ${({ isActive }) => (isActive ? COLORS.white : '')};
   ${({ fixBottom }) =>
     fixBottom
       ? `
@@ -36,8 +37,9 @@ interface StyledLinkProps {
 
 const StyledLink = styled.a<StyledLinkProps>`
   width: 200px;
-  background-color: ${({ isActive }) => (isActive ? '#393f44' : 'transparent')};
-  color: ${({ isActive }) => (isActive ? '#fff' : '#d1d1d1')};
+  background-color: ${({ isActive }) =>
+    isActive ? COLORS.active : 'transparent'};
+  color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.text)};
   cursor: pointer;
   display: block;
   font-size: 14px;
@@ -54,7 +56,7 @@ const StyledLink = styled.a<StyledLinkProps>`
     isActive
       ? `
   &:before {
-    background: #39a5dc;
+    background: ${COLORS.blue};
     content: " ";
     height: 100%;
     left: 0;
@@ -67,10 +69,10 @@ const StyledLink = styled.a<StyledLinkProps>`
 
   &:hover {
     font-weight: 600;
-    color: #fff;
-    background-color: #393f44;
+    color: ${COLORS.white};
+    background-color: ${COLORS.active};
     &:before {
-      background: #39a5dc;
+      background: ${COLORS.blue};
       content: ' ';
       height: 100%;
       left: 0;
@@ -80,10 +82,10 @@ const StyledLink = styled.a<StyledLinkProps>`
     }
 
     span > svg > path {
-      fill: #39a5dc;
+      fill: ${COLORS.blue};
     }
     span > svg > g > path {
-      fill: #39a5dc;
+      fill: ${COLORS.blue};
     }
   }
 `;
@@ -91,7 +93,7 @@ const StyledLink = styled.a<StyledLinkProps>`
 const StyledIcon = styled.span`
   display: inline-flex;
   align-items: center;
-  color: #72767b;
+  color: ${COLORS.inactive};
   float: left;
   font-size: 20px;
   line-height: 26px;
@@ -118,16 +120,29 @@ interface Props {
   renderIcon: ({ fill }: { fill?: string }) => React.ReactNode;
   children?: React.ReactNode;
   onClick?: () => void;
+  href?: string;
+  className?: string;
 }
 
 export default function ListGroupItem(props: Props): JSX.Element {
-  const { label, renderIcon, fixBottom, children, id, onClick } = props;
+  const {
+    label,
+    renderIcon,
+    fixBottom,
+    children,
+    id,
+    onClick,
+    href,
+    className = ''
+  } = props;
 
   const {
     activeListGroupItemId,
     setActiveListGroupItemId,
     setSecondaryMenuOpen,
-    secondaryMenuOpen
+    secondaryMenuOpen,
+    setActiveTertiaryMenuItemId,
+    setActiveSecondaryMenuItemId
   } = useContext(MenuUIContext);
 
   const isActive = activeListGroupItemId === id;
@@ -137,6 +152,8 @@ export default function ListGroupItem(props: Props): JSX.Element {
     setActiveListGroupItemId(id);
     if (hasChildren) {
       setSecondaryMenuOpen(true);
+      setActiveTertiaryMenuItemId('');
+      setActiveSecondaryMenuItemId('');
     } else {
       onClick && onClick();
     }
@@ -148,10 +165,11 @@ export default function ListGroupItem(props: Props): JSX.Element {
         isActive={isActive}
         fixBottom={fixBottom}
         onClick={onClickHandler}
+        className={className}
       >
-        <StyledLink isActive={isActive}>
+        <StyledLink isActive={isActive} href={href}>
           <StyledIcon>
-            {renderIcon({ fill: isActive ? '#39a5dc' : '#72767b' })}
+            {renderIcon({ fill: isActive ? COLORS.blue : COLORS.inactive })}
           </StyledIcon>
           <StyledLabel>{label}</StyledLabel>
           {hasChildren && (

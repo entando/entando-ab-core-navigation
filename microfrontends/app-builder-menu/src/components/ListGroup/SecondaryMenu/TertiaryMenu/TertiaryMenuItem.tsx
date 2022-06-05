@@ -1,12 +1,15 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
+import { EPC_DATA } from '../../../../types/api';
 import MenuUIContext from '../../../MenuUIContext';
+import { COLORS } from '../../../theme';
 
 const StyledLink = styled.a<{ isActive: boolean }>`
   width: 100%;
   background-color: transparent;
-  background-color: ${({ isActive }) => (isActive ? '#4D5257' : 'transparent')};
-  color: ${({ isActive }) => (isActive ? '#fff' : '#d1d1d1')};
+  background-color: ${({ isActive }) =>
+    isActive ? COLORS.secondary : 'transparent'};
+  color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.text)};
   cursor: pointer;
   display: block;
   font-size: 14px;
@@ -21,8 +24,8 @@ const StyledLink = styled.a<{ isActive: boolean }>`
 
   &:hover {
     font-weight: 600;
-    color: #fff;
-    background-color: #4d5257;
+    color: ${COLORS.white};
+    background-color: ${COLORS.secondary};
   }
 `;
 
@@ -38,10 +41,13 @@ interface Props {
   id: string;
   label: string;
   onClick?: () => void;
+  href?: string;
+  epcData?: EPC_DATA;
+  className?: string;
 }
 
 export default function TertiaryMenuItem(props: Props): JSX.Element {
-  const { id, label, onClick } = props;
+  const { id, label, onClick, href, className = '' } = props;
 
   const { activeTertiaryMenuItemId, setActiveTertiaryMenuItemId } =
     useContext(MenuUIContext);
@@ -54,7 +60,12 @@ export default function TertiaryMenuItem(props: Props): JSX.Element {
   };
 
   return (
-    <StyledLink isActive={isActive} onClick={handleClick}>
+    <StyledLink
+      isActive={isActive}
+      onClick={handleClick}
+      href={href}
+      className={className}
+    >
       <StyledLabel>{label}</StyledLabel>
     </StyledLink>
   );

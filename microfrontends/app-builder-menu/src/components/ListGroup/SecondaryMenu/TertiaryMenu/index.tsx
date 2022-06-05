@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { COLORS } from '../../../theme';
 
 const StyledSecondaryTertiaryMenu = styled.div<{ isVisible: boolean }>`
-  background: #292e34;
-  border: 1px solid #292e34;
+  background: ${COLORS.primary};
+  border: 1px solid ${COLORS.primary};
   border-bottom: none;
   border-top: none;
   bottom: 0;

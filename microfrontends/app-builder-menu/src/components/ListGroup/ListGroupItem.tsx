@@ -121,10 +121,20 @@ interface Props {
   children?: React.ReactNode;
   onClick?: () => void;
   href?: string;
+  className?: string;
 }
 
 export default function ListGroupItem(props: Props): JSX.Element {
-  const { label, renderIcon, fixBottom, children, id, onClick, href } = props;
+  const {
+    label,
+    renderIcon,
+    fixBottom,
+    children,
+    id,
+    onClick,
+    href,
+    className = ''
+  } = props;
 
   const {
     activeListGroupItemId,
@@ -155,6 +165,7 @@ export default function ListGroupItem(props: Props): JSX.Element {
         isActive={isActive}
         fixBottom={fixBottom}
         onClick={onClickHandler}
+        className={className}
       >
         <StyledLink isActive={isActive} href={href}>
           <StyledIcon>

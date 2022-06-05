@@ -49,11 +49,12 @@ interface Props {
   label: string;
   onClick?: () => void;
   href?: string;
+  className?: string;
   epcData?: EPC_DATA;
 }
 
 export default function SecondaryMenuItem(props: Props): JSX.Element {
-  const { id, children, label, onClick, href, epcData } = props;
+  const { id, children, label, onClick, href, epcData, className = '' } = props;
 
   const {
     activeSecondaryMenuItemId,
@@ -76,7 +77,11 @@ export default function SecondaryMenuItem(props: Props): JSX.Element {
 
   return (
     <>
-      <StyledSecondaryMenuItem onClick={handleClick} {...epcData}>
+      <StyledSecondaryMenuItem
+        onClick={handleClick}
+        {...epcData}
+        className={className}
+      >
         <StyledLink isActive={isActive} href={href}>
           <StyledLabel>{label}</StyledLabel>
           {hasChildren && <RightArrowIcon />}

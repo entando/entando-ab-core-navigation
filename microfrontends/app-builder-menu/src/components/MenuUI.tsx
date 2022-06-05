@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import ListGroup from './ListGroup';
 import ListGroupItem from './ListGroup/ListGroupItem';
 import PagesIcon from './Icons/PagesIcon';
@@ -26,10 +27,34 @@ import {
   VALIDATE_CONTENTS_PERMISSION,
   VIEW_USERS_AND_PROFILES_PERMISSION
 } from '../utils/permissions';
-import { convertToAdminConsoleUrl } from '../utils/links';
+import {
+  convertToAdminConsoleUrl,
+  HOMEPAGE_CODE,
+  routeConverter
+} from '../utils/links';
 import { COLORS } from './theme';
 import { MENU_ITEM } from '../types/api';
 import { generateDynamicMenuItems } from '../utils/dynamicTree';
+import {
+  ROUTE_DASHBOARD,
+  ROUTE_DATABASE_LIST,
+  ROUTE_ECR_COMPONENT_LIST,
+  ROUTE_EMAIL_CONFIG,
+  ROUTE_FILE_BROWSER,
+  ROUTE_FRAGMENT_LIST,
+  ROUTE_GROUP_LIST,
+  ROUTE_LABELS_AND_LANGUAGES,
+  ROUTE_PAGE_CONFIG,
+  ROUTE_PAGE_SETTINGS,
+  ROUTE_PAGE_TEMPLATE_LIST,
+  ROUTE_PAGE_TREE,
+  ROUTE_PROFILE_TYPE_LIST,
+  ROUTE_RELOAD_CONFIG,
+  ROUTE_ROLE_LIST,
+  ROUTE_USER_LIST,
+  ROUTE_USER_RESTRICTIONS,
+  ROUTE_WIDGET_LIST
+} from '../utils/routes';
 
 const MenuCmp = styled.menu`
   height: 100%;
@@ -68,7 +93,9 @@ export default function MenuUI(props: Props): JSX.Element {
   const [secondaryMenuOpen, setSecondaryMenuOpen] = useState(false);
   const [tertiaryMenuOpen, setTertiaryMenuOpen] = useState(false);
 
-  // @TODO take it from config probably
+  const navigate = useNavigate();
+
+  // @TODO take these two from config probably?
   const contentSchedulerPluginInstalled = true;
   const adminConsoleUrl = 'https://admin.pbc.io';
 
@@ -152,21 +179,56 @@ export default function MenuUI(props: Props): JSX.Element {
             id="dashboard"
             label="Dashboard"
             renderIcon={props => <DashboardIcon {...props} />}
+            onClick={() => navigate(ROUTE_DASHBOARD)}
           />
           {hasAccess(MANAGE_PAGES_PERMISSION, userPermissions) && (
             <ListGroupItem
               id="pages"
               label="Pages"
+              className="app-tour-step-3"
               renderIcon={props => <PagesIcon {...props} />}
+              onClick={() => {
+                const event = new CustomEvent('tutorial', {
+                  detail: { nextStep: 4 }
+                });
+                window.dispatchEvent(event);
+              }}
             >
-              <SecondaryMenuItem id="pages-management" label="Management">
-                <TertiaryMenuItem id="pages-management-remove" label="Remove" />
-              </SecondaryMenuItem>
-              <SecondaryMenuItem id="pages-designer" label="Designer" />
+              <SecondaryMenuItem
+                id="pages-management"
+                label="Management"
+                className="app-tour-step-4"
+                onClick={() => {
+                  const event = new CustomEvent('tutorial', {
+                    detail: { nextStep: 5 }
+                  });
+                  window.dispatchEvent(event);
+                  navigate(ROUTE_PAGE_TREE);
+                }}
+              />
+              <SecondaryMenuItem
+                id="pages-designer"
+                label="Designer"
+                onClick={() =>
+                  navigate(
+                    routeConverter(ROUTE_PAGE_CONFIG, {
+                      pageCode: HOMEPAGE_CODE
+                    })
+                  )
+                }
+              />
               {hasSuperuserAccess && (
                 <>
-                  <SecondaryMenuItem id="pages-templates" label="Templates" />
-                  <SecondaryMenuItem id="pages-settings" label="Settings" />
+                  <SecondaryMenuItem
+                    id="pages-templates"
+                    label="Templates"
+                    onClick={() => navigate(ROUTE_PAGE_TEMPLATE_LIST)}
+                  />
+                  <SecondaryMenuItem
+                    id="pages-settings"
+                    label="Settings"
+                    onClick={() => navigate(ROUTE_PAGE_SETTINGS)}
+                  />
                 </>
               )}
             </ListGroupItem>
@@ -180,10 +242,12 @@ export default function MenuUI(props: Props): JSX.Element {
               <SecondaryMenuItem
                 id="components-widgets"
                 label="MFE & Widgets"
+                onClick={() => navigate(ROUTE_WIDGET_LIST)}
               />
               <SecondaryMenuItem
                 id="components-fragments"
                 label="UX Fragments"
+                onClick={() => navigate(ROUTE_FRAGMENT_LIST)}
               />
             </ListGroupItem>
           )}
@@ -281,18 +345,32 @@ export default function MenuUI(props: Props): JSX.Element {
               label="Users"
               renderIcon={props => <UsersIcon {...props} />}
             >
-              <SecondaryMenuItem id="users-management" label="Management" />
+              <SecondaryMenuItem
+                id="users-management"
+                label="Management"
+                onClick={() => navigate(ROUTE_USER_LIST)}
+              />
               {hasSuperuserAccess && (
                 <>
-                  <SecondaryMenuItem id="users-roles" label="Roles" />
-                  <SecondaryMenuItem id="users-groups" label="Groups" />
+                  <SecondaryMenuItem
+                    id="users-roles"
+                    label="Roles"
+                    onClick={() => navigate(ROUTE_ROLE_LIST)}
+                  />
+                  <SecondaryMenuItem
+                    id="users-groups"
+                    label="Groups"
+                    onClick={() => navigate(ROUTE_GROUP_LIST)}
+                  />
                   <SecondaryMenuItem
                     id="users-profileTypes"
                     label="Profile types"
+                    onClick={() => navigate(ROUTE_PROFILE_TYPE_LIST)}
                   />
                   <SecondaryMenuItem
                     id="users-restrictions"
                     label="Restrictions"
+                    onClick={() => navigate(ROUTE_USER_RESTRICTIONS)}
                   />
                 </>
               )}
@@ -303,6 +381,7 @@ export default function MenuUI(props: Props): JSX.Element {
               id="repository"
               label="Repository"
               renderIcon={props => <RepositoryIcon {...props} />}
+              onClick={() => navigate(ROUTE_ECR_COMPONENT_LIST)}
             />
           )}
           <ListGroupItem
@@ -329,6 +408,7 @@ export default function MenuUI(props: Props): JSX.Element {
                         key={itemId}
                         label={item.label[activeLanguage] || item.mfeName}
                         href={item.externalHref}
+                        onClick={() => item.url && navigate(item.url)}
                       />
                     );
                   })}
@@ -346,22 +426,27 @@ export default function MenuUI(props: Props): JSX.Element {
               <SecondaryMenuItem
                 id="administration-database"
                 label="Database"
+                onClick={() => navigate(ROUTE_DATABASE_LIST)}
               />
               <SecondaryMenuItem
                 id="administration-fileBrowser"
                 label="File browser"
+                onClick={() => navigate(ROUTE_FILE_BROWSER)}
               />
               <SecondaryMenuItem
                 id="administration-languagesAndLabels"
                 label="Languages & Labels"
+                onClick={() => navigate(ROUTE_LABELS_AND_LANGUAGES)}
               />
               <SecondaryMenuItem
                 id="administration-emailConfiguration"
                 label="Email Configuration"
+                onClick={() => navigate(ROUTE_EMAIL_CONFIG)}
               />
               <SecondaryMenuItem
                 id="administration-reloadConfiguration"
                 label="Reload configuration"
+                onClick={() => navigate(ROUTE_RELOAD_CONFIG)}
               />
             </ListGroupItem>
           )}

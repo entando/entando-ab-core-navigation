@@ -14,7 +14,7 @@ export const generateDynamicMenuItems = (
         ...item,
         ...(item.target === EXTERNAL_MFE_TARGET_NAME
           ? { externalHref: item.addr }
-          : { uri: `/${item.pbcName}/${item.bundleName}/${item.addr}` })
+          : { url: `/${item.pbcName}/${item.bundleName}/${item.addr}` })
       }))
   }));
 };

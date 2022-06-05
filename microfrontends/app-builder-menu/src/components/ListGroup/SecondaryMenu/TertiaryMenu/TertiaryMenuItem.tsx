@@ -43,10 +43,11 @@ interface Props {
   onClick?: () => void;
   href?: string;
   epcData?: EPC_DATA;
+  className?: string;
 }
 
 export default function TertiaryMenuItem(props: Props): JSX.Element {
-  const { id, label, onClick, href } = props;
+  const { id, label, onClick, href, className = '' } = props;
 
   const { activeTertiaryMenuItemId, setActiveTertiaryMenuItemId } =
     useContext(MenuUIContext);
@@ -59,7 +60,12 @@ export default function TertiaryMenuItem(props: Props): JSX.Element {
   };
 
   return (
-    <StyledLink isActive={isActive} onClick={handleClick} href={href}>
+    <StyledLink
+      isActive={isActive}
+      onClick={handleClick}
+      href={href}
+      className={className}
+    >
       <StyledLabel>{label}</StyledLabel>
     </StyledLink>
   );

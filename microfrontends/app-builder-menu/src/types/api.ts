@@ -5,7 +5,7 @@ export interface MENU_ITEM {
   label: Record<string, string>;
   target: string;
   addr: string;
-  // @TODO Marco is this how we receive this metadata? (organization, pbc-id submenu menu-item-id)
+  // @TODO Marco is this how we receive this metadata? (organization, pbc-id submenu menu-item-id) I cannot see this data in mock response
   epcData?: EPC_DATA;
 }
 

@@ -4,6 +4,7 @@ import RightArrowIcon from '../../Icons/RightArrowIcon';
 import MenuUIContext from '../../MenuUIContext';
 import TertiaryMenu from './TertiaryMenu';
 import { COLORS } from '../../theme';
+import { EPC_DATA } from '../../../types/api';
 
 const StyledLink = styled.a<{ isActive: boolean }>`
   width: 100%;
@@ -48,10 +49,11 @@ interface Props {
   label: string;
   onClick?: () => void;
   href?: string;
+  epcData?: EPC_DATA;
 }
 
 export default function SecondaryMenuItem(props: Props): JSX.Element {
-  const { id, children, label, onClick } = props;
+  const { id, children, label, onClick, href, epcData } = props;
 
   const {
     activeSecondaryMenuItemId,
@@ -74,8 +76,8 @@ export default function SecondaryMenuItem(props: Props): JSX.Element {
 
   return (
     <>
-      <StyledSecondaryMenuItem onClick={handleClick}>
-        <StyledLink isActive={isActive}>
+      <StyledSecondaryMenuItem onClick={handleClick} {...epcData}>
+        <StyledLink isActive={isActive} href={href}>
           <StyledLabel>{label}</StyledLabel>
           {hasChildren && <RightArrowIcon />}
         </StyledLink>

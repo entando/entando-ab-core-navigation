@@ -120,16 +120,19 @@ interface Props {
   renderIcon: ({ fill }: { fill?: string }) => React.ReactNode;
   children?: React.ReactNode;
   onClick?: () => void;
+  href?: string;
 }
 
 export default function ListGroupItem(props: Props): JSX.Element {
-  const { label, renderIcon, fixBottom, children, id, onClick } = props;
+  const { label, renderIcon, fixBottom, children, id, onClick, href } = props;
 
   const {
     activeListGroupItemId,
     setActiveListGroupItemId,
     setSecondaryMenuOpen,
-    secondaryMenuOpen
+    secondaryMenuOpen,
+    setActiveTertiaryMenuItemId,
+    setActiveSecondaryMenuItemId
   } = useContext(MenuUIContext);
 
   const isActive = activeListGroupItemId === id;
@@ -139,6 +142,8 @@ export default function ListGroupItem(props: Props): JSX.Element {
     setActiveListGroupItemId(id);
     if (hasChildren) {
       setSecondaryMenuOpen(true);
+      setActiveTertiaryMenuItemId('');
+      setActiveSecondaryMenuItemId('');
     } else {
       onClick && onClick();
     }
@@ -151,7 +156,7 @@ export default function ListGroupItem(props: Props): JSX.Element {
         fixBottom={fixBottom}
         onClick={onClickHandler}
       >
-        <StyledLink isActive={isActive}>
+        <StyledLink isActive={isActive} href={href}>
           <StyledIcon>
             {renderIcon({ fill: isActive ? COLORS.blue : COLORS.inactive })}
           </StyledIcon>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import MenuUI, { MfeConfig } from './MenuUI';
 import { createGlobalStyle } from 'styled-components';
+import { MENU_ITEM, PBC_API_RESPONSE } from '../types/api';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -63,6 +64,10 @@ export function Menu(props: Props) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
+  const [dynamicMenuItems, setDynamicMenuItems] = useState<MENU_ITEM[]>([]);
+
+  const apiUrl = config?.api?.url;
+
   useEffect(() => {
     const request = async () => {
       setLoading(true);
@@ -76,12 +81,26 @@ export function Menu(props: Props) {
     request();
   }, []);
 
+  useEffect(() => {
+    const request = async () => {
+      setLoading(true);
+
+      const { data } = await axios.get<PBC_API_RESPONSE>(apiUrl);
+
+      setDynamicMenuItems(data.data.items);
+      setLoading(false);
+    };
+    if (apiUrl) {
+      request();
+    }
+  }, [apiUrl]);
+
   return loading ? (
     <div>{'Loading...'}</div>
   ) : (
     <>
       <GlobalStyle />
-      <MenuUI config={config} />
+      <MenuUI config={config} dynamicMenuItems={dynamicMenuItems} />
     </>
   );
 }

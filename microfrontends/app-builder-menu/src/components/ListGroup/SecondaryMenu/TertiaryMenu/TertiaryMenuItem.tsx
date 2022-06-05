@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
+import { EPC_DATA } from '../../../../types/api';
 import MenuUIContext from '../../../MenuUIContext';
 import { COLORS } from '../../../theme';
 
@@ -40,10 +41,12 @@ interface Props {
   id: string;
   label: string;
   onClick?: () => void;
+  href?: string;
+  epcData?: EPC_DATA;
 }
 
 export default function TertiaryMenuItem(props: Props): JSX.Element {
-  const { id, label, onClick } = props;
+  const { id, label, onClick, href } = props;
 
   const { activeTertiaryMenuItemId, setActiveTertiaryMenuItemId } =
     useContext(MenuUIContext);
@@ -56,7 +59,7 @@ export default function TertiaryMenuItem(props: Props): JSX.Element {
   };
 
   return (
-    <StyledLink isActive={isActive} onClick={handleClick}>
+    <StyledLink isActive={isActive} onClick={handleClick} href={href}>
       <StyledLabel>{label}</StyledLabel>
     </StyledLink>
   );

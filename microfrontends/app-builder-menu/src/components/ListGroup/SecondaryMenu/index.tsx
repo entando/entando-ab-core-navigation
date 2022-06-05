@@ -57,12 +57,18 @@ interface Props {
 export default function SecondaryMenu(props: Props): JSX.Element {
   const { isOpen, title, children } = props;
 
-  const { setSecondaryMenuOpen, setTertiaryMenuOpen } =
-    useContext(MenuUIContext);
+  const {
+    setSecondaryMenuOpen,
+    setTertiaryMenuOpen,
+    setActiveSecondaryMenuItemId,
+    setActiveTertiaryMenuItemId
+  } = useContext(MenuUIContext);
 
   const handleBack = () => {
     setSecondaryMenuOpen(false);
     setTertiaryMenuOpen(false);
+    setActiveSecondaryMenuItemId('');
+    setActiveTertiaryMenuItemId('');
   };
 
   return (

@@ -28,6 +28,8 @@ import {
 } from '../utils/permissions';
 import { convertToAdminConsoleUrl } from '../utils/links';
 import { COLORS } from './theme';
+import { MENU_ITEM } from '../types/api';
+import { generateDynamicMenuItems } from '../utils/dynamicTree';
 
 const MenuCmp = styled.menu`
   height: 100%;
@@ -53,10 +55,11 @@ export interface MfeConfig {
 
 interface Props {
   config: MfeConfig;
+  dynamicMenuItems: MENU_ITEM[];
 }
 
 export default function MenuUI(props: Props): JSX.Element {
-  const { config } = props;
+  const { config, dynamicMenuItems } = props;
   const { userPermissions } = config;
   const [activeListGroupItemId, setActiveListGroupItemId] = useState('');
   const [activeSecondaryMenuItemId, setActiveSecondaryMenuItemId] =
@@ -68,6 +71,11 @@ export default function MenuUI(props: Props): JSX.Element {
   // @TODO take it from config probably
   const contentSchedulerPluginInstalled = true;
   const adminConsoleUrl = 'https://admin.pbc.io';
+
+  // @TODO Gui use this for language related code
+  const activeLanguage = config.lang;
+
+  const pbcMenuItems = generateDynamicMenuItems(dynamicMenuItems);
 
   const menuUIContext: MenuUIContextInterface = {
     activeListGroupItemId,
@@ -301,7 +309,33 @@ export default function MenuUI(props: Props): JSX.Element {
             id="pbcs"
             label="PBC's"
             renderIcon={props => <PBCsIcon {...props} />}
-          />
+          >
+            {pbcMenuItems.map(pbc => {
+              return (
+                <SecondaryMenuItem
+                  id={`pbc-id-${pbc.parent}`}
+                  key={`pbc-id-${pbc.parent}`}
+                  label={pbc.parent}
+                >
+                  {pbc.children.map(item => {
+                    const itemId =
+                      item.epcData?.['epc-id'] ||
+                      item.externalHref ||
+                      item.url ||
+                      item.mfeName;
+                    return (
+                      <TertiaryMenuItem
+                        id={itemId}
+                        key={itemId}
+                        label={item.label[activeLanguage] || item.mfeName}
+                        href={item.externalHref}
+                      />
+                    );
+                  })}
+                </SecondaryMenuItem>
+              );
+            })}
+          </ListGroupItem>
           {hasSuperuserAccess && (
             <ListGroupItem
               id="administration"

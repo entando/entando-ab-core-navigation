@@ -10,7 +10,7 @@ export const handlers = [
       })
     );
   }),
-  rest.get('/menu-endpoint', (req, res, ctx) => {
+  rest.get('http://localhost:8080/menu-be-api', (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({

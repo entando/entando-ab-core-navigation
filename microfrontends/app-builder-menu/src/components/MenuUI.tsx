@@ -55,6 +55,8 @@ import {
   ROUTE_USER_RESTRICTIONS,
   ROUTE_WIDGET_LIST
 } from '../utils/routes';
+import { useContent } from './hooks/useContent';
+import { ContentType } from './content';
 
 const MenuCmp = styled.menu`
   height: 100%;
@@ -92,6 +94,7 @@ export default function MenuUI(props: Props): JSX.Element {
   const [activeTertiaryMenuItemId, setActiveTertiaryMenuItemId] = useState('');
   const [secondaryMenuOpen, setSecondaryMenuOpen] = useState(false);
   const [tertiaryMenuOpen, setTertiaryMenuOpen] = useState(false);
+  const content:ContentType = useContent();
 
   const navigate = useNavigate();
 
@@ -177,14 +180,14 @@ export default function MenuUI(props: Props): JSX.Element {
         <ListGroup>
           <ListGroupItem
             id="dashboard"
-            label="Dashboard"
+            label={content.dashboard}
             renderIcon={props => <DashboardIcon {...props} />}
             onClick={() => navigate(ROUTE_DASHBOARD)}
           />
           {hasAccess(MANAGE_PAGES_PERMISSION, userPermissions) && (
             <ListGroupItem
               id="pages"
-              label="Pages"
+              label={content.pages}
               className="app-tour-step-3"
               renderIcon={props => <PagesIcon {...props} />}
               onClick={() => {
@@ -196,7 +199,7 @@ export default function MenuUI(props: Props): JSX.Element {
             >
               <SecondaryMenuItem
                 id="pages-management"
-                label="Management"
+                label={content.management}
                 className="app-tour-step-4"
                 onClick={() => {
                   const event = new CustomEvent('tutorial', {
@@ -208,7 +211,7 @@ export default function MenuUI(props: Props): JSX.Element {
               />
               <SecondaryMenuItem
                 id="pages-designer"
-                label="Designer"
+                label={content.designer}
                 onClick={() =>
                   navigate(
                     routeConverter(ROUTE_PAGE_CONFIG, {
@@ -221,12 +224,12 @@ export default function MenuUI(props: Props): JSX.Element {
                 <>
                   <SecondaryMenuItem
                     id="pages-templates"
-                    label="Templates"
+                    label={content.templates}
                     onClick={() => navigate(ROUTE_PAGE_TEMPLATE_LIST)}
                   />
                   <SecondaryMenuItem
                     id="pages-settings"
-                    label="Settings"
+                    label={content.settings}
                     onClick={() => navigate(ROUTE_PAGE_SETTINGS)}
                   />
                 </>
@@ -236,17 +239,17 @@ export default function MenuUI(props: Props): JSX.Element {
           {hasSuperuserAccess && (
             <ListGroupItem
               id="components"
-              label="Components"
+              label={content.components}
               renderIcon={props => <ComponentsIcon {...props} />}
             >
               <SecondaryMenuItem
                 id="components-widgets"
-                label="MFE & Widgets"
+                label={content.mfeAndWidgets}
                 onClick={() => navigate(ROUTE_WIDGET_LIST)}
               />
               <SecondaryMenuItem
                 id="components-fragments"
-                label="UX Fragments"
+                label={content.uxFragments}
                 onClick={() => navigate(ROUTE_FRAGMENT_LIST)}
               />
             </ListGroupItem>
@@ -254,13 +257,13 @@ export default function MenuUI(props: Props): JSX.Element {
           {cmsHasAnyMenuItemAccess && (
             <ListGroupItem
               id="content"
-              label="Content"
+              label={content.content}
               renderIcon={props => <ContentIcon {...props} />}
             >
               {cmsHasMenuContentsAccess && (
                 <SecondaryMenuItem
                   id="content-management"
-                  label="Management"
+                  label={content.management}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
                     'do/jacms/Content/list.action'
@@ -270,7 +273,7 @@ export default function MenuUI(props: Props): JSX.Element {
               {cmsHasMenuAssetsAccess && (
                 <SecondaryMenuItem
                   id="content-assets"
-                  label="Assets"
+                  label={content.assets}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
                     'do/jacms/Resource/list.action?resourceTypeCode=Image'
@@ -280,7 +283,7 @@ export default function MenuUI(props: Props): JSX.Element {
               {cmsHasMenuContentTemplatesAccess && (
                 <SecondaryMenuItem
                   id="content-templates"
-                  label="Templates"
+                  label={content.templates}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
                     'do/jacms/ContentModel/list.action'
@@ -290,7 +293,7 @@ export default function MenuUI(props: Props): JSX.Element {
               {cmsHasCategoriesAccess && (
                 <SecondaryMenuItem
                   id="content-categories"
-                  label="Categories"
+                  label={content.categories}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
                     'do/Category/viewTree.action'
@@ -300,7 +303,7 @@ export default function MenuUI(props: Props): JSX.Element {
               {cmsHasVersioningAccess && (
                 <SecondaryMenuItem
                   id="content-versioning"
-                  label="Versioning"
+                  label={content.versioning}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
                     'do/jpversioning/Content/Versioning/list.action'
@@ -310,7 +313,7 @@ export default function MenuUI(props: Props): JSX.Element {
               {cmsHasMenuContentsAccess && contentSchedulerPluginInstalled && (
                 <SecondaryMenuItem
                   id="content-scheduler"
-                  label="Content Scheduler"
+                  label={content.contentScheduler}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
                     'do/jpcontentscheduler/config/viewItem.action'
@@ -320,7 +323,7 @@ export default function MenuUI(props: Props): JSX.Element {
               {cmsHasMenuContentTypeAccess && (
                 <SecondaryMenuItem
                   id="content-types"
-                  label="Types"
+                  label={content.types}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
                     'do/Entity/initViewEntityTypes.action?entityManagerName=jacmsContentManager'
@@ -330,7 +333,7 @@ export default function MenuUI(props: Props): JSX.Element {
               {cmsHasMenuContentSettingsAccess && (
                 <SecondaryMenuItem
                   id="content-settings"
-                  label="Settings"
+                  label={content.settings}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
                     'do/jacms/Content/Admin/openIndexProspect.action'
@@ -342,34 +345,34 @@ export default function MenuUI(props: Props): JSX.Element {
           {usersHasAnyMenuItemAccess && (
             <ListGroupItem
               id="users"
-              label="Users"
+              label={content.users}
               renderIcon={props => <UsersIcon {...props} />}
             >
               <SecondaryMenuItem
                 id="users-management"
-                label="Management"
+                label={content.management}
                 onClick={() => navigate(ROUTE_USER_LIST)}
               />
               {hasSuperuserAccess && (
                 <>
                   <SecondaryMenuItem
                     id="users-roles"
-                    label="Roles"
+                    label={content.roles}
                     onClick={() => navigate(ROUTE_ROLE_LIST)}
                   />
                   <SecondaryMenuItem
                     id="users-groups"
-                    label="Groups"
+                    label={content.groups}
                     onClick={() => navigate(ROUTE_GROUP_LIST)}
                   />
                   <SecondaryMenuItem
                     id="users-profileTypes"
-                    label="Profile types"
+                    label={content.profileTypes}
                     onClick={() => navigate(ROUTE_PROFILE_TYPE_LIST)}
                   />
                   <SecondaryMenuItem
                     id="users-restrictions"
-                    label="Restrictions"
+                    label={content.restrictions}
                     onClick={() => navigate(ROUTE_USER_RESTRICTIONS)}
                   />
                 </>
@@ -379,14 +382,14 @@ export default function MenuUI(props: Props): JSX.Element {
           {hasECRAccess && (
             <ListGroupItem
               id="repository"
-              label="Repository"
+              label={content.repository}
               renderIcon={props => <RepositoryIcon {...props} />}
               onClick={() => navigate(ROUTE_ECR_COMPONENT_LIST)}
             />
           )}
           <ListGroupItem
             id="pbcs"
-            label="PBC's"
+            label={content.PBCS}
             renderIcon={props => <PBCsIcon {...props} />}
           >
             {pbcMenuItems.map(pbc => {
@@ -419,33 +422,33 @@ export default function MenuUI(props: Props): JSX.Element {
           {hasSuperuserAccess && (
             <ListGroupItem
               id="administration"
-              label="Administration"
+              label={content.administration}
               renderIcon={props => <AdministrationIcon {...props} />}
               fixBottom
             >
               <SecondaryMenuItem
                 id="administration-database"
-                label="Database"
+                label={content.database}
                 onClick={() => navigate(ROUTE_DATABASE_LIST)}
               />
               <SecondaryMenuItem
                 id="administration-fileBrowser"
-                label="File browser"
+                label={content.fileBrowser}
                 onClick={() => navigate(ROUTE_FILE_BROWSER)}
               />
               <SecondaryMenuItem
                 id="administration-languagesAndLabels"
-                label="Languages & Labels"
+                label={content.languageAndLabels}
                 onClick={() => navigate(ROUTE_LABELS_AND_LANGUAGES)}
               />
               <SecondaryMenuItem
                 id="administration-emailConfiguration"
-                label="Email Configuration"
+                label={content.emailConfiguration}
                 onClick={() => navigate(ROUTE_EMAIL_CONFIG)}
               />
               <SecondaryMenuItem
                 id="administration-reloadConfiguration"
-                label="Reload configuration"
+                label={content.reloadConfiguration}
                 onClick={() => navigate(ROUTE_RELOAD_CONFIG)}
               />
             </ListGroupItem>

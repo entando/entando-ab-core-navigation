@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders TertiaryMenuItem with href, target and rel 1`] = `
+<a
+  className="sc-bczRLJ chTIJh"
+  href="http://localhost:8080"
+  onClick={[Function]}
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <span
+    className="sc-gsnTZi DkFNS"
+  >
+    Item 1
+  </span>
+</a>
+`;
+
+exports[`renders TertiaryMenuItem without href 1`] = `
+<a
+  className="sc-bczRLJ chTIJh"
+  onClick={[Function]}
+  rel=""
+  target=""
+>
+  <span
+    className="sc-gsnTZi DkFNS"
+  >
+    Item 1
+  </span>
+</a>
+`;

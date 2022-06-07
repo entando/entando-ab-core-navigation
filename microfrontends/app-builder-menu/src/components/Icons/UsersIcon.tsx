@@ -6,7 +6,7 @@ interface Props {
   fill?: string;
 }
 
-function UsersIcon(props: Props): JSX.Element {
+export function UsersIcon(props: Props): JSX.Element {
   const { width = 18, height = 18, fill = COLORS.inactive } = props;
   return (
     <svg
@@ -48,5 +48,3 @@ function UsersIcon(props: Props): JSX.Element {
     </svg>
   );
 }
-
-export default UsersIcon;

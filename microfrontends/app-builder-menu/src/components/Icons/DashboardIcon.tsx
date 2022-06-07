@@ -6,7 +6,7 @@ interface Props {
   fill?: string;
 }
 
-function DashboardIcon(props: Props): JSX.Element {
+export function DashboardIcon(props: Props): JSX.Element {
   const { width = 20, height = 20, fill = COLORS.inactive } = props;
   return (
     <svg
@@ -48,5 +48,3 @@ function DashboardIcon(props: Props): JSX.Element {
     </svg>
   );
 }
-
-export default DashboardIcon;

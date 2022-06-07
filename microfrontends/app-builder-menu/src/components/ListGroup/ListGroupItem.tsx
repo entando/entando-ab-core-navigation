@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import RightArrowIcon from '../Icons/RightArrowIcon';
-import MenuUIContext from '../MenuUIContext';
-import SecondaryMenu from './SecondaryMenu';
+import { RightArrowIcon } from '../Icons/RightArrowIcon';
+import { MenuUIContext } from '../MenuUIContext';
+import { SecondaryMenu } from '../SecondaryMenu/SecondaryMenu';
 import { COLORS } from '../theme';
 
 interface ListGroupItemProps {
@@ -43,6 +43,7 @@ const StyledLink = styled.a<StyledLinkProps>`
   cursor: pointer;
   display: block;
   font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
   font-weight: ${({ isActive }) => (isActive ? '600' : '400')};
   height: 63px;
   line-height: 26px;
@@ -124,7 +125,7 @@ interface Props {
   className?: string;
 }
 
-export default function ListGroupItem(props: Props): JSX.Element {
+export function ListGroupItem(props: Props): JSX.Element {
   const {
     label,
     renderIcon,
@@ -179,12 +180,11 @@ export default function ListGroupItem(props: Props): JSX.Element {
           )}
         </StyledLink>
       </StyledListGroupItem>
-      <SecondaryMenu
-        isOpen={hasChildren && isActive && secondaryMenuOpen}
-        title={label}
-      >
-        {children}
-      </SecondaryMenu>
+      {hasChildren && isActive && secondaryMenuOpen && (
+        <SecondaryMenu isOpen title={label}>
+          {children}
+        </SecondaryMenu>
+      )}
     </>
   );
 }

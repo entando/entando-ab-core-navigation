@@ -1,10 +1,9 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import RightArrowIcon from '../../Icons/RightArrowIcon';
-import MenuUIContext from '../../MenuUIContext';
-import TertiaryMenu from './TertiaryMenu';
-import { COLORS } from '../../theme';
-import { EPC_DATA } from '../../../types/api';
+import { RightArrowIcon } from './../Icons/RightArrowIcon';
+import { MenuUIContext } from './../MenuUIContext';
+import { TertiaryMenu } from '../TertiaryMenu/TertiaryMenu';
+import { COLORS } from './../theme';
 
 const StyledLink = styled.a<{ isActive: boolean }>`
   width: 100%;
@@ -15,6 +14,7 @@ const StyledLink = styled.a<{ isActive: boolean }>`
   cursor: pointer;
   display: block;
   font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
   font-weight: ${({ isActive }) => (isActive ? '600' : '400')};
   line-height: 26px;
   padding: 5px 10px 5px 8px;
@@ -50,11 +50,10 @@ interface Props {
   onClick?: () => void;
   href?: string;
   className?: string;
-  epcData?: EPC_DATA;
 }
 
-export default function SecondaryMenuItem(props: Props): JSX.Element {
-  const { id, children, label, onClick, href, epcData, className = '' } = props;
+export function SecondaryMenuItem(props: Props): JSX.Element {
+  const { id, children, label, onClick, href, className = '' } = props;
 
   const {
     activeSecondaryMenuItemId,
@@ -77,19 +76,15 @@ export default function SecondaryMenuItem(props: Props): JSX.Element {
 
   return (
     <>
-      <StyledSecondaryMenuItem
-        onClick={handleClick}
-        {...epcData}
-        className={className}
-      >
+      <StyledSecondaryMenuItem onClick={handleClick} className={className}>
         <StyledLink isActive={isActive} href={href}>
           <StyledLabel>{label}</StyledLabel>
           {hasChildren && <RightArrowIcon />}
         </StyledLink>
       </StyledSecondaryMenuItem>
-      <TertiaryMenu isOpen={hasChildren && isActive && tertiaryMenuOpen}>
-        {children}
-      </TertiaryMenu>
+      {hasChildren && isActive && tertiaryMenuOpen && (
+        <TertiaryMenu isOpen>{children}</TertiaryMenu>
+      )}
     </>
   );
 }

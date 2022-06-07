@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { EPC_DATA } from '../../../../types/api';
-import MenuUIContext from '../../../MenuUIContext';
-import { COLORS } from '../../../theme';
+import { EpcData } from './../../types/api';
+import { MenuUIContext } from './../MenuUIContext';
+import { COLORS } from './../theme';
 
 const StyledLink = styled.a<{ isActive: boolean }>`
   width: 100%;
@@ -13,6 +13,7 @@ const StyledLink = styled.a<{ isActive: boolean }>`
   cursor: pointer;
   display: block;
   font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
   font-weight: ${({ isActive }) => (isActive ? '600' : '400')};
   line-height: 26px;
   padding: 5px 10px 5px 8px;
@@ -42,12 +43,23 @@ interface Props {
   label: string;
   onClick?: () => void;
   href?: string;
-  epcData?: EPC_DATA;
+  epcData?: EpcData;
   className?: string;
+  target?: string;
+  rel?: string;
 }
 
-export default function TertiaryMenuItem(props: Props): JSX.Element {
-  const { id, label, onClick, href, className = '' } = props;
+export function TertiaryMenuItem(props: Props): JSX.Element {
+  const {
+    id,
+    label,
+    onClick,
+    href,
+    className = '',
+    rel = '',
+    target = '',
+    epcData
+  } = props;
 
   const { activeTertiaryMenuItemId, setActiveTertiaryMenuItemId } =
     useContext(MenuUIContext);
@@ -65,6 +77,9 @@ export default function TertiaryMenuItem(props: Props): JSX.Element {
       onClick={handleClick}
       href={href}
       className={className}
+      rel={rel}
+      target={target}
+      {...epcData}
     >
       <StyledLabel>{label}</StyledLabel>
     </StyledLink>

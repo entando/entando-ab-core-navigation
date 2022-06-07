@@ -14,25 +14,7 @@ export class AppBuilderMenu extends HTMLElement {
     this.shadow = this.attachShadow({ mode: 'open' });
   }
 
-  // @TODO remove this when checking integration with app-builder, this object should become empty
-  #config = {
-    userPermissions: [
-      'superuser',
-      'editContents',
-      'managePages',
-      'editUsers',
-      'viewUsers',
-      'editUserProfile',
-      'manageCategories',
-      'validateContents',
-      'manageResources',
-      'enterECR'
-    ],
-    lang: 'en',
-    api: {
-      url: 'http://localhost:8080/menu-be-api'
-    }
-  };
+  #config = {};
 
   #updateConfig(value: any) {
     this.#config = JSON.parse(value);
@@ -43,7 +25,7 @@ export class AppBuilderMenu extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: any, newValue: any) {
-    if (name === 'config') {
+    if (name === 'config' && oldValue !== newValue) {
       this.#updateConfig(newValue);
       this.render();
     }

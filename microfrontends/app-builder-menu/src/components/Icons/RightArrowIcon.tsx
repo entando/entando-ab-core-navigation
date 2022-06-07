@@ -6,7 +6,7 @@ interface Props {
   fill?: string;
 }
 
-function RightArrowIcon(props: Props): JSX.Element {
+export function RightArrowIcon(props: Props): JSX.Element {
   const { width = 20, height = 20, fill = COLORS.darkGrey } = props;
   return (
     <svg
@@ -24,5 +24,3 @@ function RightArrowIcon(props: Props): JSX.Element {
     </svg>
   );
 }
-
-export default RightArrowIcon;

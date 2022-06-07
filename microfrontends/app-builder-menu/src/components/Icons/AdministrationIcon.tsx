@@ -6,7 +6,7 @@ interface Props {
   fill?: string;
 }
 
-function AdministrationIcon(props: Props): JSX.Element {
+export function AdministrationIcon(props: Props): JSX.Element {
   const { fill = COLORS.inactive } = props;
   return (
     <svg
@@ -49,5 +49,3 @@ function AdministrationIcon(props: Props): JSX.Element {
     </svg>
   );
 }
-
-export default AdministrationIcon;

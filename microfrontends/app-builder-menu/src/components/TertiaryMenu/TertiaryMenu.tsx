@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLORS } from '../../../theme';
+import { COLORS } from './../theme';
 
 const StyledSecondaryTertiaryMenu = styled.div<{ isVisible: boolean }>`
   background: ${COLORS.primary};
@@ -31,7 +31,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export default function TertiaryMenu(props: Props): JSX.Element {
+export function TertiaryMenu(props: Props): JSX.Element {
   const { isOpen, children } = props;
   return (
     <StyledSecondaryTertiaryMenu isVisible={isOpen}>

@@ -13,7 +13,7 @@ export interface MenuUIContextInterface {
   setTertiaryMenuOpen: (open: boolean) => void;
 }
 
-const MenuUIContext = createContext<MenuUIContextInterface>({
+export const MenuUIContext = createContext<MenuUIContextInterface>({
   activeListGroupItemId: '',
   setActiveListGroupItemId: (value: string) => {},
   activeSecondaryMenuItemId: '',
@@ -25,5 +25,3 @@ const MenuUIContext = createContext<MenuUIContextInterface>({
   tertiaryMenuOpen: false,
   setTertiaryMenuOpen: (value: boolean) => {}
 });
-
-export default MenuUIContext;

@@ -1,15 +1,6 @@
 import { rest } from 'msw';
 
 export const handlers = [
-  // Handles a GET request
-  rest.get('/your-endpoint', (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        message: 'hello world'
-      })
-    );
-  }),
   rest.get('http://localhost:8080/menu-be-api', (req, res, ctx) => {
     return res(
       ctx.status(200),
@@ -25,7 +16,8 @@ export const handlers = [
                 en: 'Content Templates'
               },
               target: 'app-builder',
-              addr: 'content-template'
+              addr: 'content-template',
+              org: 'entando'
             },
             {
               pbcName: 'strapi',
@@ -36,7 +28,8 @@ export const handlers = [
                 en: 'Backoffice'
               },
               target: 'external',
-              addr: 'https://strapi.com/...'
+              addr: 'https://strapi.com/...',
+              org: 'entando'
             }
           ]
         }

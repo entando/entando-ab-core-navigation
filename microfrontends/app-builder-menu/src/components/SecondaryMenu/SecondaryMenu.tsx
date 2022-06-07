@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import BackButtonIcon from '../../Icons/BackButtonIcon';
-import MenuUIContext from '../../MenuUIContext';
-import { COLORS } from '../../theme';
+import { BackButtonIcon } from '../Icons/BackButtonIcon';
+import { MenuUIContext } from '../MenuUIContext';
+import { COLORS } from '../theme';
 
 const StyledSecondaryNavMenu = styled.div<{ isVisible: boolean }>`
   background: ${COLORS.active};
@@ -54,7 +54,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export default function SecondaryMenu(props: Props): JSX.Element {
+export function SecondaryMenu(props: Props): JSX.Element {
   const { isOpen, title, children } = props;
 
   const {

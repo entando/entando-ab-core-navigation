@@ -1,33 +1,41 @@
-export interface MENU_ITEM {
+export interface MenuItem {
   pbcName: string;
   bundleName: string;
   mfeName: string;
   label: Record<string, string>;
   target: string;
   addr: string;
-  // @TODO Marco is this how we receive this metadata? (organization, pbc-id submenu menu-item-id) I cannot see this data in mock response
-  epcData?: EPC_DATA;
+  org: string;
 }
 
-export interface PBC_API_RESPONSE {
+export interface PbcApiResponse {
   data: {
-    items: MENU_ITEM[];
+    items: MenuItem[];
   };
 }
 
-export interface EPC_DATA {
-  organization?: string;
-  'epc-id'?: string;
-  submenu?: string;
-  'menu-item-id'?: string;
+export interface EpcData {
+  'data-organization'?: string; // @TODO Marco tell me final answer after talk with Walter
+  'data-epc-id'?: string; // pbcName
+  'data-submenu'?: string; // @TODO Marco tell me final answer after talk with Nicola
+  'data-menu-item-id'?: string; // we generate this
 }
 
-export interface MODIFIED_DYNAMIC_MENU_ITEM extends MENU_ITEM {
-  url?: string;
-  externalHref?: string;
+export interface ModifiedDynamicMenuItem extends MenuItem {
+  url: string;
+  hrefTarget?: string;
+  rel?: string;
 }
 
-export interface DYNAMIC_MENU_ITEM {
+export interface DynamicMenuItem {
   parent: string;
-  children: MODIFIED_DYNAMIC_MENU_ITEM[];
+  children: ModifiedDynamicMenuItem[];
+}
+
+declare global {
+  interface Window {
+    appBuilderRouter: {
+      push: (route: string) => void;
+    };
+  }
 }

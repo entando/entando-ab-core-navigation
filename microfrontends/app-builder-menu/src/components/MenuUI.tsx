@@ -1,19 +1,18 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import ListGroup from './ListGroup';
-import ListGroupItem from './ListGroup/ListGroupItem';
-import PagesIcon from './Icons/PagesIcon';
-import DashboardIcon from './Icons/DashboardIcon';
-import ComponentsIcon from './Icons/ComponentsIcon';
-import ContentIcon from './Icons/ContentIcon';
-import UsersIcon from './Icons/UsersIcon';
-import RepositoryIcon from './Icons/RepositoryIcon';
-import PBCsIcon from './Icons/PBCsIcon';
-import AdministrationIcon from './Icons/AdministrationIcon';
-import SecondaryMenuItem from './ListGroup/SecondaryMenu/SecondaryMenuItem';
-import TertiaryMenuItem from './ListGroup/SecondaryMenu/TertiaryMenu/TertiaryMenuItem';
+import { ListGroup } from './ListGroup/ListGroup';
+import { ListGroupItem } from './ListGroup/ListGroupItem';
+import { PagesIcon } from './Icons/PagesIcon';
+import { DashboardIcon } from './Icons/DashboardIcon';
+import { ComponentsIcon } from './Icons/ComponentsIcon';
+import { ContentIcon } from './Icons/ContentIcon';
+import { UsersIcon } from './Icons/UsersIcon';
+import { RepositoryIcon } from './Icons/RepositoryIcon';
+import { PBCsIcon } from './Icons/PBCsIcon';
+import { AdministrationIcon } from './Icons/AdministrationIcon';
+import { SecondaryMenuItem } from './SecondaryMenu/SecondaryMenuItem';
+import { TertiaryMenuItem } from './TertiaryMenu/TertiaryMenuItem';
 import { useState } from 'react';
-import MenuUIContext, { MenuUIContextInterface } from './MenuUIContext';
+import { MenuUIContext, MenuUIContextInterface } from './MenuUIContext';
 import {
   CRUD_CONTENTS_PERMISSION,
   CRUD_USERS_PERMISSION,
@@ -33,8 +32,8 @@ import {
   routeConverter
 } from '../utils/links';
 import { COLORS } from './theme';
-import { MENU_ITEM } from '../types/api';
-import { generateDynamicMenuItems } from '../utils/dynamicTree';
+import { MenuItem } from '../types/api';
+import { generateDynamicMenuItems, TARGET_BLANK } from '../utils/dynamicTree';
 import {
   ROUTE_DASHBOARD,
   ROUTE_DATABASE_LIST,
@@ -57,6 +56,7 @@ import {
 } from '../utils/routes';
 import { useContent } from './hooks/useContent';
 import { ContentType } from './content';
+import { useNavigation } from '../utils/navigation';
 
 const MenuCmp = styled.menu`
   height: 100%;
@@ -78,16 +78,19 @@ export interface MfeConfig {
   };
   userPermissions: string[];
   lang: string;
+  contentSchedulerPluginInstalled: boolean;
+  adminConsoleUrl: string;
 }
 
 interface Props {
   config: MfeConfig;
-  dynamicMenuItems: MENU_ITEM[];
+  dynamicMenuItems: MenuItem[];
 }
 
-export default function MenuUI(props: Props): JSX.Element {
+export function MenuUI(props: Props): JSX.Element {
   const { config, dynamicMenuItems } = props;
-  const { userPermissions } = config;
+  const { userPermissions, contentSchedulerPluginInstalled, adminConsoleUrl } =
+    config;
   const [activeListGroupItemId, setActiveListGroupItemId] = useState('');
   const [activeSecondaryMenuItemId, setActiveSecondaryMenuItemId] =
     useState('');
@@ -96,11 +99,7 @@ export default function MenuUI(props: Props): JSX.Element {
   const [tertiaryMenuOpen, setTertiaryMenuOpen] = useState(false);
   const content:ContentType = useContent();
 
-  const navigate = useNavigate();
-
-  // @TODO take these two from config probably?
-  const contentSchedulerPluginInstalled = true;
-  const adminConsoleUrl = 'https://admin.pbc.io';
+  const navigate = useNavigation();
 
   // @TODO Gui use this for language related code
   const activeLanguage = config.lang;
@@ -400,18 +399,25 @@ export default function MenuUI(props: Props): JSX.Element {
                   label={pbc.parent}
                 >
                   {pbc.children.map(item => {
-                    const itemId =
-                      item.epcData?.['epc-id'] ||
-                      item.externalHref ||
-                      item.url ||
-                      item.mfeName;
+                    const itemId = `${item.url} - ${item.mfeName}`;
                     return (
                       <TertiaryMenuItem
                         id={itemId}
                         key={itemId}
                         label={item.label[activeLanguage] || item.mfeName}
-                        href={item.externalHref}
+                        href={
+                          item.hrefTarget === TARGET_BLANK
+                            ? item.url
+                            : undefined
+                        }
                         onClick={() => item.url && navigate(item.url)}
+                        target={item.hrefTarget}
+                        rel={item.rel}
+                        epcData={{
+                          'data-epc-id': item.pbcName,
+                          'data-organization': item.org,
+                          'data-menu-item-id': itemId
+                        }}
                       />
                     );
                   })}

@@ -6,7 +6,7 @@ interface Props {
   fill?: string;
 }
 
-function BackButtonIcon(props: Props): JSX.Element {
+export function BackButtonIcon(props: Props): JSX.Element {
   const { width = 24, height = 24, fill = COLORS.blue } = props;
   return (
     <svg
@@ -26,5 +26,3 @@ function BackButtonIcon(props: Props): JSX.Element {
     </svg>
   );
 }
-
-export default BackButtonIcon;

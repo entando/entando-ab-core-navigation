@@ -6,7 +6,7 @@ interface Props {
   fill?: string;
 }
 
-function ComponentsIcon(props: Props): JSX.Element {
+export function ComponentsIcon(props: Props): JSX.Element {
   const { width = 20, height = 20, fill = COLORS.inactive } = props;
   return (
     <svg
@@ -48,5 +48,3 @@ function ComponentsIcon(props: Props): JSX.Element {
     </svg>
   );
 }
-
-export default ComponentsIcon;

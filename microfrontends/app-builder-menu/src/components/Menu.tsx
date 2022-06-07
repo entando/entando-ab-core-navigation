@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import MenuUI, { MfeConfig } from './MenuUI';
+import { MenuUI, MfeConfig } from './MenuUI';
 import { createGlobalStyle } from 'styled-components';
-import { MENU_ITEM, PBC_API_RESPONSE } from '../types/api';
-import { BrowserRouter } from 'react-router-dom';
 import { IntlProvider, MessageFormatElement } from 'react-intl';
 
 // lang imports
 import en_messages from '../i18n/en.json';
 import { ContentProvider } from './hooks/useContent';
+import { MenuItem, PbcApiResponse } from '../types/api';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -79,7 +78,7 @@ export function Menu(props: Props) {
 
   const [loading, setLoading] = useState(false);
 
-  const [dynamicMenuItems, setDynamicMenuItems] = useState<MENU_ITEM[]>([]);
+  const [dynamicMenuItems, setDynamicMenuItems] = useState<MenuItem[]>([]);
 
   const apiUrl = config?.api?.url;
   const locale = config?.lang ?? 'en';
@@ -88,7 +87,7 @@ export function Menu(props: Props) {
     const request = async () => {
       setLoading(true);
 
-      const { data } = await axios.get<PBC_API_RESPONSE>(apiUrl);
+      const { data } = await axios.get<PbcApiResponse>(apiUrl);
 
       setDynamicMenuItems(data.data.items);
       setLoading(false);
@@ -108,11 +107,11 @@ export function Menu(props: Props) {
       {loading ? (
         <div>{'Loading...'}</div>
       ) : (
-        <BrowserRouter>
+        <>
           {/* @TODO remove this before final commit, since css reset should be already presented in other projects where we import this mfe */}
           <GlobalStyle />
           <MenuUI config={config} dynamicMenuItems={dynamicMenuItems} />
-        </BrowserRouter>
+        </>
       )}
       </ContentProvider>
     </IntlProvider>

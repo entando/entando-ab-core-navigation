@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders SecondaryMenuItem with children 1`] = `
+<li
+  className="sc-gKXOVf YVohq"
+  onClick={[Function]}
+>
+  <a
+    className="sc-eCYdqJ aNaTi"
+  >
+    <span
+      className="sc-jSMfEi KDqqR"
+    >
+      Item 1
+    </span>
+    <svg
+      fill="none"
+      height={20}
+      stroke="#979797"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 20 20"
+      width={20}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <polyline
+        points="9 18 15 12 9 6"
+      />
+    </svg>
+  </a>
+</li>
+`;
+
+exports[`renders SecondaryMenuItem with href 1`] = `
+<li
+  className="sc-gKXOVf YVohq"
+  onClick={[Function]}
+>
+  <a
+    className="sc-eCYdqJ aNaTi"
+    href="http://localhost:8080"
+  >
+    <span
+      className="sc-jSMfEi KDqqR"
+    >
+      Item 1
+    </span>
+    <svg
+      fill="none"
+      height={20}
+      stroke="#979797"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 20 20"
+      width={20}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <polyline
+        points="9 18 15 12 9 6"
+      />
+    </svg>
+  </a>
+</li>
+`;
+
+exports[`renders SecondaryMenuItem without children 1`] = `
+<li
+  className="sc-gKXOVf YVohq"
+  onClick={[Function]}
+>
+  <a
+    className="sc-eCYdqJ aNaTi"
+  >
+    <span
+      className="sc-jSMfEi KDqqR"
+    >
+      Item 1
+    </span>
+  </a>
+</li>
+`;

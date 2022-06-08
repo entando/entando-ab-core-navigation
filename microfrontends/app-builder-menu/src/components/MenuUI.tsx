@@ -54,7 +54,8 @@ import {
   ROUTE_USER_RESTRICTIONS,
   ROUTE_WIDGET_LIST
 } from '../utils/routes';
-import { useNavigation } from '../utils/navigation';
+import { useNavigation } from '../hooks/navigation';
+import { sendTutorialNextStepEvent } from '../utils/events';
 
 const MenuCmp = styled.menu`
   height: 100%;
@@ -186,22 +187,14 @@ export function MenuUI(props: Props): JSX.Element {
               label="Pages"
               className="app-tour-step-3"
               renderIcon={props => <PagesIcon {...props} />}
-              onClick={() => {
-                const event = new CustomEvent('tutorial', {
-                  detail: { nextStep: 4 }
-                });
-                window.dispatchEvent(event);
-              }}
+              onClick={() => sendTutorialNextStepEvent(4)}
             >
               <SecondaryMenuItem
                 id="pages-management"
                 label="Management"
                 className="app-tour-step-4"
                 onClick={() => {
-                  const event = new CustomEvent('tutorial', {
-                    detail: { nextStep: 5 }
-                  });
-                  window.dispatchEvent(event);
+                  sendTutorialNextStepEvent(5);
                   navigate(ROUTE_PAGE_TREE);
                 }}
               />

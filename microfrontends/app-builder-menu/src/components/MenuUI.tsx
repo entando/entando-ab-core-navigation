@@ -55,7 +55,7 @@ import {
   ROUTE_WIDGET_LIST
 } from '../utils/routes';
 import { useContent } from './hooks/useContent';
-import { ContentType } from './content';
+import { ContentType } from '../content';
 import { useNavigation } from '../utils/navigation';
 
 const MenuCmp = styled.menu`
@@ -97,7 +97,7 @@ export function MenuUI(props: Props): JSX.Element {
   const [activeTertiaryMenuItemId, setActiveTertiaryMenuItemId] = useState('');
   const [secondaryMenuOpen, setSecondaryMenuOpen] = useState(false);
   const [tertiaryMenuOpen, setTertiaryMenuOpen] = useState(false);
-  const content:ContentType = useContent();
+  const content: ContentType = useContent();
 
   const navigate = useNavigation();
 

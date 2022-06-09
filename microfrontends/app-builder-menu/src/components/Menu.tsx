@@ -1,12 +1,27 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { MenuUI, MfeConfig } from './MenuUI';
+import { IntlProvider, MessageFormatElement } from 'react-intl';
+
+// lang imports
+import en_messages from '../i18n/en.json';
+import { ContentProvider } from './hooks/useContent';
 import { MenuItem, PbcApiResponse } from '../types/api';
 import { GlobalStyle } from '../styles/globalStyles';
 
 interface Props {
   config: MfeConfig;
 }
+
+interface MessageMap {
+  [key: string]:
+    | Record<string, string>
+    | Record<string, MessageFormatElement[]>;
+}
+
+const messages: MessageMap = {
+  en: en_messages
+};
 
 export function Menu(props: Props) {
   const { config } = props;
@@ -16,6 +31,7 @@ export function Menu(props: Props) {
   const [dynamicMenuItems, setDynamicMenuItems] = useState<MenuItem[]>([]);
 
   const apiUrl = config?.api?.url;
+  const locale = config?.lang ?? 'en';
 
   useEffect(() => {
     const request = async () => {
@@ -31,12 +47,22 @@ export function Menu(props: Props) {
     }
   }, [apiUrl]);
 
-  return loading ? (
-    <div>{'Loading...'}</div>
-  ) : (
-    <>
-      <GlobalStyle />
-      <MenuUI config={config} dynamicMenuItems={dynamicMenuItems} />
-    </>
+  return (
+    <IntlProvider
+      locale={locale}
+      defaultLocale="en"
+      messages={messages[locale]}
+    >
+      <ContentProvider>
+        {loading ? (
+          <div>{'Loading...'}</div>
+        ) : (
+          <>
+            <GlobalStyle />
+            <MenuUI config={config} dynamicMenuItems={dynamicMenuItems} />
+          </>
+        )}
+      </ContentProvider>
+    </IntlProvider>
   );
 }

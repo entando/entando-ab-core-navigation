@@ -58,6 +58,7 @@ import { useContent } from './hooks/useContent';
 import { ContentType } from '../content';
 import { useNavigation } from '../hooks/navigation';
 import { sendTutorialNextStepEvent } from '../utils/events';
+import { toSnakeCase } from '../utils/string';
 
 const MenuCmp = styled.menu`
   height: 100%;
@@ -102,7 +103,6 @@ export function MenuUI(props: Props): JSX.Element {
 
   const navigate = useNavigation();
 
-  // @TODO Gui use this for language related code
   const activeLanguage = config.lang;
 
   const pbcMenuItems = generateDynamicMenuItems(dynamicMenuItems);
@@ -390,14 +390,26 @@ export function MenuUI(props: Props): JSX.Element {
                   id={`pbc-id-${pbc.parent}`}
                   key={`pbc-id-${pbc.parent}`}
                   label={pbc.parent}
+                  epcData={{ 'data-submenu': pbc.parent }}
                 >
                   {pbc.children.map(item => {
-                    const itemId = `${item.url} - ${item.mfeName}`;
+                    // get english label or any first value from labels object
+                    const firstAvailableLabel = Object.values(item.label)?.[0];
+                    const itemLabel =
+                      item.label['en'] || firstAvailableLabel || '';
+                    const itemId = `${item.pbcName}_${
+                      item.bundleName
+                    }_${toSnakeCase(itemLabel)}`;
+
                     return (
                       <TertiaryMenuItem
                         id={itemId}
                         key={itemId}
-                        label={item.label[activeLanguage] || item.mfeName}
+                        label={
+                          item.label[activeLanguage] ||
+                          firstAvailableLabel ||
+                          item.mfeName
+                        }
                         href={
                           item.hrefTarget === TARGET_BLANK
                             ? item.url
@@ -408,7 +420,7 @@ export function MenuUI(props: Props): JSX.Element {
                         rel={item.rel}
                         epcData={{
                           'data-epc-id': item.pbcName,
-                          'data-organization': item.org,
+                          'data-organization': item.organization,
                           'data-menu-item-id': itemId
                         }}
                       />

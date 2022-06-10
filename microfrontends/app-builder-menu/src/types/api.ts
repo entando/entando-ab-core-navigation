@@ -5,7 +5,7 @@ export interface MenuItem {
   label: Record<string, string>;
   target: string;
   addr: string;
-  org: string;
+  organization: string;
 }
 
 export interface PbcApiResponse {
@@ -15,10 +15,10 @@ export interface PbcApiResponse {
 }
 
 export interface EpcData {
-  'data-organization'?: string; // @TODO Marco tell me final answer after talk with Walter
-  'data-epc-id'?: string; // pbcName
-  'data-submenu'?: string; // @TODO Marco tell me final answer after talk with Nicola
-  'data-menu-item-id'?: string; // we generate this
+  'data-organization'?: string;
+  'data-epc-id'?: string;
+  'data-submenu'?: string;
+  'data-menu-item-id'?: string;
 }
 
 export interface ModifiedDynamicMenuItem extends MenuItem {

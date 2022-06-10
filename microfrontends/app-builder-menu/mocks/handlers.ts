@@ -17,7 +17,7 @@ export const handlers = [
               },
               target: 'app-builder',
               addr: 'content-template',
-              org: 'entando'
+              organization: 'entando'
             },
             {
               pbcName: 'strapi',
@@ -29,7 +29,7 @@ export const handlers = [
               },
               target: 'external',
               addr: 'https://strapi.com/...',
-              org: 'entando'
+              organization: 'entando'
             }
           ]
         }

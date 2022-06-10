@@ -12,7 +12,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
         label: {
           en: 'label1'
         },
-        org: 'entando'
+        organization: 'entando'
       },
       {
         pbcName: 'pbc1',
@@ -23,7 +23,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
         label: {
           en: 'label2'
         },
-        org: 'entando'
+        organization: 'entando'
       },
       {
         pbcName: 'pbc2',
@@ -34,7 +34,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
         label: {
           en: 'label3'
         },
-        org: 'entando'
+        organization: 'entando'
       }
     ];
     const expectedResult = [
@@ -53,7 +53,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
             label: {
               en: 'label1'
             },
-            org: 'entando'
+            organization: 'entando'
           },
           {
             pbcName: 'pbc1',
@@ -65,7 +65,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
             label: {
               en: 'label2'
             },
-            org: 'entando'
+            organization: 'entando'
           }
         ]
       },
@@ -82,7 +82,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
             label: {
               en: 'label3'
             },
-            org: 'entando'
+            organization: 'entando'
           }
         ]
       }

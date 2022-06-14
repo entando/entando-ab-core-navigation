@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { StyleSheetManager } from 'styled-components';
 
 import { Menu } from './components/Menu';
+import { MfeConfig } from './components/MenuUI';
 
 export class AppBuilderMenu extends HTMLElement {
   shadow: ShadowRoot;
@@ -11,6 +12,23 @@ export class AppBuilderMenu extends HTMLElement {
     super();
 
     this.shadow = this.attachShadow({ mode: 'open' });
+  }
+
+  #config = {};
+
+  #updateConfig(value: any) {
+    this.#config = JSON.parse(value);
+  }
+
+  static get observedAttributes() {
+    return ['config'];
+  }
+
+  attributeChangedCallback(name: string, oldValue: any, newValue: any) {
+    if (name === 'config' && oldValue !== newValue) {
+      this.#updateConfig(newValue);
+      this.render();
+    }
   }
 
   connectedCallback() {
@@ -26,7 +44,7 @@ export class AppBuilderMenu extends HTMLElement {
     root.render(
       <React.StrictMode>
         <StyleSheetManager target={styleParent}>
-          <Menu />
+          <Menu config={this.#config as MfeConfig} />
         </StyleSheetManager>
       </React.StrictMode>
     );

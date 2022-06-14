@@ -1,33 +1,68 @@
-import axios from 'axios';
-import styled from 'styled-components';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { MenuUI, MfeConfig } from './MenuUI';
+import { IntlProvider, MessageFormatElement } from 'react-intl';
 
-const MenuCmp = styled.menu`
-  position: fixed;
-  left: 0;
-  top: 0;
-  background-color: black;
-  width: 250px;
-  height: 100%;
-  color: white;
-`;
+// lang imports
+import en_messages from '../i18n/en.json';
+import { ContentProvider } from './hooks/useContent';
+import { MenuItem, PbcApiResponse } from '../types/api';
+import { GlobalStyle } from '../styles/globalStyles';
 
-export function Menu() {
+interface Props {
+  config: MfeConfig;
+}
+
+interface MessageMap {
+  [key: string]:
+    | Record<string, string>
+    | Record<string, MessageFormatElement[]>;
+}
+
+const messages: MessageMap = {
+  en: en_messages
+};
+
+export function Menu(props: Props) {
+  const { config } = props;
+
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
+
+  const [dynamicMenuItems, setDynamicMenuItems] = useState<MenuItem[]>([]);
+
+  const apiUrl = config?.api?.url;
+  const locale = config?.lang ?? 'en';
 
   useEffect(() => {
     const request = async () => {
       setLoading(true);
 
-      const { data } = await axios.get<{ message: string }>('/your-endpoint');
+      const { data } = await axios.get<PbcApiResponse>(apiUrl);
 
-      setMessage(data.message);
+      setDynamicMenuItems(data.data.items);
       setLoading(false);
     };
+    if (apiUrl) {
+      request();
+    }
+  }, [apiUrl]);
 
-    request();
-  }, []);
-
-  return loading ? <div>{'Loading...'}</div> : <MenuCmp>{message}</MenuCmp>;
+  return (
+    <IntlProvider
+      locale={locale}
+      defaultLocale="en"
+      messages={messages[locale]}
+    >
+      <ContentProvider>
+        {loading ? (
+          <div>{'Loading...'}</div>
+        ) : (
+          <>
+            <GlobalStyle />
+            <MenuUI config={config} dynamicMenuItems={dynamicMenuItems} />
+          </>
+        )}
+      </ContentProvider>
+    </IntlProvider>
+  );
 }

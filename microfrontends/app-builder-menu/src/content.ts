@@ -1,8 +1,10 @@
 import { IntlShape } from 'react-intl';
 
+export const DEFAULT_LOCALE = 'en';
+
 export type ContentType = {
   [key: string]: string;
-}
+};
 
 export function getContent(intl: IntlShape): ContentType {
   return {
@@ -117,6 +119,6 @@ export function getContent(intl: IntlShape): ContentType {
     reloadConfiguration: intl.formatMessage({
       id: 'app.reloadConfiguration',
       defaultMessage: 'Reload Configuration'
-    }),
+    })
   };
 }

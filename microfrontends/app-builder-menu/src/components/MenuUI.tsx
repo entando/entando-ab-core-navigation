@@ -55,7 +55,7 @@ import {
   ROUTE_WIDGET_LIST
 } from '../utils/routes';
 import { useContent } from './hooks/useContent';
-import { ContentType } from '../content';
+import { ContentType, DEFAULT_LOCALE } from '../content';
 import { useNavigation } from '../hooks/navigation';
 import { sendTutorialNextStepEvent } from '../utils/events';
 import { toSnakeCase } from '../utils/string';
@@ -99,8 +99,7 @@ export function MenuUI(props: Props): JSX.Element {
 
   const navigate = useNavigation();
 
-  // @TODO Gui use this for language related code
-  const activeLanguage = lang;
+  const activeLanguage = lang || DEFAULT_LOCALE;
 
   const pbcMenuItems = generateDynamicMenuItems(dynamicMenuItems);
 

@@ -8,6 +8,7 @@ import en_messages from '../i18n/en.json';
 import { ContentProvider } from './hooks/useContent';
 import { MenuItem, PbcApiResponse } from '../types/api';
 import { GlobalStyle } from '../styles/globalStyles';
+import { DEFAULT_LOCALE } from '../content';
 
 interface Props {
   config: MfeConfig;
@@ -31,7 +32,9 @@ export function Menu(props: Props) {
   const [dynamicMenuItems, setDynamicMenuItems] = useState<MenuItem[]>([]);
 
   const apiUrl = config?.api?.url;
-  const locale = config?.lang ?? 'en';
+
+  const { lang } = window.entando?.globals || {};
+  const locale = lang || DEFAULT_LOCALE;
 
   useEffect(() => {
     const request = async () => {

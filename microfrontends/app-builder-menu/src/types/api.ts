@@ -32,7 +32,7 @@ export interface DynamicMenuItem {
   children: ModifiedDynamicMenuItem[];
 }
 
-export interface ShellGlobals {
+export interface EntandoGlobals {
   userPermissions: string[];
   lang: string;
   systemReport: {
@@ -46,6 +46,6 @@ declare global {
     appBuilderRouter: {
       push: (route: string) => void;
     };
-    shellGlobals: ShellGlobals;
+    entando: { globals: EntandoGlobals };
   }
 }

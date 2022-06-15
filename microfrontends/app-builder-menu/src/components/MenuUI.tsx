@@ -88,7 +88,7 @@ interface Props {
 export function MenuUI(props: Props): JSX.Element {
   const { config, dynamicMenuItems } = props;
   const { userPermissions, systemReport, adminConsoleUrl, lang } =
-    window.shellGlobals || {};
+    window.entando?.globals || {};
   const [activeListGroupItemId, setActiveListGroupItemId] = useState('');
   const [activeSecondaryMenuItemId, setActiveSecondaryMenuItemId] =
     useState('');

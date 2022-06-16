@@ -1,0 +1,13 @@
+options:
+  concurrency: 0 # Use all CPUs
+
+packages:
+  api:
+    cwd: build
+    output: ../dist/app-builder-menu-bff.zip
+    trace:
+      - src/index.js
+      - src/api
+    include:
+      - src/api
+      - ../package.json

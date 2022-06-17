@@ -69,8 +69,8 @@ const MenuCmp = styled.menu`
   overflow-x: hidden;
   overflow-y: auto;
   position: fixed;
-  top: 0px;
-  width: 200px;
+  top: 60px;
+  width: 215px;
   z-index: 1030;
 `;
 

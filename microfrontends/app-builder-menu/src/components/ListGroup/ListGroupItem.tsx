@@ -29,6 +29,10 @@ const StyledListGroupItem = styled.li<ListGroupItemProps>`
   left: 0;
   `
       : ''}
+
+  &:first-child {
+    border-top: 0px;
+  }
 `;
 
 interface StyledLinkProps {
@@ -36,7 +40,7 @@ interface StyledLinkProps {
 }
 
 const StyledLink = styled.a<StyledLinkProps>`
-  width: 200px;
+  width: 215px;
   background-color: ${({ isActive }) =>
     isActive ? COLORS.active : 'transparent'};
   color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.text)};

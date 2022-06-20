@@ -11,15 +11,15 @@ const StyledSecondaryNavMenu = styled.div<{ isVisible: boolean }>`
   border-top: none;
   bottom: 0;
   display: block;
-  left: 200px;
+  left: 215px;
   overflow-x: hidden;
   overflow-y: auto;
   position: fixed;
-  top: 0px;
+  top: 60px;
   opacity: 0;
   visibility: hidden;
   ${({ isVisible }) => (isVisible ? `opacity: 1; visibility: visible;` : ``)}
-  width: 200px;
+  width: 215px;
   z-index: 1030;
 `;
 

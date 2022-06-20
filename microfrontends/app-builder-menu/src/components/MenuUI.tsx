@@ -379,57 +379,61 @@ export function MenuUI(props: Props): JSX.Element {
               onClick={() => navigate(ROUTE_ECR_COMPONENT_LIST)}
             />
           )}
-          <ListGroupItem
-            id="pbcs"
-            label={content.PBCS}
-            renderIcon={props => <PBCsIcon {...props} />}
-          >
-            {pbcMenuItems.map(pbc => {
-              return (
-                <SecondaryMenuItem
-                  id={`pbc-id-${pbc.parent}`}
-                  key={`pbc-id-${pbc.parent}`}
-                  label={pbc.parent}
-                  epcData={{ 'data-submenu': pbc.parent }}
-                >
-                  {pbc.children.map(item => {
-                    // get english label or any first value from labels object
-                    const firstAvailableLabel = Object.values(item.label)?.[0];
-                    const itemLabel =
-                      item.label['en'] || firstAvailableLabel || '';
-                    const itemId = `${item.pbcName}_${
-                      item.bundleName
-                    }_${toSnakeCase(itemLabel)}`;
+          {!!pbcMenuItems?.length && (
+            <ListGroupItem
+              id="pbcs"
+              label={content.PBCS}
+              renderIcon={props => <PBCsIcon {...props} />}
+            >
+              {pbcMenuItems.map(pbc => {
+                return (
+                  <SecondaryMenuItem
+                    id={`pbc-id-${pbc.parent}`}
+                    key={`pbc-id-${pbc.parent}`}
+                    label={pbc.parent}
+                    epcData={{ 'data-submenu': pbc.parent }}
+                  >
+                    {pbc.children.map(item => {
+                      // get english label or any first value from labels object
+                      const firstAvailableLabel = Object.values(
+                        item.label
+                      )?.[0];
+                      const itemLabel =
+                        item.label['en'] || firstAvailableLabel || '';
+                      const itemId = `${item.pbcName}_${
+                        item.bundleName
+                      }_${toSnakeCase(itemLabel)}`;
 
-                    return (
-                      <TertiaryMenuItem
-                        id={itemId}
-                        key={itemId}
-                        label={
-                          item.label[activeLanguage] ||
-                          firstAvailableLabel ||
-                          item.mfeName
-                        }
-                        href={
-                          item.hrefTarget === TARGET_BLANK
-                            ? item.url
-                            : undefined
-                        }
-                        onClick={() => item.url && navigate(item.url)}
-                        target={item.hrefTarget}
-                        rel={item.rel}
-                        epcData={{
-                          'data-epc-id': item.pbcName,
-                          'data-organization': item.organization,
-                          'data-menu-item-id': itemId
-                        }}
-                      />
-                    );
-                  })}
-                </SecondaryMenuItem>
-              );
-            })}
-          </ListGroupItem>
+                      return (
+                        <TertiaryMenuItem
+                          id={itemId}
+                          key={itemId}
+                          label={
+                            item.label[activeLanguage] ||
+                            firstAvailableLabel ||
+                            item.mfeName
+                          }
+                          href={
+                            item.hrefTarget === TARGET_BLANK
+                              ? item.url
+                              : undefined
+                          }
+                          onClick={() => item.url && navigate(item.url)}
+                          target={item.hrefTarget}
+                          rel={item.rel}
+                          epcData={{
+                            'data-epc-id': item.pbcName,
+                            'data-organization': item.organization,
+                            'data-menu-item-id': itemId
+                          }}
+                        />
+                      );
+                    })}
+                  </SecondaryMenuItem>
+                );
+              })}
+            </ListGroupItem>
+          )}
           {hasSuperuserAccess && (
             <ListGroupItem
               id="administration"

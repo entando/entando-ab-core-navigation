@@ -39,7 +39,7 @@ export function Menu(props: Props) {
 
       const { data } = await axios.get<PbcApiResponse>(apiUrl);
 
-      setDynamicMenuItems(data.data.items);
+      setDynamicMenuItems(data?.data?.items || []);
       setLoading(false);
     };
     if (apiUrl) {

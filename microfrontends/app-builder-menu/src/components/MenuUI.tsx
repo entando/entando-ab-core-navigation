@@ -55,7 +55,7 @@ import {
   ROUTE_WIDGET_LIST
 } from '../utils/routes';
 import { useContent } from './hooks/useContent';
-import { ContentType } from '../content';
+import { ContentType, DEFAULT_LOCALE } from '../content';
 import { useNavigation } from '../hooks/navigation';
 import { sendTutorialNextStepEvent } from '../utils/events';
 import { toSnakeCase } from '../utils/string';
@@ -78,10 +78,6 @@ export interface MfeConfig {
   api: {
     url: string;
   };
-  userPermissions: string[];
-  lang: string;
-  contentSchedulerPluginInstalled: boolean;
-  adminConsoleUrl: string;
 }
 
 interface Props {
@@ -91,8 +87,8 @@ interface Props {
 
 export function MenuUI(props: Props): JSX.Element {
   const { config, dynamicMenuItems } = props;
-  const { userPermissions, contentSchedulerPluginInstalled, adminConsoleUrl } =
-    config;
+  const { userPermissions, systemReport, adminConsoleUrl, lang } =
+    window.entando?.globals || {};
   const [activeListGroupItemId, setActiveListGroupItemId] = useState('');
   const [activeSecondaryMenuItemId, setActiveSecondaryMenuItemId] =
     useState('');
@@ -103,7 +99,7 @@ export function MenuUI(props: Props): JSX.Element {
 
   const navigate = useNavigation();
 
-  const activeLanguage = config.lang;
+  const activeLanguage = lang || DEFAULT_LOCALE;
 
   const pbcMenuItems = generateDynamicMenuItems(dynamicMenuItems);
 
@@ -302,16 +298,17 @@ export function MenuUI(props: Props): JSX.Element {
                   )}
                 />
               )}
-              {cmsHasMenuContentsAccess && contentSchedulerPluginInstalled && (
-                <SecondaryMenuItem
-                  id="content-scheduler"
-                  label={content.contentScheduler}
-                  href={convertToAdminConsoleUrl(
-                    adminConsoleUrl,
-                    'do/jpcontentscheduler/config/viewItem.action'
-                  )}
-                />
-              )}
+              {cmsHasMenuContentsAccess &&
+                systemReport?.contentSchedulerPluginInstalled && (
+                  <SecondaryMenuItem
+                    id="content-scheduler"
+                    label={content.contentScheduler}
+                    href={convertToAdminConsoleUrl(
+                      adminConsoleUrl,
+                      'do/jpcontentscheduler/config/viewItem.action'
+                    )}
+                  />
+                )}
               {cmsHasMenuContentTypeAccess && (
                 <SecondaryMenuItem
                   id="content-types"

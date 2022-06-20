@@ -32,10 +32,20 @@ export interface DynamicMenuItem {
   children: ModifiedDynamicMenuItem[];
 }
 
+export interface EntandoGlobals {
+  userPermissions: string[];
+  lang: string;
+  systemReport: {
+    contentSchedulerPluginInstalled: boolean;
+  };
+  adminConsoleUrl: string;
+}
+
 declare global {
   interface Window {
     appBuilderRouter: {
       push: (route: string) => void;
     };
+    entando: { globals: EntandoGlobals };
   }
 }

@@ -14,11 +14,32 @@
       window.appBuilderRouter = {
         push: route => console.log('navigating to', route)
       };
+      window.entando = {
+        globals: {
+          userPermissions: [
+            'superuser',
+            'editContents',
+            'managePages',
+            'editUsers',
+            'viewUsers',
+            'editUserProfile',
+            'manageCategories',
+            'validateContents',
+            'manageResources',
+            'enterECR'
+          ],
+          lang: 'en',
+          adminConsoleUrl: 'http://localhost:8080/admin-console',
+          systemReport: {
+            contentSchedulerPluginInstalled: true
+          }
+        }
+      };
     </script>
   </head>
   <body>
     <app-builder-menu
-      config='{"userPermissions":["superuser","editContents","managePages","editUsers","viewUsers","editUserProfile","manageCategories","validateContents","manageResources","enterECR"],"lang":"en","api":{"url":"http://localhost:8080/menu-be-api"},"contentSchedulerPluginInstalled":true,"adminConsoleUrl":"http://localhost:8080/admin-console"}'
+      config='{"api":{"url":"http://localhost:8080/menu-be-api"}}'
     ></app-builder-menu>
     <script type="module" src="/src/main.tsx"></script>
   </body>

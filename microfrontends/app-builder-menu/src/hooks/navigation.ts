@@ -1,3 +1,3 @@
 export const useNavigation = () => {
-  return (route: string) => window.appBuilderRouter.push(route);
+  return (route: string) => window.entando.router.push(route);
 };

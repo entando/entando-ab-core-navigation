@@ -43,9 +43,11 @@ export interface EntandoGlobals {
 
 declare global {
   interface Window {
-    appBuilderRouter: {
-      push: (route: string) => void;
+    entando: {
+      globals: EntandoGlobals;
+      router: {
+        push: (route: string) => void;
+      };
     };
-    entando: { globals: EntandoGlobals };
   }
 }

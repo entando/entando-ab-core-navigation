@@ -11,10 +11,10 @@
       rel="stylesheet"
     />
     <script>
-      window.appBuilderRouter = {
-        push: route => console.log('navigating to', route)
-      };
       window.entando = {
+        router: {
+          push: route => console.log('navigating to', route)
+        },
         globals: {
           userPermissions: [
             'superuser',

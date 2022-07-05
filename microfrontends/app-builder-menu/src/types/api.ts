@@ -1,3 +1,5 @@
+import {rest} from "msw";
+
 export interface MenuItem {
   pbcName: string;
   bundleName: string;
@@ -47,6 +49,10 @@ declare global {
       globals: EntandoGlobals;
       router: {
         push: (route: string) => void;
+      };
+      mockingService: {
+        setMock: (handler: any) => void,
+        restClient: typeof rest
       };
     };
   }

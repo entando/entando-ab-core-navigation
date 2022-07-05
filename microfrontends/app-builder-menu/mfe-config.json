@@ -1,0 +1,9 @@
+{
+  "systemParams": {
+    "api": {
+      "navigation": {
+        "url": "http://localhost:8080"
+      }
+    }
+  }
+}

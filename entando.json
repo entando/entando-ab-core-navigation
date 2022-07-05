@@ -1,32 +1,32 @@
 {
-    "microservices": [
+  "microservices": [
+    {
+      "name": "app-builder-menu-bff",
+      "stack": "node",
+      "healthCheckPath": "/api/health"
+    }
+  ],
+  "microfrontends": [
+    {
+      "name": "app-builder-menu",
+      "stack": "react",
+      "type": "app-builder",
+      "slot": "primary-menu",
+      "group": "free",
+      "customElement": "app-builder-menu",
+      "publicFolder": ".",
+      "apiClaims": [
         {
-            "name": "app-builder-menu-bff",
-            "stack": "node",
-            "healthCheckPath": "/api/health"
+          "name": "navigation",
+          "type": "internal",
+          "serviceName": "app-builder-menu-bff"
         }
-    ],
-    "microfrontends": [
-        {
-            "name": "app-builder-menu",
-            "stack": "react",
-            "type": "app-builder",
-            "slot": "primary-menu",
-            "group": "free",
-            "customElement": "app-builder-menu",
-            "publicFolder": ".",
-            "apiClaims": [
-                {
-                    "name": "navigation",
-                    "type": "internal",
-                    "serviceName": "app-builder-menu-bff"
-                }
-            ]
-        }
-    ],
-    "svc": [],
-    "name": "entando-ab-core-navigation",
-    "version": "0.0.1",
-    "description": "Layout capabilities of App-builder",
-    "type": "bundle"
+      ]
+    }
+  ],
+  "svc": [],
+  "name": "entando-ab-core-navigation",
+  "version": "0.0.1",
+  "description": "Layout capabilities of App-builder",
+  "type": "bundle"
 }

@@ -23,16 +23,19 @@ window.entando = {
   }
 };
 
-const MFE_NAME = "app-builder-menu"
+const MFE_NAME = 'app-builder-menu';
 
-fetch("mfe-config.json").then((res) => {
-  return res.json()
-}).then((res) => {
-  const mfe = document.getElementsByTagName(MFE_NAME)[0]
+fetch('mfe-config.json')
+  .then(res => {
+    return res.json();
+  })
+  .then(res => {
+    const mfe = document.getElementsByTagName(MFE_NAME)[0];
 
-  mfe.setAttribute("config", JSON.stringify(res))
-}).catch((err) => {
-  console.log(err)
+    mfe.setAttribute('config', JSON.stringify(res));
+  })
+  .catch(err => {
+    console.log(err);
 
-  console.error("ERROR:", "missing mfe-config")
-})
+    console.error('ERROR:', 'missing mfe-config');
+  });

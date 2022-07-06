@@ -1,5 +1,3 @@
-import {rest} from "msw";
-
 export interface MenuItem {
   pbcName: string;
   bundleName: string;
@@ -8,12 +6,6 @@ export interface MenuItem {
   target: string;
   addr: string;
   organization: string;
-}
-
-export interface PbcApiResponse {
-  data: {
-    items: MenuItem[];
-  };
 }
 
 export interface EpcData {
@@ -32,28 +24,4 @@ export interface ModifiedDynamicMenuItem extends MenuItem {
 export interface DynamicMenuItem {
   parent: string;
   children: ModifiedDynamicMenuItem[];
-}
-
-export interface EntandoGlobals {
-  userPermissions: string[];
-  lang: string;
-  systemReport: {
-    contentSchedulerPluginInstalled: boolean;
-  };
-  adminConsoleUrl: string;
-}
-
-declare global {
-  interface Window {
-    entando: {
-      globals: EntandoGlobals;
-      router: {
-        push: (route: string) => void;
-      };
-      mockingService: {
-        setMock: (handler: any) => void,
-        restClient: typeof rest
-      };
-    };
-  }
 }

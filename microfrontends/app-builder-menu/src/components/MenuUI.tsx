@@ -59,6 +59,7 @@ import { ContentType, DEFAULT_LOCALE } from '../content';
 import { useNavigation } from '../hooks/navigation';
 import { sendTutorialNextStepEvent } from '../utils/events';
 import { toSnakeCase } from '../utils/string';
+import { MfeConfig } from '../types/globals';
 
 const MenuCmp = styled.menu`
   height: 100%;
@@ -73,12 +74,6 @@ const MenuCmp = styled.menu`
   width: 215px;
   z-index: 1030;
 `;
-
-export interface MfeConfig {
-  api: {
-    url: string;
-  };
-}
 
 interface Props {
   config: MfeConfig;

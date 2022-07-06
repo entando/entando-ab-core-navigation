@@ -3,7 +3,6 @@ import {
   waitForElementToBeRemoved,
   screen
 } from '@testing-library/react';
-import { SUPERUSER_PERMISSION } from '../utils/permissions';
 
 import { Menu } from './Menu';
 
@@ -12,11 +11,13 @@ describe('Menu Test', () => {
     render(
       <Menu
         config={{
-          userPermissions: [SUPERUSER_PERMISSION],
-          lang: 'en',
-          api: { url: 'http://localhost:8080/menu-be-api' },
-          adminConsoleUrl: 'http://localhost:8080/admin-console',
-          contentSchedulerPluginInstalled: true
+          systemParams: {
+            api: {
+              navigation: {
+                url: 'http://localhost:8080'
+              }
+            }
+          }
         }}
       />
     );

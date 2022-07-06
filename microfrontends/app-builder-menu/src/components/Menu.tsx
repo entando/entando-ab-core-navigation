@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { MenuUI, MfeConfig } from './MenuUI';
+import { MenuUI } from './MenuUI';
 import { IntlProvider, MessageFormatElement } from 'react-intl';
 
 // lang imports
 import en_messages from '../i18n/en.json';
 import { ContentProvider } from './hooks/useContent';
-import { MenuItem, PbcApiResponse } from '../types/api';
+import { MenuItem } from '../types/api';
+import { MfeConfig } from '../types/globals';
 import { GlobalStyle } from '../styles/globalStyles';
 import { DEFAULT_LOCALE } from '../content';
+import { getPBCNav } from '../api/getPBCNav';
 
 interface Props {
   config: MfeConfig;
@@ -31,8 +32,6 @@ export function Menu(props: Props) {
 
   const [dynamicMenuItems, setDynamicMenuItems] = useState<MenuItem[]>([]);
 
-  const apiUrl = config?.api?.url;
-
   const { lang } = window.entando?.globals || {};
   const locale = lang || DEFAULT_LOCALE;
 
@@ -40,15 +39,16 @@ export function Menu(props: Props) {
     const request = async () => {
       setLoading(true);
 
-      const { data } = await axios.get<PbcApiResponse>(apiUrl);
+      const { data } = await getPBCNav(config);
 
-      setDynamicMenuItems(data?.data?.items || []);
+      setDynamicMenuItems(data?.payload || []);
       setLoading(false);
     };
-    if (apiUrl) {
+
+    if (config) {
       request();
     }
-  }, [apiUrl]);
+  }, []);
 
   return (
     <IntlProvider

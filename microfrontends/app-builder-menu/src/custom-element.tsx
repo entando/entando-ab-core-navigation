@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { StyleSheetManager } from 'styled-components';
 
 import { Menu } from './components/Menu';
-import { MfeConfig } from './components/MenuUI';
+import { MfeConfig } from './types/globals';
 
 export class AppBuilderMenu extends HTMLElement {
   shadow: ShadowRoot;

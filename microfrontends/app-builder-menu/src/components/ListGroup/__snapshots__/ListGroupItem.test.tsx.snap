@@ -2,11 +2,11 @@
 
 exports[`renders ListGroupItem with children 1`] = `
 <li
-  className="sc-jqUVSM eSBrHl"
+  className="sc-jqUVSM eaQPOR"
   onClick={[Function]}
 >
   <a
-    className="sc-kDDrLX bFWLLJ"
+    className="sc-kDDrLX dNorER"
   >
     <span
       className="sc-iqcoie lftmcC"
@@ -82,11 +82,11 @@ exports[`renders ListGroupItem with children 1`] = `
 
 exports[`renders ListGroupItem with href 1`] = `
 <li
-  className="sc-jqUVSM eSBrHl"
+  className="sc-jqUVSM eaQPOR"
   onClick={[Function]}
 >
   <a
-    className="sc-kDDrLX bFWLLJ"
+    className="sc-kDDrLX dNorER"
     href="http://localhost:8080"
   >
     <span
@@ -163,11 +163,11 @@ exports[`renders ListGroupItem with href 1`] = `
 
 exports[`renders ListGroupItem withour children 1`] = `
 <li
-  className="sc-jqUVSM eSBrHl"
+  className="sc-jqUVSM eaQPOR"
   onClick={[Function]}
 >
   <a
-    className="sc-kDDrLX bFWLLJ"
+    className="sc-kDDrLX dNorER"
   >
     <span
       className="sc-iqcoie lftmcC"

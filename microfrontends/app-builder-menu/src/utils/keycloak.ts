@@ -1,3 +1,3 @@
-export const getKeycloakTokenFromWindow = (): string => {
+export const getKeycloakToken = (): string => {
   return window.entando.keycloak.token;
 };

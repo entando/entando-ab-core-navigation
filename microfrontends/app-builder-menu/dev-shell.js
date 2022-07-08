@@ -20,6 +20,9 @@ window.entando = {
     systemReport: {
       contentSchedulerPluginInstalled: true
     }
+  },
+  keycloak: {
+    token: 'keycloak-token',
   }
 };
 

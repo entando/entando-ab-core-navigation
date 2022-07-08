@@ -30,6 +30,9 @@ declare global {
         setMock: (handler: any) => void;
         restClient: typeof rest;
       };
+      keycloak: {
+        token: string;
+      };
     };
   }
 }

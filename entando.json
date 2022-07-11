@@ -3,7 +3,7 @@
     {
       "name": "app-builder-menu-bff",
       "stack": "node",
-      "healthCheckPath": "/api/health"
+      "healthCheckPath": "/health"
     }
   ],
   "microfrontends": [

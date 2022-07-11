@@ -47,8 +47,8 @@ app.use(keycloak.middleware());
  *                               Register all routes
  ***********************************************************************************/
 
-const basepath = process.env.API_BASEPATH
-  ? `${process.env.API_BASEPATH}`.replace(/\/$/, '')
+const basepath = process.env.SERVER_SERVLET_CONTEXT_PATH
+  ? `${process.env.SERVER_SERVLET_CONTEXT_PATH}`.replace(/\/$/, '')
   : ''; // Default base path
 
 loadRouters(__dirname + '/api')

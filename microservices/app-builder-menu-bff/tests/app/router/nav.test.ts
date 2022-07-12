@@ -1,6 +1,7 @@
 import supertest from 'supertest';
 import nock from 'nock';
 
+/*
 import {
   createMockInstance,
   activateMock,
@@ -8,6 +9,7 @@ import {
   Mock,
   MockUser
 } from 'keycloak-mock';
+*/
 
 import app from '../../../src/server';
 
@@ -16,7 +18,7 @@ import {
   LIST_NAVS_RESPONSE,
 } from './__mocks__/nav.mock';
 
-
+/*
 interface KeycloakTestCache {
   keycloak?: MockInstance
   user?: MockUser
@@ -45,29 +47,35 @@ beforeAll(async () => {
   global.mock = activateMock(keycloak);
   global.token = keycloak.createBearerToken(user.profile.id);
 });
+*/
 
 afterAll(() => {
   nock.cleanAll();
-  global.mock?.instance.database.clear();
+  //global.mock?.instance.database.clear();
 });
 
 describe('User can list all navs', () => {
   test('tests listing all navs successfully', async () => {
-    nock(`${process.env.ENTANDO_COMPONENT_MANAGER_API_URL}`)
-      .get('/components')
+    nock(`${process.env.ENTANDO_COMPONENT_MANAGER_API_URL}`, {
+      reqheaders: {
+        'Authorization': 'Bearer forwarded-token'
+      }
+    }).get(new RegExp('/bundles/all/widgets.*'))
       .reply(200, { payload: LIST_BUNDLES_RESPONSE });
-    
+
     const response = await supertest(app).get('/api/nav')
-      .set({ 'Authorization': `Bearer ${global.token}` })
+      .set({ 'Authorization': 'Bearer forwarded-token' })
       .expect(200);
-      
+
     expect(response.body.payload).toMatchObject(LIST_NAVS_RESPONSE);
   });
 
+  /*
   test('tests listing all navs without authorization token', async () => {
     const response = await supertest(app).get('/api/nav')
       .expect(403);
 
     expect(response.body.message).toBe('Access Denied');
   });
+  */
 });

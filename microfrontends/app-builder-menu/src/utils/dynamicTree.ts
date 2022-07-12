@@ -20,7 +20,7 @@ export const generateDynamicMenuItems = (
               hrefTarget: TARGET_BLANK,
               rel: SAFE_REL
             }
-          : { url: `/${item.pbcName}/${item.bundleName}/${item.addr}` })
+          : { url: `/${item.pbcName}/${item.bundleCode}/${item.addr}` })
       }))
   }));
 };

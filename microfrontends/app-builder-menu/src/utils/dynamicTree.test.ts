@@ -5,7 +5,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
     const items = [
       {
         pbcName: 'pbc1',
-        bundleName: 'bundle1',
+        bundleCode: 'bundle1',
         addr: 'https://external/addr1',
         target: 'external',
         mfeName: 'name1',
@@ -16,7 +16,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
       },
       {
         pbcName: 'pbc1',
-        bundleName: 'bundle2',
+        bundleCode: 'bundle2',
         addr: 'addr2',
         target: 'app-builder',
         mfeName: 'name2',
@@ -27,7 +27,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
       },
       {
         pbcName: 'pbc2',
-        bundleName: 'bundle3',
+        bundleCode: 'bundle3',
         addr: 'addr3',
         target: 'app-builder',
         mfeName: 'name3',
@@ -43,7 +43,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
         children: [
           {
             pbcName: 'pbc1',
-            bundleName: 'bundle1',
+            bundleCode: 'bundle1',
             addr: 'https://external/addr1',
             target: 'external',
             mfeName: 'name1',
@@ -57,7 +57,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
           },
           {
             pbcName: 'pbc1',
-            bundleName: 'bundle2',
+            bundleCode: 'bundle2',
             addr: 'addr2',
             target: 'app-builder',
             mfeName: 'name2',
@@ -74,7 +74,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
         children: [
           {
             pbcName: 'pbc2',
-            bundleName: 'bundle3',
+            bundleCode: 'bundle3',
             addr: 'addr3',
             target: 'app-builder',
             mfeName: 'name3',

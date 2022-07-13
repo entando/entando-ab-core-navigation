@@ -13,36 +13,30 @@ describe('verify correcgetAPIEndpoint function correctness', () => {
       }
     };
 
-    const enpoint = getAPIEndpoint('navigation', config);
+    const endpoint = getAPIEndpoint('navigation', config);
 
-    expect(enpoint).toBe('http://localhost:4000');
+    expect(endpoint).toBe('http://localhost:4000');
   });
 
   it('must return the endpoint without trailing slash', () => {
-    const endpointWithTrailingSlash = getAPIEndpoint(
-      'navigation',
-      {
-        systemParams: {
-          api: {
-            navigation: {
-              url: 'http://localhost:4000/'
-            }
+    const endpointWithTrailingSlash = getAPIEndpoint('navigation', {
+      systemParams: {
+        api: {
+          navigation: {
+            url: 'http://localhost:4000/'
           }
         }
       }
-    );
-    const endpointWithoutTrailingSlash = getAPIEndpoint(
-      'navigation',
-      {
-        systemParams: {
-          api: {
-            navigation: {
-              url: 'http://localhost:4000'
-            }
+    });
+    const endpointWithoutTrailingSlash = getAPIEndpoint('navigation', {
+      systemParams: {
+        api: {
+          navigation: {
+            url: 'http://localhost:4000'
           }
         }
       }
-    );
+    });
 
     expect(endpointWithTrailingSlash).toBe('http://localhost:4000');
     expect(endpointWithoutTrailingSlash).toBe('http://localhost:4000');

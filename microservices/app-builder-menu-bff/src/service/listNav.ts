@@ -12,7 +12,7 @@ export type INavResponse = {
   organization: string
 }
 
-const LOCAL_PBC_NAME = ':local'
+export const UNCATEGORIZED_PBC_NAME = 'Uncategorized'
 const ORGANIZATION = 'entando'
 
 export const listNav = async (req: Request): Promise<INavResponse[]> => {
@@ -50,7 +50,7 @@ function getNavItems(bundleNav: IBundleNavInfo, bundleCode: string, mfeName: str
       })
     } else {
       // Bundle that wasn't installed from Hub
-      navList.push(...getNavResponseItem(bundleNav, LOCAL_PBC_NAME, bundleCode, mfeName));
+      navList.push(...getNavResponseItem(bundleNav, UNCATEGORIZED_PBC_NAME, bundleCode, mfeName));
     }
   }
   return navList;

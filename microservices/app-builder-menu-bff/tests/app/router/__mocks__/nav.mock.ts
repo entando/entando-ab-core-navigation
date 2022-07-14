@@ -1,5 +1,5 @@
 import { IBundle, IBundleWidget } from "../../../../src/client/response/IBundleWidget";
-import { INavResponse } from "../../../../src/service";
+import { INavResponse, UNCATEGORIZED_PBC_NAME } from "../../../../src/service";
 
 export const LIST_BUNDLES_RESPONSE: IBundle[] = [
   {
@@ -74,7 +74,7 @@ export const LIST_BUNDLES_WIDGETS_RESPONSE: IBundleWidget[] = [
 
 export const LIST_NAVS_RESPONSE: INavResponse[] = [
   {
-    pbcName: ':local',
+    pbcName: UNCATEGORIZED_PBC_NAME,
     bundleCode: 'global-menu-bundle-a8d4da43',
     mfeName: null,
     organization: 'entando',

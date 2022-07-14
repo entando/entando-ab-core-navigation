@@ -15,6 +15,7 @@ import app from '../../../src/server';
 
 import {
   LIST_BUNDLES_RESPONSE,
+  LIST_BUNDLES_WIDGETS_RESPONSE,
   LIST_NAVS_RESPONSE,
 } from './__mocks__/nav.mock';
 
@@ -60,8 +61,10 @@ describe('User can list all navs', () => {
       reqheaders: {
         'Authorization': 'Bearer forwarded-token'
       }
-    }).get(new RegExp('/bundles/all/widgets.*'))
-      .reply(200, { payload: LIST_BUNDLES_RESPONSE });
+    }).get('/bundles')
+      .reply(200, { payload: LIST_BUNDLES_RESPONSE })
+      .get(new RegExp('/bundles/all/widgets.*'))
+      .reply(200, { payload: LIST_BUNDLES_WIDGETS_RESPONSE });
 
     const response = await supertest(app).get('/api/nav')
       .set({ 'Authorization': 'Bearer forwarded-token' })

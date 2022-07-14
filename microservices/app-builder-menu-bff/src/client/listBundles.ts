@@ -1,7 +1,16 @@
 import axios from 'axios';
 import { Request } from 'express';
-import { IBundleWidget } from './response/IBundleWidget';
+import { IBundle, IBundleWidget } from './response/IBundleWidget';
 import { getRequestConfig } from './requestConfig';
+
+export const listBundles = async (req: Request): Promise<IBundle[]> => {
+
+  const res = await axios.get(`${process.env.ENTANDO_COMPONENT_MANAGER_API_URL}/bundles`,
+    getRequestConfig(req)
+  );
+
+  return res.data.payload;
+};
 
 export const listBundlesWidgets = async (req: Request): Promise<IBundleWidget[]> => {
 

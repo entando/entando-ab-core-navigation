@@ -1,8 +1,40 @@
-export const LIST_BUNDLES_RESPONSE = [
+import { IBundle, IBundleWidget } from "../../../../src/client/response/IBundleWidget";
+import { INavResponse } from "../../../../src/service";
+
+export const LIST_BUNDLES_RESPONSE: IBundle[] = [
   {
-    bundleCode: 'strapi-bundle-aae34d0e',
+    bundleId: 'aae34d0e',
+    bundleName: 'strapi-bundle'
+  },
+  {
+    bundleId: '12f4f691',
+    bundleName: 'test-bundle',
+    bundleCode: 'test-bundle-12f4f691'
+  },
+  {
+    bundleId: 'a8d4da43',
+    bundleName: 'global-menu-bundle',
+    bundleCode: 'global-menu-bundle-a8d4da43',
+    descriptorExt: {
+      nav: [
+        {
+          label: {
+            it: 'Menu Globale',
+            en: 'Global Menu',
+          },
+          target: 'app-builder',
+          url: '/global-menu',
+        }
+      ]
+    },
+    labels: {}
+  }
+]
+
+export const LIST_BUNDLES_WIDGETS_RESPONSE: IBundleWidget[] = [
+  {
+    bundleId: 'aae34d0e',
     widgetName: 'strapi-content-template',
-    widgetType: 'app-builder',
     descriptorExt: {
       nav: [
         {
@@ -18,10 +50,41 @@ export const LIST_BUNDLES_RESPONSE = [
     labels: {
       pbcNames: ['strapi-pbc']
     }
+  },
+  {
+    bundleId: '12f4f691',
+    widgetName: 'test-widget',
+    descriptorExt: {
+      nav: [
+        {
+          label: {
+            it: 'Test nav',
+            en: 'Test nav',
+          },
+          target: 'app-builder',
+          url: '/test-nav',
+        }
+      ]
+    },
+    labels: {
+      pbcNames: ['strapi-pbc', 'test-pbc']
+    }
   }
 ];
 
-export const LIST_NAVS_RESPONSE = [
+export const LIST_NAVS_RESPONSE: INavResponse[] = [
+  {
+    pbcName: ':local',
+    bundleCode: 'global-menu-bundle-a8d4da43',
+    mfeName: null,
+    organization: 'entando',
+    label: {
+      it: 'Menu Globale',
+      en: 'Global Menu'
+    },
+    target: 'app-builder',
+    addr: '/global-menu'
+  },
   {
     pbcName: 'strapi-pbc',
     bundleCode: 'strapi-bundle-aae34d0e',
@@ -33,5 +96,29 @@ export const LIST_NAVS_RESPONSE = [
     },
     target: 'app-builder',
     addr: '/content-template'
+  },
+  {
+    pbcName: 'strapi-pbc',
+    bundleCode: 'test-bundle-12f4f691',
+    mfeName: 'test-widget',
+    organization: 'entando',
+    label: {
+      it: 'Test nav',
+      en: 'Test nav'
+    },
+    target: 'app-builder',
+    addr: '/test-nav'
+  },
+  {
+    pbcName: 'test-pbc',
+    bundleCode: 'test-bundle-12f4f691',
+    mfeName: 'test-widget',
+    organization: 'entando',
+    label: {
+      it: 'Test nav',
+      en: 'Test nav'
+    },
+    target: 'app-builder',
+    addr: '/test-nav'
   }
 ];

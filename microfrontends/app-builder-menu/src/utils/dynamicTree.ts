@@ -7,8 +7,8 @@ export const TARGET_BLANK = '_blank';
 export const generateDynamicMenuItems = (
   items: MenuItem[]
 ): DynamicMenuItem[] => {
-  const uniquePbcs = [...new Set(items.map(item => item.pbcName))];
-  return uniquePbcs.map(pbc => ({
+  const uniqueEpcs = [...new Set(items.map(item => item.pbcName))];
+  return uniqueEpcs.map(pbc => ({
     parent: pbc,
     children: items
       .filter(item => item.pbcName === pbc)

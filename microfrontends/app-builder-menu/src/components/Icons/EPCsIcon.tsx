@@ -6,7 +6,7 @@ interface Props {
   fill?: string;
 }
 
-export function PBCsIcon(props: Props): JSX.Element {
+export function EPCsIcon(props: Props): JSX.Element {
   const { width = 20, height = 18, fill = COLORS.inactive } = props;
   return (
     <svg

@@ -3,6 +3,7 @@
 exports[`renders TertiaryMenu non-visible 1`] = `
 <div
   className="sc-bczRLJ evZOWk"
+  data-id="menu"
 >
   <ul
     className="sc-gsnTZi ekVTqR"
@@ -13,6 +14,7 @@ exports[`renders TertiaryMenu non-visible 1`] = `
 exports[`renders TertiaryMenu visible 1`] = `
 <div
   className="sc-bczRLJ bZgBmQ"
+  data-id="menu"
 >
   <ul
     className="sc-gsnTZi ekVTqR"

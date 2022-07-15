@@ -32,9 +32,9 @@ export function getContent(intl: IntlShape): ContentType {
       id: 'app.repository',
       defaultMessage: 'Repository'
     }),
-    PBCS: intl.formatMessage({
-      id: 'app.pbcs',
-      defaultMessage: `PBC's`
+    EPCS: intl.formatMessage({
+      id: 'app.epcs',
+      defaultMessage: `EPCs`
     }),
     management: intl.formatMessage({
       id: 'app.management',

@@ -8,13 +8,6 @@ export interface MenuItem {
   organization: string;
 }
 
-export interface EpcData {
-  'data-organization'?: string;
-  'data-epc-id'?: string;
-  'data-submenu'?: string;
-  'data-menu-item-id'?: string;
-}
-
 export interface ModifiedDynamicMenuItem extends MenuItem {
   url: string;
   hrefTarget?: string;

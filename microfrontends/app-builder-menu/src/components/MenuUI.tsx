@@ -7,7 +7,7 @@ import { ComponentsIcon } from './Icons/ComponentsIcon';
 import { ContentIcon } from './Icons/ContentIcon';
 import { UsersIcon } from './Icons/UsersIcon';
 import { RepositoryIcon } from './Icons/RepositoryIcon';
-import { PBCsIcon } from './Icons/PBCsIcon';
+import { EPCsIcon } from './Icons/EPCsIcon';
 import { AdministrationIcon } from './Icons/AdministrationIcon';
 import { SecondaryMenuItem } from './SecondaryMenu/SecondaryMenuItem';
 import { TertiaryMenuItem } from './TertiaryMenu/TertiaryMenuItem';
@@ -60,6 +60,7 @@ import { useNavigation } from '../hooks/navigation';
 import { sendTutorialNextStepEvent } from '../utils/events';
 import { toSnakeCase } from '../utils/string';
 import { MfeConfig } from '../types/globals';
+import { MENU_DATA_ID } from '../constants';
 
 const MenuCmp = styled.menu`
   height: 100%;
@@ -96,7 +97,7 @@ export function MenuUI(props: Props): JSX.Element {
 
   const activeLanguage = lang || DEFAULT_LOCALE;
 
-  const pbcMenuItems = generateDynamicMenuItems(dynamicMenuItems);
+  const epcMenuItems = generateDynamicMenuItems(dynamicMenuItems);
 
   const menuUIContext: MenuUIContextInterface = {
     activeListGroupItemId,
@@ -167,10 +168,11 @@ export function MenuUI(props: Props): JSX.Element {
 
   return (
     <MenuUIContext.Provider value={menuUIContext}>
-      <MenuCmp>
+      <MenuCmp data-id={MENU_DATA_ID}>
         <ListGroup>
           <ListGroupItem
             id="dashboard"
+            dataId="dashboard"
             label={content.dashboard}
             renderIcon={props => <DashboardIcon {...props} />}
             onClick={() => navigate(ROUTE_DASHBOARD)}
@@ -178,6 +180,7 @@ export function MenuUI(props: Props): JSX.Element {
           {hasAccess(MANAGE_PAGES_PERMISSION, userPermissions) && (
             <ListGroupItem
               id="pages"
+              dataId="pages"
               label={content.pages}
               className="app-tour-step-3"
               renderIcon={props => <PagesIcon {...props} />}
@@ -185,6 +188,7 @@ export function MenuUI(props: Props): JSX.Element {
             >
               <SecondaryMenuItem
                 id="pages-management"
+                dataId="pages-management"
                 label={content.management}
                 className="app-tour-step-4"
                 onClick={() => {
@@ -194,6 +198,7 @@ export function MenuUI(props: Props): JSX.Element {
               />
               <SecondaryMenuItem
                 id="pages-designer"
+                dataId="pages-designer"
                 label={content.designer}
                 onClick={() =>
                   navigate(
@@ -207,11 +212,13 @@ export function MenuUI(props: Props): JSX.Element {
                 <>
                   <SecondaryMenuItem
                     id="pages-templates"
+                    dataId="pages-templates"
                     label={content.templates}
                     onClick={() => navigate(ROUTE_PAGE_TEMPLATE_LIST)}
                   />
                   <SecondaryMenuItem
                     id="pages-settings"
+                    dataId="pages-settings"
                     label={content.settings}
                     onClick={() => navigate(ROUTE_PAGE_SETTINGS)}
                   />
@@ -222,16 +229,19 @@ export function MenuUI(props: Props): JSX.Element {
           {hasSuperuserAccess && (
             <ListGroupItem
               id="components"
+              dataId="components"
               label={content.components}
               renderIcon={props => <ComponentsIcon {...props} />}
             >
               <SecondaryMenuItem
                 id="components-widgets"
+                dataId="components-widgets"
                 label={content.mfeAndWidgets}
                 onClick={() => navigate(ROUTE_WIDGET_LIST)}
               />
               <SecondaryMenuItem
                 id="components-fragments"
+                dataId="components-fragments"
                 label={content.uxFragments}
                 onClick={() => navigate(ROUTE_FRAGMENT_LIST)}
               />
@@ -240,12 +250,14 @@ export function MenuUI(props: Props): JSX.Element {
           {cmsHasAnyMenuItemAccess && (
             <ListGroupItem
               id="content"
+              dataId="content"
               label={content.content}
               renderIcon={props => <ContentIcon {...props} />}
             >
               {cmsHasMenuContentsAccess && (
                 <SecondaryMenuItem
                   id="content-management"
+                  dataId="content-management"
                   label={content.management}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
@@ -256,6 +268,7 @@ export function MenuUI(props: Props): JSX.Element {
               {cmsHasMenuAssetsAccess && (
                 <SecondaryMenuItem
                   id="content-assets"
+                  dataId="content-assets"
                   label={content.assets}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
@@ -266,6 +279,7 @@ export function MenuUI(props: Props): JSX.Element {
               {cmsHasMenuContentTemplatesAccess && (
                 <SecondaryMenuItem
                   id="content-templates"
+                  dataId="content-templates"
                   label={content.templates}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
@@ -276,6 +290,7 @@ export function MenuUI(props: Props): JSX.Element {
               {cmsHasCategoriesAccess && (
                 <SecondaryMenuItem
                   id="content-categories"
+                  dataId="content-categories"
                   label={content.categories}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
@@ -286,6 +301,7 @@ export function MenuUI(props: Props): JSX.Element {
               {cmsHasVersioningAccess && (
                 <SecondaryMenuItem
                   id="content-versioning"
+                  dataId="content-versioning"
                   label={content.versioning}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
@@ -297,6 +313,7 @@ export function MenuUI(props: Props): JSX.Element {
                 systemReport?.contentSchedulerPluginInstalled && (
                   <SecondaryMenuItem
                     id="content-scheduler"
+                    dataId="content-scheduler"
                     label={content.contentScheduler}
                     href={convertToAdminConsoleUrl(
                       adminConsoleUrl,
@@ -307,6 +324,7 @@ export function MenuUI(props: Props): JSX.Element {
               {cmsHasMenuContentTypeAccess && (
                 <SecondaryMenuItem
                   id="content-types"
+                  dataId="content-types"
                   label={content.types}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
@@ -317,6 +335,7 @@ export function MenuUI(props: Props): JSX.Element {
               {cmsHasMenuContentSettingsAccess && (
                 <SecondaryMenuItem
                   id="content-settings"
+                  dataId="content-settings"
                   label={content.settings}
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
@@ -329,11 +348,13 @@ export function MenuUI(props: Props): JSX.Element {
           {usersHasAnyMenuItemAccess && (
             <ListGroupItem
               id="users"
+              dataId="users"
               label={content.users}
               renderIcon={props => <UsersIcon {...props} />}
             >
               <SecondaryMenuItem
                 id="users-management"
+                dataId="users-management"
                 label={content.management}
                 onClick={() => navigate(ROUTE_USER_LIST)}
               />
@@ -341,21 +362,25 @@ export function MenuUI(props: Props): JSX.Element {
                 <>
                   <SecondaryMenuItem
                     id="users-roles"
+                    dataId="users-roles"
                     label={content.roles}
                     onClick={() => navigate(ROUTE_ROLE_LIST)}
                   />
                   <SecondaryMenuItem
                     id="users-groups"
+                    dataId="users-groups"
                     label={content.groups}
                     onClick={() => navigate(ROUTE_GROUP_LIST)}
                   />
                   <SecondaryMenuItem
                     id="users-profileTypes"
+                    dataId="users-profileTypes"
                     label={content.profileTypes}
                     onClick={() => navigate(ROUTE_PROFILE_TYPE_LIST)}
                   />
                   <SecondaryMenuItem
                     id="users-restrictions"
+                    dataId="users-restrictions"
                     label={content.restrictions}
                     onClick={() => navigate(ROUTE_USER_RESTRICTIONS)}
                   />
@@ -366,26 +391,28 @@ export function MenuUI(props: Props): JSX.Element {
           {hasECRAccess && (
             <ListGroupItem
               id="repository"
+              dataId="repository"
               label={content.repository}
               renderIcon={props => <RepositoryIcon {...props} />}
               onClick={() => navigate(ROUTE_ECR_COMPONENT_LIST)}
             />
           )}
-          {!!pbcMenuItems?.length && (
+          {!!epcMenuItems?.length && (
             <ListGroupItem
-              id="pbcs"
-              label={content.PBCS}
-              renderIcon={props => <PBCsIcon {...props} />}
+              id="epc"
+              dataId="epc"
+              label={content.EPCS}
+              renderIcon={props => <EPCsIcon {...props} />}
             >
-              {pbcMenuItems.map(pbc => {
+              {epcMenuItems.map(epc => {
                 return (
                   <SecondaryMenuItem
-                    id={`pbc-id-${pbc.parent}`}
-                    key={`pbc-id-${pbc.parent}`}
-                    label={pbc.parent}
-                    epcData={{ 'data-submenu': pbc.parent }}
+                    id={epc.parent}
+                    key={epc.parent}
+                    label={epc.parent}
+                    dataId={epc.parent}
                   >
-                    {pbc.children.map(item => {
+                    {epc.children.map(item => {
                       // get english label or any first value from labels object
                       const firstAvailableLabel = Object.values(
                         item.label
@@ -396,28 +423,28 @@ export function MenuUI(props: Props): JSX.Element {
                         item.bundleName
                       }_${toSnakeCase(itemLabel)}`;
 
+                      const isExternal = item.hrefTarget === TARGET_BLANK;
+
                       return (
                         <TertiaryMenuItem
                           id={itemId}
+                          dataId={
+                            item.mfeName
+                              ? item.mfeName
+                              : isExternal
+                              ? 'external'
+                              : undefined
+                          }
                           key={itemId}
                           label={
                             item.label[activeLanguage] ||
                             firstAvailableLabel ||
                             item.mfeName
                           }
-                          href={
-                            item.hrefTarget === TARGET_BLANK
-                              ? item.url
-                              : undefined
-                          }
+                          href={isExternal ? item.url : undefined}
                           onClick={() => item.url && navigate(item.url)}
                           target={item.hrefTarget}
                           rel={item.rel}
-                          epcData={{
-                            'data-epc-id': item.pbcName,
-                            'data-organization': item.organization,
-                            'data-menu-item-id': itemId
-                          }}
                         />
                       );
                     })}
@@ -428,33 +455,39 @@ export function MenuUI(props: Props): JSX.Element {
           )}
           {hasSuperuserAccess && (
             <ListGroupItem
-              id="administration"
+              id="admin"
+              dataId="admin"
               label={content.administration}
               renderIcon={props => <AdministrationIcon {...props} />}
               fixBottom
             >
               <SecondaryMenuItem
-                id="administration-database"
+                id="admin-database"
+                dataId="admin-database"
                 label={content.database}
                 onClick={() => navigate(ROUTE_DATABASE_LIST)}
               />
               <SecondaryMenuItem
-                id="administration-fileBrowser"
+                id="admin-file-browser"
+                dataId="admin-file-browser"
                 label={content.fileBrowser}
                 onClick={() => navigate(ROUTE_FILE_BROWSER)}
               />
               <SecondaryMenuItem
-                id="administration-languagesAndLabels"
+                id="admin-languages-and-labels"
+                dataId="admin-languages-and-labels"
                 label={content.languageAndLabels}
                 onClick={() => navigate(ROUTE_LABELS_AND_LANGUAGES)}
               />
               <SecondaryMenuItem
-                id="administration-emailConfiguration"
+                id="admin-email-configuration"
+                dataId="admin-email-configuration"
                 label={content.emailConfiguration}
                 onClick={() => navigate(ROUTE_EMAIL_CONFIG)}
               />
               <SecondaryMenuItem
-                id="administration-reloadConfiguration"
+                id="admin-reload-configuration"
+                dataId="admin-reload-configuration"
                 label={content.reloadConfiguration}
                 onClick={() => navigate(ROUTE_RELOAD_CONFIG)}
               />

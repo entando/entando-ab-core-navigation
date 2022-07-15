@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { EpcData } from './../../types/api';
 import { MenuUIContext } from './../MenuUIContext';
 import { COLORS } from './../theme';
 
@@ -40,10 +39,10 @@ const StyledLabel = styled.span`
 
 interface Props {
   id: string;
+  dataId?: string;
   label: string;
   onClick?: () => void;
   href?: string;
-  epcData?: EpcData;
   className?: string;
   target?: string;
   rel?: string;
@@ -52,13 +51,13 @@ interface Props {
 export function TertiaryMenuItem(props: Props): JSX.Element {
   const {
     id,
+    dataId,
     label,
     onClick,
     href,
+    target,
+    rel,
     className = '',
-    rel = '',
-    target = '',
-    epcData
   } = props;
 
   const { activeTertiaryMenuItemId, setActiveTertiaryMenuItemId } =
@@ -79,7 +78,7 @@ export function TertiaryMenuItem(props: Props): JSX.Element {
       className={className}
       rel={rel}
       target={target}
-      {...epcData}
+      data-id={dataId}
     >
       <StyledLabel>{label}</StyledLabel>
     </StyledLink>

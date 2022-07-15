@@ -127,6 +127,7 @@ interface Props {
   onClick?: () => void;
   href?: string;
   className?: string;
+  dataId: string;
 }
 
 export function ListGroupItem(props: Props): JSX.Element {
@@ -138,7 +139,8 @@ export function ListGroupItem(props: Props): JSX.Element {
     id,
     onClick,
     href,
-    className = ''
+    dataId,
+    className = '',
   } = props;
 
   const {
@@ -165,30 +167,29 @@ export function ListGroupItem(props: Props): JSX.Element {
   };
 
   return (
-    <>
-      <StyledListGroupItem
-        isActive={isActive}
-        fixBottom={fixBottom}
-        onClick={onClickHandler}
-        className={className}
-      >
-        <StyledLink isActive={isActive} href={href}>
+    <StyledListGroupItem
+      isActive={isActive}
+      fixBottom={fixBottom}
+      onClick={onClickHandler}
+      className={className}
+      data-id={dataId}
+    >
+      <StyledLink isActive={isActive} href={href}>
+        <StyledIcon>
+          {renderIcon({ fill: isActive ? COLORS.blue : COLORS.inactive })}
+        </StyledIcon>
+        <StyledLabel>{label}</StyledLabel>
+        {hasChildren && (
           <StyledIcon>
-            {renderIcon({ fill: isActive ? COLORS.blue : COLORS.inactive })}
+            <RightArrowIcon />{' '}
           </StyledIcon>
-          <StyledLabel>{label}</StyledLabel>
-          {hasChildren && (
-            <StyledIcon>
-              <RightArrowIcon />{' '}
-            </StyledIcon>
-          )}
-        </StyledLink>
-      </StyledListGroupItem>
+        )}
+      </StyledLink>
       {hasChildren && isActive && secondaryMenuOpen && (
         <SecondaryMenu isOpen title={label}>
           {children}
         </SecondaryMenu>
       )}
-    </>
+    </StyledListGroupItem>
   );
 }

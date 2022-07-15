@@ -20,8 +20,6 @@ exports[`renders TertiaryMenuItem without href 1`] = `
 <a
   className="sc-bczRLJ chTIJh"
   onClick={[Function]}
-  rel=""
-  target=""
 >
   <span
     className="sc-gsnTZi DkFNS"

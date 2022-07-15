@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { SyntheticEvent, useContext } from 'react';
 import styled from 'styled-components';
 import { BackButtonIcon } from '../Icons/BackButtonIcon';
 import { MenuUIContext } from '../MenuUIContext';
@@ -64,7 +64,9 @@ export function SecondaryMenu(props: Props): JSX.Element {
     setActiveTertiaryMenuItemId
   } = useContext(MenuUIContext);
 
-  const handleBack = () => {
+  const handleBack = (e: SyntheticEvent) => {
+    e.stopPropagation()
+
     setSecondaryMenuOpen(false);
     setTertiaryMenuOpen(false);
     setActiveSecondaryMenuItemId('');
@@ -72,9 +74,9 @@ export function SecondaryMenu(props: Props): JSX.Element {
   };
 
   return (
-    <StyledSecondaryNavMenu isVisible={isOpen}>
+    <StyledSecondaryNavMenu isVisible={isOpen} data-id="menu">
       <StyledHeader>
-        <StyledBackButton onClick={handleBack}>
+        <StyledBackButton onClick={handleBack} data-back="true">
           <BackButtonIcon />
         </StyledBackButton>
         <StyledTitle>{title}</StyledTitle>

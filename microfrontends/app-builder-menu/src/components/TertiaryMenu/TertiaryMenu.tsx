@@ -34,7 +34,7 @@ interface Props {
 export function TertiaryMenu(props: Props): JSX.Element {
   const { isOpen, children } = props;
   return (
-    <StyledSecondaryTertiaryMenu isVisible={isOpen}>
+    <StyledSecondaryTertiaryMenu isVisible={isOpen} data-id="menu">
       <StyledSecondaryListGroup>{children}</StyledSecondaryListGroup>
     </StyledSecondaryTertiaryMenu>
   );

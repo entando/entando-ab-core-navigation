@@ -1,10 +1,9 @@
-import { useContext } from 'react';
+import { SyntheticEvent, useContext } from 'react';
 import styled from 'styled-components';
 import { RightArrowIcon } from './../Icons/RightArrowIcon';
 import { MenuUIContext } from './../MenuUIContext';
 import { TertiaryMenu } from '../TertiaryMenu/TertiaryMenu';
 import { COLORS } from './../theme';
-import { EpcData } from '../../types/api';
 
 const StyledLink = styled.a<{ isActive: boolean }>`
   width: 100%;
@@ -46,23 +45,23 @@ const StyledSecondaryMenuItem = styled.li`
 
 interface Props {
   id: string;
+  dataId: string;
   children?: React.ReactNode;
   label: string;
   onClick?: () => void;
   href?: string;
   className?: string;
-  epcData?: Pick<EpcData, 'data-submenu'>;
 }
 
 export function SecondaryMenuItem(props: Props): JSX.Element {
   const {
     id,
+    dataId,
     children,
     label,
     onClick,
     href,
     className = '',
-    epcData = {}
   } = props;
 
   const {
@@ -75,7 +74,9 @@ export function SecondaryMenuItem(props: Props): JSX.Element {
   const hasChildren = !!children;
   const isActive = activeSecondaryMenuItemId === id;
 
-  const handleClick = (): void => {
+  const handleClick = (e: SyntheticEvent): void => {
+    e.stopPropagation()
+
     setActiveSecondaryMenuItemId(id);
     if (hasChildren) {
       setTertiaryMenuOpen(true);
@@ -89,16 +90,16 @@ export function SecondaryMenuItem(props: Props): JSX.Element {
       <StyledSecondaryMenuItem
         onClick={handleClick}
         className={className}
-        {...epcData}
+        data-id={dataId}
       >
         <StyledLink isActive={isActive} href={href}>
           <StyledLabel>{label}</StyledLabel>
           {hasChildren && <RightArrowIcon />}
         </StyledLink>
+        {hasChildren && isActive && tertiaryMenuOpen && (
+          <TertiaryMenu isOpen>{children}</TertiaryMenu>
+        )}
       </StyledSecondaryMenuItem>
-      {hasChildren && isActive && tertiaryMenuOpen && (
-        <TertiaryMenu isOpen>{children}</TertiaryMenu>
-      )}
     </>
   );
 }

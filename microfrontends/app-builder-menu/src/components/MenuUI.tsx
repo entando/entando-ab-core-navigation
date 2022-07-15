@@ -7,7 +7,7 @@ import { ComponentsIcon } from './Icons/ComponentsIcon';
 import { ContentIcon } from './Icons/ContentIcon';
 import { UsersIcon } from './Icons/UsersIcon';
 import { RepositoryIcon } from './Icons/RepositoryIcon';
-import { PBCsIcon } from './Icons/PBCsIcon';
+import { EPCsIcon } from './Icons/EPCsIcon';
 import { AdministrationIcon } from './Icons/AdministrationIcon';
 import { SecondaryMenuItem } from './SecondaryMenu/SecondaryMenuItem';
 import { TertiaryMenuItem } from './TertiaryMenu/TertiaryMenuItem';
@@ -96,7 +96,7 @@ export function MenuUI(props: Props): JSX.Element {
 
   const activeLanguage = lang || DEFAULT_LOCALE;
 
-  const pbcMenuItems = generateDynamicMenuItems(dynamicMenuItems);
+  const epcMenuItems = generateDynamicMenuItems(dynamicMenuItems);
 
   const menuUIContext: MenuUIContextInterface = {
     activeListGroupItemId,
@@ -371,21 +371,22 @@ export function MenuUI(props: Props): JSX.Element {
               onClick={() => navigate(ROUTE_ECR_COMPONENT_LIST)}
             />
           )}
-          {!!pbcMenuItems?.length && (
+          {!!epcMenuItems?.length && (
             <ListGroupItem
-              id="pbcs"
-              label={content.PBCS}
-              renderIcon={props => <PBCsIcon {...props} />}
+              id="epc"
+              dataId="epc"
+              label={content.EPCS}
+              renderIcon={props => <EPCsIcon {...props} />}
             >
-              {pbcMenuItems.map(pbc => {
+              {epcMenuItems.map(epc => {
                 return (
                   <SecondaryMenuItem
-                    id={`pbc-id-${pbc.parent}`}
-                    key={`pbc-id-${pbc.parent}`}
-                    label={pbc.parent}
-                    epcData={{ 'data-submenu': pbc.parent }}
+                    id={epc.parent}
+                    key={epc.parent}
+                    label={epc.parent}
+                    dataId={epc.parent}
                   >
-                    {pbc.children.map(item => {
+                    {epc.children.map(item => {
                       // get english label or any first value from labels object
                       const firstAvailableLabel = Object.values(
                         item.label

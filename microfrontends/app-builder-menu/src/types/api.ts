@@ -8,7 +8,6 @@ export interface MenuItem {
   organization: string;
 }
 
-
 export interface ModifiedDynamicMenuItem extends MenuItem {
   url: string;
   hrefTarget?: string;

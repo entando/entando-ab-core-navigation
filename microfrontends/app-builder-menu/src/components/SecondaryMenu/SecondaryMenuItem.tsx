@@ -54,15 +54,7 @@ interface Props {
 }
 
 export function SecondaryMenuItem(props: Props): JSX.Element {
-  const {
-    id,
-    dataId,
-    children,
-    label,
-    onClick,
-    href,
-    className = '',
-  } = props;
+  const { id, dataId, children, label, onClick, href, className = '' } = props;
 
   const {
     activeSecondaryMenuItemId,
@@ -75,7 +67,7 @@ export function SecondaryMenuItem(props: Props): JSX.Element {
   const isActive = activeSecondaryMenuItemId === id;
 
   const handleClick = (e: SyntheticEvent): void => {
-    e.stopPropagation()
+    e.stopPropagation();
 
     setActiveSecondaryMenuItemId(id);
     if (hasChildren) {

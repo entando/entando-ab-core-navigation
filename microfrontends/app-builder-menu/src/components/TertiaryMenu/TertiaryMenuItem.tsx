@@ -57,7 +57,7 @@ export function TertiaryMenuItem(props: Props): JSX.Element {
     href,
     target,
     rel,
-    className = '',
+    className = ''
   } = props;
 
   const { activeTertiaryMenuItemId, setActiveTertiaryMenuItemId } =

@@ -140,7 +140,7 @@ export function ListGroupItem(props: Props): JSX.Element {
     onClick,
     href,
     dataId,
-    className = '',
+    className = ''
   } = props;
 
   const {

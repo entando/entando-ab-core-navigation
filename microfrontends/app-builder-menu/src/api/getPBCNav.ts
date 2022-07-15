@@ -11,7 +11,7 @@ export interface PbcApiResponse {
 
 export async function getPBCNav(config: MfeConfig) {
   return axios.get<PbcApiResponse>(
-    `${getAPIEndpoint("navigation", config)}/api/nav`,
+    `${getAPIEndpoint('navigation', config)}/api/nav`,
     {
       headers: {
         Authorization: `Bearer ${getKeycloakToken()}`

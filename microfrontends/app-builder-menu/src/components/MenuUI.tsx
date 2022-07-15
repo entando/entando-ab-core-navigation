@@ -422,23 +422,25 @@ export function MenuUI(props: Props): JSX.Element {
                         item.bundleName
                       }_${toSnakeCase(itemLabel)}`;
 
-                      const isExternal = item.hrefTarget === TARGET_BLANK
+                      const isExternal = item.hrefTarget === TARGET_BLANK;
 
                       return (
                         <TertiaryMenuItem
                           id={itemId}
-                          dataId={item.mfeName ? item.mfeName : isExternal ? "external" : undefined}
+                          dataId={
+                            item.mfeName
+                              ? item.mfeName
+                              : isExternal
+                              ? 'external'
+                              : undefined
+                          }
                           key={itemId}
                           label={
                             item.label[activeLanguage] ||
                             firstAvailableLabel ||
                             item.mfeName
                           }
-                          href={
-                            isExternal
-                              ? item.url
-                              : undefined
-                          }
+                          href={isExternal ? item.url : undefined}
                           onClick={() => item.url && navigate(item.url)}
                           target={item.hrefTarget}
                           rel={item.rel}

@@ -65,7 +65,7 @@ export function SecondaryMenu(props: Props): JSX.Element {
   } = useContext(MenuUIContext);
 
   const handleBack = (e: SyntheticEvent) => {
-    e.stopPropagation()
+    e.stopPropagation();
 
     setSecondaryMenuOpen(false);
     setTertiaryMenuOpen(false);

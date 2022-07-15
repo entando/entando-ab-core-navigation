@@ -60,6 +60,7 @@ import { useNavigation } from '../hooks/navigation';
 import { sendTutorialNextStepEvent } from '../utils/events';
 import { toSnakeCase } from '../utils/string';
 import { MfeConfig } from '../types/globals';
+import { MENU_DATA_ID } from '../constants';
 
 const MenuCmp = styled.menu`
   height: 100%;
@@ -167,7 +168,7 @@ export function MenuUI(props: Props): JSX.Element {
 
   return (
     <MenuUIContext.Provider value={menuUIContext}>
-      <MenuCmp data-id="main-menu">
+      <MenuCmp data-id={MENU_DATA_ID}>
         <ListGroup>
           <ListGroupItem
             id="dashboard"

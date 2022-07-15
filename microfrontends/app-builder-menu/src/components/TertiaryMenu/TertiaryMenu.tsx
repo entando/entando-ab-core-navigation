@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { SUBMENU_DATA_ID } from '../../constants';
 import { COLORS } from './../theme';
 
 const StyledSecondaryTertiaryMenu = styled.div<{ isVisible: boolean }>`
@@ -34,7 +35,7 @@ interface Props {
 export function TertiaryMenu(props: Props): JSX.Element {
   const { isOpen, children } = props;
   return (
-    <StyledSecondaryTertiaryMenu isVisible={isOpen} data-id="menu">
+    <StyledSecondaryTertiaryMenu isVisible={isOpen} data-id={SUBMENU_DATA_ID}>
       <StyledSecondaryListGroup>{children}</StyledSecondaryListGroup>
     </StyledSecondaryTertiaryMenu>
   );

@@ -373,8 +373,8 @@ export function MenuUI(props: Props): JSX.Element {
                     onClick={() => navigate(ROUTE_GROUP_LIST)}
                   />
                   <SecondaryMenuItem
-                    id="users-profileTypes"
-                    dataId="users-profileTypes"
+                    id="users-profile-types"
+                    dataId="users-profile-types"
                     label={content.profileTypes}
                     onClick={() => navigate(ROUTE_PROFILE_TYPE_LIST)}
                   />

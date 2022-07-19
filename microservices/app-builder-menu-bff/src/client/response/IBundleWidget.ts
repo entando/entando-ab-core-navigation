@@ -5,9 +5,9 @@ export type INav = {
 };
 
 export type IBundleNavInfo = {
-  descriptorExt?: {
+  descriptorExt: {
     nav: INav[]
-  }
+  } | null, // null when bundle is deployed but not installed
   labels?: {
     pbcNames?: string[]
   }
@@ -15,8 +15,7 @@ export type IBundleNavInfo = {
 
 export type IBundle = {
   bundleId: string
-  bundleName: string
-  bundleCode?: string // TODO: remove '?' when this will be populated by API
+  bundleCode: string
 } & IBundleNavInfo;
 
 export type IBundleWidget = {

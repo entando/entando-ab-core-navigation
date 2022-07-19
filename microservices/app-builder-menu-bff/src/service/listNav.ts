@@ -23,14 +23,10 @@ export const listNav = async (req: Request): Promise<INavResponse[]> => {
   const [bundles, widgets] = await Promise.all([listBundles(req), listBundlesWidgets(req)]);
 
   for (const bundle of bundles) {
-    let bundleCode = bundle.bundleCode
-    if (!bundleCode) {
-      bundleCode = `${bundle.bundleName}-${bundle.bundleId}`
-    }
-    bundleCodesMap.set(bundle.bundleId, bundleCode)
+    bundleCodesMap.set(bundle.bundleId, bundle.bundleCode)
 
     // Global nav
-    navList.push(...getNavItems(bundle, bundleCode, null))
+    navList.push(...getNavItems(bundle, bundle.bundleCode, null))
   }
 
   for (const widget of widgets) {

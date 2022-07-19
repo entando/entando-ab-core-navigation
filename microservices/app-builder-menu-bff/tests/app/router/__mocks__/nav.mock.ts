@@ -4,16 +4,16 @@ import { INavResponse, UNCATEGORIZED_PBC_NAME } from "../../../../src/service";
 export const LIST_BUNDLES_RESPONSE: IBundle[] = [
   {
     bundleId: 'aae34d0e',
-    bundleName: 'strapi-bundle'
+    bundleCode: 'strapi-bundle-aae34d0e',
+    descriptorExt: null
   },
   {
     bundleId: '12f4f691',
-    bundleName: 'test-bundle',
-    bundleCode: 'test-bundle-12f4f691'
+    bundleCode: 'test-bundle-12f4f691',
+    descriptorExt: null
   },
   {
     bundleId: 'a8d4da43',
-    bundleName: 'global-menu-bundle',
     bundleCode: 'global-menu-bundle-a8d4da43',
     descriptorExt: {
       nav: [

@@ -61,7 +61,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
             addr: 'addr2',
             target: 'app-builder',
             mfeName: 'name2',
-            url: '/pbc1/bundle2/addr2',
+            url: '/bundle2/addr2',
             label: {
               en: 'label2'
             },
@@ -78,7 +78,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
             addr: 'addr3',
             target: 'app-builder',
             mfeName: 'name3',
-            url: '/pbc2/bundle3/addr3',
+            url: '/bundle3/addr3',
             label: {
               en: 'label3'
             },

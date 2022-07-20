@@ -6,10 +6,15 @@ export const router: Router = Router();
 
 router.get('/api/nav',
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await listNav(req);
-
-    res.status(200).send({
-      payload: result,
-    });
+    try {
+      const result = await listNav(req);
+      res.status(200).send({
+        payload: result,
+      });
+    } catch (ex) {
+      res.status(500).send({
+        payload: 'Error while fetching bundles: ' + (ex as Error).message
+      })
+    }
   }
 );

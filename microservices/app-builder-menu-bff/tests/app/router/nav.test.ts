@@ -73,6 +73,15 @@ describe('User can list all navs', () => {
     expect(response.body.payload).toMatchObject(LIST_NAVS_RESPONSE);
   });
 
+  test('handles API response failure', async () => {
+    nock(`${process.env.ENTANDO_COMPONENT_MANAGER_API_URL}`)
+      .get('/*').reply(404);
+
+    await supertest(app).get('/api/nav')
+      .set({ 'Authorization': 'Bearer forwarded-token' })
+      .expect(500);
+  });
+
   /*
   test('tests listing all navs without authorization token', async () => {
     const response = await supertest(app).get('/api/nav')

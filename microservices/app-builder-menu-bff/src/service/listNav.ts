@@ -39,7 +39,7 @@ export const listNav = async (req: Request): Promise<INavResponse[]> => {
 
 function getNavItems(bundleNav: IBundleNavInfo, bundleCode: string, mfeName: string | null): INavResponse[] {
   const navList: INavResponse[] = [];
-  if (bundleNav.descriptorExt && bundleNav.labels) {
+  if (bundleNav.descriptorExt && bundleNav.descriptorExt.nav && bundleNav.labels) {
     if (bundleNav.labels.pbcNames && bundleNav.labels.pbcNames.length > 0) {
       bundleNav.labels.pbcNames.map(pbcName => {
         navList.push(...getNavResponseItem(bundleNav, pbcName, bundleCode, mfeName));
@@ -53,7 +53,7 @@ function getNavItems(bundleNav: IBundleNavInfo, bundleCode: string, mfeName: str
 }
 
 function getNavResponseItem(bundleNav: IBundleNavInfo, pbcName: string, bundleCode: string, mfeName: string | null): INavResponse[] {
-  return bundleNav.descriptorExt!.nav.map(n => {
+  return bundleNav.descriptorExt!.nav!.map(n => {
     return {
       pbcName,
       bundleCode,

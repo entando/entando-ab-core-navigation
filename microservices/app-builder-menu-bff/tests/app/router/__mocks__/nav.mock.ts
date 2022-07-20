@@ -28,6 +28,11 @@ export const LIST_BUNDLES_RESPONSE: IBundle[] = [
       ]
     },
     labels: {}
+  },
+  {
+    bundleId: '7774fabc',
+    bundleCode: 'test-no-nav-7774fabc',
+    descriptorExt: {}
   }
 ]
 

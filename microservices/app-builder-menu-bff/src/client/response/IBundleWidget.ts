@@ -6,7 +6,7 @@ export type INav = {
 
 export type IBundleNavInfo = {
   descriptorExt: {
-    nav: INav[]
+    nav?: INav[]
   } | null, // null when bundle is deployed but not installed
   labels?: {
     pbcNames?: string[]

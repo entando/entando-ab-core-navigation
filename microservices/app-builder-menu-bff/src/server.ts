@@ -52,7 +52,7 @@ const basepath = process.env.SERVER_SERVLET_CONTEXT_PATH
 
 loadRouters(__dirname + '/api')
   .forEach(router => {
-    app.use(`${basepath}`, router);
+    app.use(`${basepath}/api`, router);
   });
 
 // Fallback route

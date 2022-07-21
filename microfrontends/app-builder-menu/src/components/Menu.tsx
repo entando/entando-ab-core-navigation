@@ -10,6 +10,7 @@ import { MfeConfig } from '../types/globals';
 import { GlobalStyle } from '../styles/globalStyles';
 import { DEFAULT_LOCALE } from '../content';
 import { getPBCNav } from '../api/getPBCNav';
+import { useQueryParams } from '../hooks/common';
 
 interface Props {
   config: MfeConfig;
@@ -31,6 +32,9 @@ export function Menu(props: Props) {
   const [loading, setLoading] = useState(false);
 
   const [dynamicMenuItems, setDynamicMenuItems] = useState<MenuItem[]>([]);
+
+  const queryParams = useQueryParams();
+  const { menu_open } = queryParams || {};
 
   const { lang } = window.entando?.globals || {};
   const locale = lang || DEFAULT_LOCALE;
@@ -62,7 +66,11 @@ export function Menu(props: Props) {
         ) : (
           <>
             <GlobalStyle />
-            <MenuUI config={config} dynamicMenuItems={dynamicMenuItems} />
+            <MenuUI
+              config={config}
+              dynamicMenuItems={dynamicMenuItems}
+              openDefaultSubmenuId={menu_open}
+            />
           </>
         )}
       </ContentProvider>

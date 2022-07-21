@@ -15,6 +15,7 @@ export class AppBuilderMenu extends HTMLElement {
   }
 
   #config = {};
+  #attached = false;
 
   #updateConfig(value: any) {
     this.#config = JSON.parse(value);
@@ -48,8 +49,11 @@ export class AppBuilderMenu extends HTMLElement {
         </StyleSheetManager>
       </React.StrictMode>
     );
-
-    this.shadow.appendChild(styleParent);
-    this.shadow.appendChild(element);
+    if (!this.#attached) {
+      this.shadow.appendChild(styleParent);
+      this.shadow.appendChild(element);
+      this.#attached = true;
+      console.log('appended');
+    }
   }
 }

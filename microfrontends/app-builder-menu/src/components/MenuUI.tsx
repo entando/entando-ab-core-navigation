@@ -79,17 +79,22 @@ const MenuCmp = styled.menu`
 interface Props {
   config: MfeConfig;
   dynamicMenuItems: MenuItem[];
+  openDefaultSubmenuId?: string;
 }
 
 export function MenuUI(props: Props): JSX.Element {
-  const { config, dynamicMenuItems } = props;
+  const { config, dynamicMenuItems, openDefaultSubmenuId = '' } = props;
   const { userPermissions, systemReport, adminConsoleUrl, lang } =
     window.entando?.globals || {};
-  const [activeListGroupItemId, setActiveListGroupItemId] = useState('');
+
+  const [activeListGroupItemId, setActiveListGroupItemId] =
+    useState(openDefaultSubmenuId);
   const [activeSecondaryMenuItemId, setActiveSecondaryMenuItemId] =
     useState('');
   const [activeTertiaryMenuItemId, setActiveTertiaryMenuItemId] = useState('');
-  const [secondaryMenuOpen, setSecondaryMenuOpen] = useState(false);
+  const [secondaryMenuOpen, setSecondaryMenuOpen] = useState(
+    !!openDefaultSubmenuId
+  );
   const [tertiaryMenuOpen, setTertiaryMenuOpen] = useState(false);
   const content: ContentType = useContent();
 

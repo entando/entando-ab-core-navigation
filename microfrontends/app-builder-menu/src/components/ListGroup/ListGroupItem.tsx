@@ -149,7 +149,8 @@ export function ListGroupItem(props: Props): JSX.Element {
     setSecondaryMenuOpen,
     secondaryMenuOpen,
     setActiveTertiaryMenuItemId,
-    setActiveSecondaryMenuItemId
+    setActiveSecondaryMenuItemId,
+    setTertiaryMenuOpen
   } = useContext(MenuUIContext);
 
   const isActive = activeListGroupItemId === id;
@@ -162,6 +163,10 @@ export function ListGroupItem(props: Props): JSX.Element {
       setActiveTertiaryMenuItemId('');
       setActiveSecondaryMenuItemId('');
     } else {
+      setSecondaryMenuOpen(false);
+      setTertiaryMenuOpen(false);
+      setActiveSecondaryMenuItemId('');
+      setActiveTertiaryMenuItemId('');
       onClick && onClick();
     }
   };

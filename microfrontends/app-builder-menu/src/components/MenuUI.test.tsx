@@ -13,23 +13,26 @@ test('renders MenuUI', () => {
       <ListGroup>
         <ListGroupItem
           id="dashboard"
+          dataId="dashboard"
           label="Dashboard"
           renderIcon={props => <DashboardIcon {...props} />}
         />
         <ListGroupItem
           id="pages"
+          dataId="pages"
           label="Pages"
           className="app-tour-step-3"
           renderIcon={props => <PagesIcon {...props} />}
         >
           <SecondaryMenuItem
             id="pages-management"
+            dataId="pages-management"
             label="Management"
             className="app-tour-step-4"
           />
-          <SecondaryMenuItem id="pages-designer" label="Designer" />
-          <SecondaryMenuItem id="pages-templates" label="Templates" />
-          <SecondaryMenuItem id="pages-settings" label="Settings" />
+          <SecondaryMenuItem id="pages-designer" dataId="pages-designer" label="Designer" />
+          <SecondaryMenuItem id="pages-templates" dataId="pages-templates" label="Templates" />
+          <SecondaryMenuItem id="pages-settings" dataId="pages-settings" label="Settings" />
         </ListGroupItem>
       </ListGroup>
     )

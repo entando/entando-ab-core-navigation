@@ -10,6 +10,7 @@ test('renders ListGroupItem withour children', () => {
     .create(
       <ListGroupItem
         id="item1"
+        dataId="item1"
         label="Item 1"
         renderIcon={() => <DashboardIcon />}
         onClick={() => {}}
@@ -24,11 +25,12 @@ test('renders ListGroupItem with children', () => {
     .create(
       <ListGroupItem
         id="item1"
+        dataId="item1"
         label="Item 1"
         onClick={() => {}}
         renderIcon={() => <DashboardIcon />}
       >
-        <SecondaryMenuItem id="child1" label="Child 1" />
+        <SecondaryMenuItem id="child1" dataId="child1" label="Child 1" />
       </ListGroupItem>
     )
     .toJSON();
@@ -40,12 +42,13 @@ test('renders ListGroupItem with href', () => {
     .create(
       <ListGroupItem
         id="item1"
+        dataId="item1"
         label="Item 1"
         onClick={() => {}}
         href="http://localhost:8080"
         renderIcon={() => <DashboardIcon />}
       >
-        <SecondaryMenuItem id="child1" label="Child 1" />
+        <SecondaryMenuItem id="child1" dataId="child1" label="Child 1" />
       </ListGroupItem>
     )
     .toJSON();

@@ -1,73 +1,99 @@
-export const LIST_BUNDLES_RESPONSE = [
+import { IBundle, IBundleWidget } from "../../../../src/client/response/IBundleWidget";
+import { INavResponse, UNCATEGORIZED_PBC_NAME } from "../../../../src/service";
+
+export const LIST_BUNDLES_RESPONSE: IBundle[] = [
   {
-    name: 'strapi-bundle-1',
-    pbcName: 'strapi-pbc',
-    organization: 'entando',
-    description: 'Layout capabilities of App-builder',
-    global: {
+    bundleId: 'aae34d0e',
+    bundleCode: 'strapi-bundle-aae34d0e',
+    descriptorExt: null
+  },
+  {
+    bundleId: '12f4f691',
+    bundleCode: 'test-bundle-12f4f691',
+    descriptorExt: null
+  },
+  {
+    bundleId: 'a8d4da43',
+    bundleCode: 'global-menu-bundle-a8d4da43',
+    descriptorExt: {
       nav: [
         {
           label: {
-            it: 'Backoffice',
-            en: 'Backoffice',
+            it: 'Menu Globale',
+            en: 'Global Menu',
           },
-          target: 'external',
-          addr: 'https://www.strapi.com',
-        },
-      ],
+          target: 'app-builder',
+          url: '/global-menu',
+        }
+      ]
     },
-    microfrontends: [
-      {
-        name: 'strapi-content-template',
-        stack: 'react',
-        type: 'app-builder',
-        slot: 'content',
-        customElement: 'strapi-content-template',
-        group: 'free',
-        paths: ['/content-template'],
-        apiClaims: [
-          {
-            name: 'my-service-claim',
-            type: 'internal',
-            serviceId: 'my-service',
-          },
-          {
-            name: 'ext-service-claim',
-            type: 'external',
-            bundleId: 'some-bundle',
-            serviceId: 'a-service',
-          },
-        ],
-        nav: [
-          {
-            label: {
-              it: 'Content Template',
-              en: 'Content Template',
-            },
-            target: 'app-builder',
-            addr: '/content-template',
-          },
-        ],
-      },
-    ],
+    labels: {}
   },
+  {
+    bundleId: '7774fabc',
+    bundleCode: 'test-no-nav-7774fabc',
+    descriptorExt: {}
+  }
+]
+
+export const LIST_BUNDLES_WIDGETS_RESPONSE: IBundleWidget[] = [
+  {
+    bundleId: 'aae34d0e',
+    widgetName: 'strapi-content-template',
+    descriptorExt: {
+      nav: [
+        {
+          label: {
+            it: 'Content Template',
+            en: 'Content Template',
+          },
+          target: 'app-builder',
+          url: '/content-template',
+        }
+      ]
+    },
+    labels: {
+      pbcNames: ['strapi-pbc']
+    }
+  },
+  {
+    bundleId: '12f4f691',
+    widgetName: 'test-widget',
+    descriptorExt: {
+      nav: [
+        {
+          label: {
+            it: 'Test nav',
+            en: 'Test nav',
+          },
+          target: 'app-builder',
+          url: '/test-nav',
+        }
+      ]
+    },
+    labels: {
+      pbcNames: ['strapi-pbc', 'test-pbc']
+    }
+  }
 ];
 
-export const LIST_NAVS_RESPONSE = [
+export const LIST_NAVS_RESPONSE: INavResponse[] = [
   {
-    name: 'strapi-bundle-1',
-    pbcName: 'strapi-pbc',
+    pbcName: UNCATEGORIZED_PBC_NAME,
+    bundleCode: 'global-menu-bundle-a8d4da43',
+    mfeName: null,
     organization: 'entando',
     label: {
-      it: 'Backoffice',
-      en: 'Backoffice'
+      it: 'Menu Globale',
+      en: 'Global Menu'
     },
-    target: 'external',
-    addr: 'https://www.strapi.com'
+    target: 'app-builder',
+    addr: '/global-menu'
   },
   {
-    name: 'strapi-bundle-1',
     pbcName: 'strapi-pbc',
+    bundleCode: 'strapi-bundle-aae34d0e',
+    mfeName: 'strapi-content-template',
     organization: 'entando',
     label: {
       it: 'Content Template',
@@ -75,5 +101,29 @@ export const LIST_NAVS_RESPONSE = [
     },
     target: 'app-builder',
     addr: '/content-template'
+  },
+  {
+    pbcName: 'strapi-pbc',
+    bundleCode: 'test-bundle-12f4f691',
+    mfeName: 'test-widget',
+    organization: 'entando',
+    label: {
+      it: 'Test nav',
+      en: 'Test nav'
+    },
+    target: 'app-builder',
+    addr: '/test-nav'
+  },
+  {
+    pbcName: 'test-pbc',
+    bundleCode: 'test-bundle-12f4f691',
+    mfeName: 'test-widget',
+    organization: 'entando',
+    label: {
+      it: 'Test nav',
+      en: 'Test nav'
+    },
+    target: 'app-builder',
+    addr: '/test-nav'
   }
 ];

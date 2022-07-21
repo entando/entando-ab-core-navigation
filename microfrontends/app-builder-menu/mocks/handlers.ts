@@ -9,7 +9,7 @@ export function getHandlers(restClient: typeof rest) {
           payload: [
             {
               pbcName: 'strapi',
-              bundleName: 'strapi-bundle',
+              bundleCode: 'strapi-bundle-aae34d0e',
               mfeName: 'strapi-content-template',
               label: {
                 it: 'Content Templates',
@@ -21,7 +21,7 @@ export function getHandlers(restClient: typeof rest) {
             },
             {
               pbcName: 'strapi',
-              bundleName: 'strapi-bundle',
+              bundleCode: 'strapi-bundle-aae34d0e',
               mfeName: null,
               label: {
                 it: 'Backoffice',

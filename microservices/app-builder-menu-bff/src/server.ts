@@ -2,7 +2,6 @@ import express, { Express } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
-import { keycloak } from './middleware/keycloak';
 import { loadRouters } from './utils/loadRouters';
 import errorHandler from './middleware/errorHandler';
 import { NotFoundError } from './error/errors';
@@ -41,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Handle keycloak authorization
-app.use(keycloak.middleware());
+//app.use(keycloak.middleware());
 
 /************************************************************************************
  *                               Register all routes

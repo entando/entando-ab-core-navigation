@@ -420,7 +420,7 @@ export function MenuUI(props: Props): JSX.Element {
                       const itemLabel =
                         item.label['en'] || firstAvailableLabel || '';
                       const itemId = `${item.pbcName}_${
-                        item.bundleName
+                        item.bundleCode
                       }_${toSnakeCase(itemLabel)}`;
 
                       const isExternal = item.hrefTarget === TARGET_BLANK;

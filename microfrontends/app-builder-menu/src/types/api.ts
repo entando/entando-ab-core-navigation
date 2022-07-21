@@ -1,6 +1,6 @@
 export interface MenuItem {
   pbcName: string;
-  bundleName: string;
+  bundleCode: string;
   mfeName: string;
   label: Record<string, string>;
   target: string;

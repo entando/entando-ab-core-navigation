@@ -10,7 +10,7 @@ exports[`renders SecondaryMenu non-visible 1`] = `
   >
     <div
       className="sc-eCYdqJ jsZDLx"
-      data-back="true"
+      data-back="back"
       onClick={[Function]}
     >
       <svg
@@ -62,7 +62,7 @@ exports[`renders SecondaryMenu visible 1`] = `
   >
     <div
       className="sc-eCYdqJ jsZDLx"
-      data-back="true"
+      data-back="back"
       onClick={[Function]}
     >
       <svg

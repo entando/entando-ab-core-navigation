@@ -6,6 +6,7 @@ exports[`renders MenuUI 1`] = `
 >
   <li
     className="sc-gKXOVf iJxYWw"
+    data-id="dashboard"
     onClick={[Function]}
   >
     <a
@@ -63,6 +64,7 @@ exports[`renders MenuUI 1`] = `
   </li>
   <li
     className="sc-gKXOVf iJxYWw app-tour-step-3"
+    data-id="pages"
     onClick={[Function]}
   >
     <a

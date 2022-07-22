@@ -3,6 +3,7 @@
 exports[`renders SecondaryMenuItem with children 1`] = `
 <li
   className="sc-gKXOVf YVohq"
+  data-id="item1"
   onClick={[Function]}
 >
   <a
@@ -35,6 +36,7 @@ exports[`renders SecondaryMenuItem with children 1`] = `
 exports[`renders SecondaryMenuItem with href 1`] = `
 <li
   className="sc-gKXOVf YVohq"
+  data-id="item1"
   onClick={[Function]}
 >
   <a
@@ -68,6 +70,7 @@ exports[`renders SecondaryMenuItem with href 1`] = `
 exports[`renders SecondaryMenuItem without children 1`] = `
 <li
   className="sc-gKXOVf YVohq"
+  data-id="item1"
   onClick={[Function]}
 >
   <a

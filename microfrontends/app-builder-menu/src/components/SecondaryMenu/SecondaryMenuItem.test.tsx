@@ -6,7 +6,7 @@ import { SecondaryMenuItem } from './SecondaryMenuItem';
 
 test('renders SecondaryMenuItem without children', () => {
   const tree = renderer
-    .create(<SecondaryMenuItem id="item1" label="Item 1" onClick={() => {}} />)
+    .create(<SecondaryMenuItem id="item1" dataId="item1" label="Item 1" onClick={() => {}} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
@@ -14,7 +14,7 @@ test('renders SecondaryMenuItem without children', () => {
 test('renders SecondaryMenuItem with children', () => {
   const tree = renderer
     .create(
-      <SecondaryMenuItem id="item1" label="Item 1" onClick={() => {}}>
+      <SecondaryMenuItem id="item1" dataId="item1" label="Item 1" onClick={() => {}}>
         <TertiaryMenuItem id="child1" label="Child 1" />
       </SecondaryMenuItem>
     )
@@ -27,6 +27,7 @@ test('renders SecondaryMenuItem with href', () => {
     .create(
       <SecondaryMenuItem
         id="item1"
+        dataId="item1"
         label="Item 1"
         onClick={() => {}}
         href="http://localhost:8080"

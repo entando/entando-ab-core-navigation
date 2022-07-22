@@ -59,6 +59,7 @@ export function SecondaryMenuItem(props: Props): JSX.Element {
   const {
     activeSecondaryMenuItemId,
     setActiveSecondaryMenuItemId,
+    setSecondaryMenuOpen,
     tertiaryMenuOpen,
     setTertiaryMenuOpen
   } = useContext(MenuUIContext);
@@ -73,6 +74,7 @@ export function SecondaryMenuItem(props: Props): JSX.Element {
     if (hasChildren) {
       setTertiaryMenuOpen(true);
     } else {
+      setSecondaryMenuOpen(false);
       onClick && onClick();
     }
   };

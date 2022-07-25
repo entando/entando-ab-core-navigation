@@ -12,6 +12,7 @@ router.get('/api/nav',
         payload: result,
       });
     } catch (ex) {
+      console.error(ex)
       res.status(500).send({
         payload: 'Error while fetching bundles: ' + (ex as Error).message
       })

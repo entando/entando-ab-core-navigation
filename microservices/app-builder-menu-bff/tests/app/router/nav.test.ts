@@ -57,7 +57,7 @@ afterAll(() => {
 
 describe('User can list all navs', () => {
   test('tests listing all navs successfully', async () => {
-    nock(`${process.env.ENTANDO_COMPONENT_MANAGER_API_URL}`, {
+    nock(`${process.env.ENTANDO_ECR_INGRESS_URL}`, {
       reqheaders: {
         'Authorization': 'Bearer forwarded-token'
       }
@@ -74,7 +74,7 @@ describe('User can list all navs', () => {
   });
 
   test('handles API response failure', async () => {
-    nock(`${process.env.ENTANDO_COMPONENT_MANAGER_API_URL}`)
+    nock(`${process.env.ENTANDO_ECR_INGRESS_URL}`)
       .get('/*').reply(404);
 
     await supertest(app).get('/api/nav')

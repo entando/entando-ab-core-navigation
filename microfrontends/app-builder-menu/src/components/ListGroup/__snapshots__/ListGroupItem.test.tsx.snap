@@ -3,6 +3,7 @@
 exports[`renders ListGroupItem with children 1`] = `
 <li
   className="sc-jqUVSM eaQPOR"
+  data-id="item1"
   onClick={[Function]}
 >
   <a
@@ -83,6 +84,7 @@ exports[`renders ListGroupItem with children 1`] = `
 exports[`renders ListGroupItem with href 1`] = `
 <li
   className="sc-jqUVSM eaQPOR"
+  data-id="item1"
   onClick={[Function]}
 >
   <a
@@ -164,6 +166,7 @@ exports[`renders ListGroupItem with href 1`] = `
 exports[`renders ListGroupItem withour children 1`] = `
 <li
   className="sc-jqUVSM eaQPOR"
+  data-id="item1"
   onClick={[Function]}
 >
   <a

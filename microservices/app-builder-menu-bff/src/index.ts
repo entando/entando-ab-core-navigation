@@ -9,6 +9,16 @@ dotenv.config({ path: envFile });
 
 import app from './server';
 
+process.on('SIGINT', () => {
+  console.info("Interrupted");
+  process.exit(0);
+});
+
+process.on('SIGTERM', () => {
+  console.info('Quitting');
+  process.exit(0);
+});
+
 const port = Number(process.env.PORT || 8080);
 app.listen(port, () => {
   console.info('Service started on port: ' + port);

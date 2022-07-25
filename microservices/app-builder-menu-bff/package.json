@@ -1,6 +1,6 @@
 {
   "name": "app-builder-menu-bff",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Entando AppBuilder Menu BFF",
   "main": "src/index.ts",
   "private": true,

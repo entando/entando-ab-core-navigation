@@ -14,4 +14,4 @@ COPY dist/app-builder-menu-bff/src .
 COPY dist/app-builder-menu-bff/node_modules ./node_modules
 
 EXPOSE 8081
-ENTRYPOINT node index.js
+ENTRYPOINT ["node", "index.js"]

@@ -27,7 +27,6 @@ export class AppBuilderMenu extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: any, newValue: any) {
     if (name === 'config' && oldValue !== newValue) {
       this.#updateConfig(newValue);
-      this.render();
     }
   }
 

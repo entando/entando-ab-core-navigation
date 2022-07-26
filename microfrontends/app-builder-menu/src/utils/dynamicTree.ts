@@ -20,7 +20,13 @@ export const generateDynamicMenuItems = (
               hrefTarget: TARGET_BLANK,
               rel: SAFE_REL
             }
-          : { url: `/${item.bundleCode}/${item.addr}` })
+          : {
+              // removes any number of slashes from the beginning of the url and only leaves 1 slash present
+              url: `/${item.bundleCode}/${item.addr}`.replace(
+                /(https?:\/\/)|(\/)+/g,
+                '$1$2'
+              )
+            })
       }))
   }));
 };

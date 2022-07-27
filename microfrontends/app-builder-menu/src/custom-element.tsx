@@ -27,7 +27,6 @@ export class AppBuilderMenu extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: any, newValue: any) {
     if (name === 'config' && oldValue !== newValue) {
       this.#updateConfig(newValue);
-      this.render();
     }
   }
 
@@ -40,6 +39,22 @@ export class AppBuilderMenu extends HTMLElement {
     const styleParent = document.createElement('div');
 
     const root = ReactDOM.createRoot(element);
+
+    const rootElemId = 'app-builder-menu-main-element-id';
+    const stylesElemId = 'app-builder-menu-styles-element-id';
+
+    styleParent.id = stylesElemId;
+    element.id = rootElemId;
+
+    const findElem = this.shadow.getElementById(stylesElemId);
+    if (findElem) {
+      this.shadow.removeChild(findElem);
+    }
+
+    const findMainElem = this.shadow.getElementById(rootElemId);
+    if (findMainElem) {
+      this.shadow.removeChild(findMainElem);
+    }
 
     root.render(
       <React.StrictMode>

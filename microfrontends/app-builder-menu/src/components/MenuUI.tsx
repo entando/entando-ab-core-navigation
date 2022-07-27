@@ -76,6 +76,17 @@ const MenuCmp = styled.menu`
   z-index: 1030;
 `;
 
+const StyledPlaceholder = styled.a`
+  color: ${COLORS.text};
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  line-height: 26px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+`;
+
 interface Props {
   config: MfeConfig;
   dynamicMenuItems: MenuItem[];
@@ -397,14 +408,14 @@ export function MenuUI(props: Props): JSX.Element {
               onClick={() => navigate(ROUTE_ECR_COMPONENT_LIST)}
             />
           )}
-          {!!epcMenuItems?.length && (
-            <ListGroupItem
-              id="epc"
-              dataId="epc"
-              label={content.EPCS}
-              renderIcon={props => <EPCsIcon {...props} />}
-            >
-              {epcMenuItems.map(epc => {
+          <ListGroupItem
+            id="epc"
+            dataId="epc"
+            label={content.EPCS}
+            renderIcon={props => <EPCsIcon {...props} />}
+          >
+            {epcMenuItems?.length ? (
+              epcMenuItems.map(epc => {
                 return (
                   <SecondaryMenuItem
                     id={epc.parent}
@@ -450,9 +461,17 @@ export function MenuUI(props: Props): JSX.Element {
                     })}
                   </SecondaryMenuItem>
                 );
-              })}
-            </ListGroupItem>
-          )}
+              })
+            ) : (
+              <StyledPlaceholder
+                href="https://hub.entando.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Install your first Entando Platform Capability
+              </StyledPlaceholder>
+            )}
+          </ListGroupItem>
           {hasSuperuserAccess && (
             <ListGroupItem
               id="admin"

@@ -57,11 +57,9 @@ export class AppBuilderMenu extends HTMLElement {
     }
 
     root.render(
-      <React.StrictMode>
-        <StyleSheetManager target={styleParent}>
-          <Menu config={this.#config as MfeConfig} />
-        </StyleSheetManager>
-      </React.StrictMode>
+      <StyleSheetManager target={styleParent}>
+        <Menu config={this.#config as MfeConfig} />
+      </StyleSheetManager>
     );
 
     this.shadow.appendChild(styleParent);

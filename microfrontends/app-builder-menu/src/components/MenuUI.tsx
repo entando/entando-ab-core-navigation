@@ -442,7 +442,9 @@ export function MenuUI(props: Props): JSX.Element {
                             item.mfeName
                           }
                           href={isExternal ? item.url : undefined}
-                          onClick={() => item.url && navigate(item.url)}
+                          onClick={() =>
+                            !isExternal && item.url && navigate(item.url)
+                          }
                           target={item.hrefTarget}
                           rel={item.rel}
                         />

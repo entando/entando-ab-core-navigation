@@ -4,6 +4,8 @@ import { IntlProvider, MessageFormatElement } from 'react-intl';
 
 // lang imports
 import en_messages from '../i18n/en.json';
+import it_messages from '../i18n/it.json';
+import pt_messages from '../i18n/pt.json';
 import { ContentProvider } from './hooks/useContent';
 import { MenuItem } from '../types/api';
 import { MfeConfig } from '../types/globals';
@@ -22,7 +24,9 @@ interface MessageMap {
 }
 
 const messages: MessageMap = {
-  en: en_messages
+  en: en_messages,
+  it: it_messages,
+  pt: pt_messages
 };
 
 export function Menu(props: Props) {

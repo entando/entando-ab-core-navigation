@@ -77,6 +77,7 @@ const MenuCmp = styled.menu`
 `;
 
 const StyledPlaceholder = styled.a`
+  display: inline-block;
   color: ${COLORS.text};
   font-size: 14px;
   font-family: 'Open Sans', sans-serif;
@@ -84,7 +85,12 @@ const StyledPlaceholder = styled.a`
   line-height: 26px;
   margin: 0;
   padding: 0;
-  text-align: center;
+  padding-right: 10px;
+  text-align: left;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 interface Props {
@@ -468,7 +474,7 @@ export function MenuUI(props: Props): JSX.Element {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Install your first Entando Platform Capability
+                {content.epcPlaceholder}
               </StyledPlaceholder>
             )}
           </ListGroupItem>

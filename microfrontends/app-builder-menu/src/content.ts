@@ -119,6 +119,10 @@ export function getContent(intl: IntlShape): ContentType {
     reloadConfiguration: intl.formatMessage({
       id: 'app.reloadConfiguration',
       defaultMessage: 'Reload Configuration'
+    }),
+    epcPlaceholder: intl.formatMessage({
+      id: 'app.epcPlaceholder',
+      defaultMessage: 'Install your first Entando Platform Capability'
     })
   };
 }

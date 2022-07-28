@@ -28,7 +28,7 @@ const messages: MessageMap = {
 export function Menu(props: Props) {
   const { config } = props;
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [dynamicMenuItems, setDynamicMenuItems] = useState<MenuItem[]>([]);
 
@@ -37,8 +37,6 @@ export function Menu(props: Props) {
 
   useEffect(() => {
     const request = async () => {
-      setLoading(true);
-
       const { data } = await getPBCNav(config);
 
       setDynamicMenuItems(data?.payload || []);

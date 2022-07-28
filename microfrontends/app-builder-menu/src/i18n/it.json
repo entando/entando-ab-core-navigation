@@ -26,5 +26,6 @@
   "app.fileBrowser": "Browser di file",
   "app.languageAndLabels": "Lingua ed etichette",
   "app.emailConfiguration": "Configurazione e-mail",
-  "app.reloadConfiguration": "Ricarica configurazione"
+  "app.reloadConfiguration": "Ricarica configurazione",
+  "app.epcPlaceholder": "Installa la tua prima Entando Platform Capability"
 }

@@ -13,8 +13,8 @@ export function AdministrationIcon(props: Props): JSX.Element {
       version="1.1"
       id="svg2"
       xmlns="http://www.w3.org/2000/svg"
-      width="1200px"
-      height="1200px"
+      width="20px"
+      height="20px"
       viewBox="0 0 1200 1200"
     >
       <path

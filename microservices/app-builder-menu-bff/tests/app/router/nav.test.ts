@@ -1,16 +1,6 @@
 import supertest from 'supertest';
 import nock from 'nock';
 
-/*
-import {
-  createMockInstance,
-  activateMock,
-  MockInstance,
-  Mock,
-  MockUser
-} from 'keycloak-mock';
-*/
-
 import app from '../../../src/server';
 
 import {
@@ -19,40 +9,8 @@ import {
   LIST_NAVS_RESPONSE,
 } from './__mocks__/nav.mock';
 
-/*
-interface KeycloakTestCache {
-  keycloak?: MockInstance
-  user?: MockUser
-  mock?: Mock
-  token?: string
-}
-
-const global: KeycloakTestCache = { };
-
-beforeAll(async () => {
-  const keycloak = await createMockInstance({
-    authServerURL: `${process.env.KEYCLOAK_URL}`,
-    realm: `${process.env.KEYCLOAK_REALM}`,
-    clientID: `${process.env.KEYCLOAK_CLIENT_ID}`,
-    clientSecret: `${process.env.KEYCLOAK_CLIENT_SECRET}`,
-  });
-
-  const user = keycloak.database.createUser({
-    username: 'test',
-    email: 'hello@hello.com',
-    credentials: [{
-      value: 'mypassword',
-    }],
-  });
-
-  global.mock = activateMock(keycloak);
-  global.token = keycloak.createBearerToken(user.profile.id);
-});
-*/
-
 afterAll(() => {
   nock.cleanAll();
-  //global.mock?.instance.database.clear();
 });
 
 describe('User can list all navs', () => {

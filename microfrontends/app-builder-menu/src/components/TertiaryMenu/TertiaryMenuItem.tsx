@@ -60,13 +60,17 @@ export function TertiaryMenuItem(props: Props): JSX.Element {
     className = ''
   } = props;
 
-  const { activeTertiaryMenuItemId, setActiveTertiaryMenuItemId } =
-    useContext(MenuUIContext);
+  const {
+    activeTertiaryMenuItemId,
+    setActiveTertiaryMenuItemId,
+    setTertiaryMenuOpen
+  } = useContext(MenuUIContext);
 
   const isActive = activeTertiaryMenuItemId === id;
 
   const handleClick = (): void => {
     setActiveTertiaryMenuItemId(id);
+    setTertiaryMenuOpen(false);
     onClick && onClick();
   };
 

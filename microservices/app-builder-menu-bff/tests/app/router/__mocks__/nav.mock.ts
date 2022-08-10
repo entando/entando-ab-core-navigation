@@ -1,5 +1,5 @@
-import { IBundle, IBundleWidget } from "../../../../src/client/response/IBundleWidget";
-import { INavResponse, UNCATEGORIZED_PBC_NAME } from "../../../../src/service";
+import { IBundle, IBundleWidget } from '../../../../src/client/response/IBundleWidget';
+import { INavResponse, UNCATEGORIZED_PBC_NAME } from '../../../../src/service';
 
 export const LIST_BUNDLES_RESPONSE: IBundle[] = [
   {
@@ -22,7 +22,7 @@ export const LIST_BUNDLES_RESPONSE: IBundle[] = [
             it: 'Menu Globale',
             en: 'Global Menu',
           },
-          target: 'app-builder',
+          target: 'internal',
           url: '/global-menu',
         }
       ]
@@ -34,7 +34,7 @@ export const LIST_BUNDLES_RESPONSE: IBundle[] = [
     bundleCode: 'test-no-nav-7774fabc',
     descriptorExt: {}
   }
-]
+];
 
 export const LIST_BUNDLES_WIDGETS_RESPONSE: IBundleWidget[] = [
   {
@@ -47,7 +47,7 @@ export const LIST_BUNDLES_WIDGETS_RESPONSE: IBundleWidget[] = [
             it: 'Content Template',
             en: 'Content Template',
           },
-          target: 'app-builder',
+          target: 'internal',
           url: '/content-template',
         }
       ]
@@ -66,7 +66,7 @@ export const LIST_BUNDLES_WIDGETS_RESPONSE: IBundleWidget[] = [
             it: 'Test nav',
             en: 'Test nav',
           },
-          target: 'app-builder',
+          target: 'internal',
           url: '/test-nav',
         }
       ]
@@ -87,7 +87,7 @@ export const LIST_NAVS_RESPONSE: INavResponse[] = [
       it: 'Menu Globale',
       en: 'Global Menu'
     },
-    target: 'app-builder',
+    target: 'internal',
     addr: '/global-menu'
   },
   {
@@ -99,7 +99,7 @@ export const LIST_NAVS_RESPONSE: INavResponse[] = [
       it: 'Content Template',
       en: 'Content Template'
     },
-    target: 'app-builder',
+    target: 'internal',
     addr: '/content-template'
   },
   {
@@ -111,7 +111,7 @@ export const LIST_NAVS_RESPONSE: INavResponse[] = [
       it: 'Test nav',
       en: 'Test nav'
     },
-    target: 'app-builder',
+    target: 'internal',
     addr: '/test-nav'
   },
   {
@@ -123,7 +123,7 @@ export const LIST_NAVS_RESPONSE: INavResponse[] = [
       it: 'Test nav',
       en: 'Test nav'
     },
-    target: 'app-builder',
+    target: 'internal',
     addr: '/test-nav'
   }
 ];

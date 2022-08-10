@@ -18,7 +18,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
         pbcName: 'pbc1',
         bundleCode: 'bundle2',
         addr: 'addr2',
-        target: 'app-builder',
+        target: 'internal',
         mfeName: 'name2',
         label: {
           en: 'label2'
@@ -29,7 +29,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
         pbcName: 'pbc2',
         bundleCode: 'bundle3',
         addr: 'addr3',
-        target: 'app-builder',
+        target: 'internal',
         mfeName: 'name3',
         label: {
           en: 'label3'
@@ -59,7 +59,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
             pbcName: 'pbc1',
             bundleCode: 'bundle2',
             addr: 'addr2',
-            target: 'app-builder',
+            target: 'internal',
             mfeName: 'name2',
             url: '/bundle2/addr2',
             label: {
@@ -76,7 +76,7 @@ describe('verify generateDynamicMenuItems function correctness', () => {
             pbcName: 'pbc2',
             bundleCode: 'bundle3',
             addr: 'addr3',
-            target: 'app-builder',
+            target: 'internal',
             mfeName: 'name3',
             url: '/bundle3/addr3',
             label: {

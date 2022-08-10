@@ -15,7 +15,7 @@ export function getHandlers(restClient: typeof rest) {
                 it: 'Content Templates',
                 en: 'Content Templates'
               },
-              target: 'app-builder',
+              target: 'internal',
               addr: 'content-template',
               organization: 'entando'
             },

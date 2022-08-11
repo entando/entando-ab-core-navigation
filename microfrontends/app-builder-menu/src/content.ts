@@ -30,7 +30,7 @@ export function getContent(intl: IntlShape): ContentType {
     }),
     repository: intl.formatMessage({
       id: 'app.repository',
-      defaultMessage: 'Repository'
+      defaultMessage: 'Hub'
     }),
     EPCS: intl.formatMessage({
       id: 'app.epcs',

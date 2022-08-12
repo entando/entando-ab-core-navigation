@@ -27,6 +27,6 @@
   "svc": [],
   "name": "entando-ab-core-navigation",
   "version": "1.0.0",
-  "description": "Layout capabilities of App-builder",
+  "description": "EPC Layout Capabilities for App Builder",
   "type": "bundle"
 }

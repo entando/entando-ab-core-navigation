@@ -12,7 +12,6 @@ import { MfeConfig } from '../types/globals';
 import { GlobalStyle } from '../styles/globalStyles';
 import { DEFAULT_LOCALE } from '../content';
 import { getPBCNav } from '../api/getPBCNav';
-import { useQueryParams } from '../hooks/common';
 
 interface Props {
   config: MfeConfig;
@@ -37,8 +36,7 @@ export function Menu(props: Props) {
 
   const [dynamicMenuItems, setDynamicMenuItems] = useState<MenuItem[]>([]);
 
-  const queryParams = useQueryParams();
-  const { menu_open } = queryParams || {};
+  const menuOpen = sessionStorage.getItem('menu_open') || '';
 
   const { lang } = window.entando?.globals || {};
   const locale = lang || DEFAULT_LOCALE;
@@ -53,6 +51,12 @@ export function Menu(props: Props) {
 
     if (config) {
       request();
+    }
+
+    if (menuOpen) {
+      window.addEventListener('beforeunload', (e) => {
+        sessionStorage.removeItem('menu_open');
+      });
     }
   }, []);
 
@@ -71,7 +75,7 @@ export function Menu(props: Props) {
             <MenuUI
               config={config}
               dynamicMenuItems={dynamicMenuItems}
-              openDefaultSubmenuId={menu_open}
+              openDefaultSubmenuId={menuOpen}
             />
           </>
         )}

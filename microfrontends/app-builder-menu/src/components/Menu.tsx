@@ -52,12 +52,22 @@ export function Menu(props: Props) {
     if (config) {
       request();
     }
+    
+    const removeMenuOpenSession = () => {
+      sessionStorage.removeItem('menu_open');
+    };
 
     if (menuOpen) {
-      window.addEventListener('beforeunload', (e) => {
-        sessionStorage.removeItem('menu_open');
-      });
+      window.addEventListener('beforeunload', removeMenuOpenSession);
     }
+
+    return () => {
+      if (menuOpen) {
+        removeMenuOpenSession();
+      }
+
+      window.removeEventListener('beforeunload', removeMenuOpenSession);
+    };
   }, []);
 
   return (

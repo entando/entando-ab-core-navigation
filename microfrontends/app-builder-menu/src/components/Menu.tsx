@@ -59,14 +59,12 @@ export function Menu(props: Props) {
 
     if (menuOpen) {
       window.addEventListener('beforeunload', removeMenuOpenSession);
-    }
 
-    return () => {
-      if (menuOpen) {
+      return () => {
         removeMenuOpenSession();
         window.removeEventListener('beforeunload', removeMenuOpenSession);
-      }
-    };
+      };
+    }
   }, []);
 
   return (

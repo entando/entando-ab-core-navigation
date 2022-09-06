@@ -64,9 +64,8 @@ export function Menu(props: Props) {
     return () => {
       if (menuOpen) {
         removeMenuOpenSession();
+        window.removeEventListener('beforeunload', removeMenuOpenSession);
       }
-
-      window.removeEventListener('beforeunload', removeMenuOpenSession);
     };
   }, []);
 

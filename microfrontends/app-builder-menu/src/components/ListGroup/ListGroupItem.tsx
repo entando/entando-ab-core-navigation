@@ -24,9 +24,11 @@ const StyledListGroupItem = styled.li<ListGroupItemProps>`
   ${({ fixBottom }) =>
     fixBottom
       ? `
-  position: fixed;
-  bottom: 64px;
-  left: 0;
+  @media (min-height: 636px) {
+    position: fixed;
+    bottom: 64px;
+    left: 0;
+  }
   `
       : ''}
 

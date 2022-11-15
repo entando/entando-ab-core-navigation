@@ -27,8 +27,8 @@ export const useActiveMenuItem = (defaultActiveMenuItem: string = '') => {
 
     // Intercept `history` method calls to handle `activeMenuItem` update
     // since there seems to be no other agnostic way of "listening" to location changes
-    historyStateMethods.forEach((event) => {
-      window.history[event] = new Proxy(window.history[event], {
+    historyStateMethods.forEach((method) => {
+      window.history[method] = new Proxy(window.history[method], {
         apply: (target, thisArg, argArray) => {
           const [,, path] = argArray;
           setActiveMenuItem(getMenuItemFromPath(path));

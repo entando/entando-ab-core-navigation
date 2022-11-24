@@ -22,22 +22,13 @@ describe('useActiveMenuItem', () => {
   });
 
   it('should return updated activeMenuItem when new location is pushed', () => {
+    window.entando.router.listen = jest.fn(
+      (listener) => {
+        listener({ location: { pathname: '/widget' } as Location });
+        return () => {};
+      }
+    );
     const { result } = renderHook(() => useActiveMenuItem());
-    
-    act(() => {
-      window.history.pushState({}, '', '/widget');
-    });
-
     expect(result.current.activeMenuItem).toBe('components');
-  });
-
-  it('should return updated activeMenuItem when location is replaced', () => {
-    const { result } = renderHook(() => useActiveMenuItem());
-    
-    act(() => {
-      window.history.replaceState({}, '', '/component-repository');
-    });
-
-    expect(result.current.activeMenuItem).toBe('repository');
   });
 });

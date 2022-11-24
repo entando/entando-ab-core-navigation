@@ -21,24 +21,12 @@ export const useActiveMenuItem = (defaultActiveMenuItem: string = '') => {
     useState(defaultActiveMenuItem || getMenuItemFromPath(window.location.pathname));
 
   useEffect(() => {
-    const origHistory = { ...window.history };
-    const historyStateMethods: Array<keyof Pick<History, 'pushState' | 'replaceState'>>
-      = ['pushState', 'replaceState'];
-
-    // Intercept `history` method calls to handle `activeMenuItem` update
-    // since there seems to be no other agnostic way of "listening" to location changes
-    historyStateMethods.forEach((method) => {
-      window.history[method] = new Proxy(window.history[method], {
-        apply: (target, thisArg, argArray) => {
-          const [,, path] = argArray;
-          setActiveMenuItem(getMenuItemFromPath(path));
-          return target.apply(thisArg, argArray as any);
-        },
-      });
+    const unlisten = window.entando.router.listen(({ location }) => {
+      setActiveMenuItem(getMenuItemFromPath(location.pathname));
     });
 
     return () => {
-      window.history = origHistory;
+      unlisten();
     };
   }, []);
 

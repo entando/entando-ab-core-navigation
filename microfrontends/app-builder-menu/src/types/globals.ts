@@ -25,6 +25,8 @@ declare global {
       globals: EntandoGlobals;
       router: {
         push: (route: string) => void;
+        replace: (newRoute: string) => void;
+        listen: (listener: (routeUpdate: { location: Location }) => void) => Function;
       };
       mockingService: {
         setMock: (handler: any) => void;

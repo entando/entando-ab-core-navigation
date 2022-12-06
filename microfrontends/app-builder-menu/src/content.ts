@@ -123,6 +123,11 @@ export function getContent(intl: IntlShape): ContentType {
     epcPlaceholder: intl.formatMessage({
       id: 'app.epcPlaceholder',
       defaultMessage: 'Install your first Entando Platform Capability'
+    }),
+    epcHasError: intl.formatMessage({
+      id: 'app.epcHasError',
+      defaultMessage:
+        'EPCs not available, something went wrong during the installation of one EPC'
     })
   };
 }

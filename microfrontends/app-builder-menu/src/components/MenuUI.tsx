@@ -97,10 +97,16 @@ interface Props {
   config: MfeConfig;
   dynamicMenuItems: MenuItem[];
   openDefaultSubmenuId?: string;
+  epcHasError: boolean;
 }
 
 export function MenuUI(props: Props): JSX.Element {
-  const { config, dynamicMenuItems, openDefaultSubmenuId = '' } = props;
+  const {
+    config,
+    dynamicMenuItems,
+    openDefaultSubmenuId = '',
+    epcHasError
+  } = props;
   const { userPermissions, systemReport, adminConsoleUrl, lang } =
     window.entando?.globals || {};
 
@@ -423,6 +429,8 @@ export function MenuUI(props: Props): JSX.Element {
             id="epc"
             dataId="epc"
             label={content.EPCS}
+            hasError={epcHasError}
+            errorTooltipLabel={content.epcHasError}
             renderIcon={props => <EPCsIcon {...props} />}
           >
             {epcMenuItems?.length ? (

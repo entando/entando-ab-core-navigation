@@ -1,7 +1,7 @@
 import { ContentProvider, useContent } from './useContent';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
-import en_messages from '../../i18n/en.json';
+import en_messages from '../i18n/en.json';
 
 const MOCKED_CONTENT = {
   'app-builder-menu': {

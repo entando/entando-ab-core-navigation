@@ -54,7 +54,7 @@ import {
   ROUTE_USER_RESTRICTIONS,
   ROUTE_WIDGET_LIST
 } from '../utils/routes';
-import { useContent } from './hooks/useContent';
+import { useContent } from '../hooks/useContent';
 import { ContentType, DEFAULT_LOCALE } from '../content';
 import { useNavigation } from '../hooks/navigation';
 import { sendTutorialNextStepEvent } from '../utils/events';

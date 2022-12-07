@@ -6,7 +6,7 @@ import { IntlProvider, MessageFormatElement } from 'react-intl';
 import en_messages from '../i18n/en.json';
 import it_messages from '../i18n/it.json';
 import pt_messages from '../i18n/pt.json';
-import { ContentProvider } from './hooks/useContent';
+import { ContentProvider } from '../hooks/useContent';
 import { MenuItem } from '../types/api';
 import { MfeConfig } from '../types/globals';
 import { GlobalStyle } from '../styles/globalStyles';
@@ -52,7 +52,7 @@ export function Menu(props: Props) {
     if (config) {
       request();
     }
-    
+
     const removeMenuOpenSession = () => {
       sessionStorage.removeItem('menu_open');
     };

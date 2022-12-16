@@ -61,6 +61,7 @@ import { sendTutorialNextStepEvent } from '../utils/events';
 import { toSnakeCase } from '../utils/string';
 import { MfeConfig } from '../types/globals';
 import { MENU_DATA_ID } from '../constants';
+import { useActiveMenuItem } from '../hooks/menu';
 
 const MenuCmp = styled.menu`
   height: 100%;
@@ -104,8 +105,11 @@ export function MenuUI(props: Props): JSX.Element {
   const { userPermissions, systemReport, adminConsoleUrl, lang } =
     window.entando?.globals || {};
 
-  const [activeListGroupItemId, setActiveListGroupItemId] =
-    useState(openDefaultSubmenuId);
+  const {
+    activeMenuItem: activeListGroupItemId,
+    setActiveMenuItem: setActiveListGroupItemId,
+  } = useActiveMenuItem(openDefaultSubmenuId);
+
   const [activeSecondaryMenuItemId, setActiveSecondaryMenuItemId] =
     useState('');
   const [activeTertiaryMenuItemId, setActiveTertiaryMenuItemId] = useState('');

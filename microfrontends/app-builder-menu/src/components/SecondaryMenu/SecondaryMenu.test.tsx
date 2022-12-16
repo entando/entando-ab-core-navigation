@@ -11,7 +11,7 @@ test('Check toggling secondary menu', async () => {
     ...window.entando.globals,
     userPermissions: ['managePages']
   };
-  window.entando.router = { push: jest.fn((val: string) => {}) };
+
   render(
     <Menu
       config={{

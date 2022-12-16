@@ -26,7 +26,7 @@ declare global {
       router: {
         push: (route: string) => void;
         replace: (newRoute: string) => void;
-        listen: (listener: (routeUpdate: { location: Location }) => void) => Function;
+        listen: (listener: (location: Location) => void) => Function;
       };
       mockingService: {
         setMock: (handler: any) => void;

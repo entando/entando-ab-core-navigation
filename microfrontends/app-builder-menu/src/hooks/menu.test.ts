@@ -24,7 +24,7 @@ describe('useActiveMenuItem', () => {
   it('should return updated activeMenuItem when new location is pushed', () => {
     window.entando.router.listen = jest.fn(
       (listener) => {
-        listener({ location: { pathname: '/widget' } as Location });
+        listener({ pathname: '/widget' } as Location);
         return () => {};
       }
     );

@@ -21,8 +21,8 @@ export const useActiveMenuItem = (defaultActiveMenuItem: string = '') => {
     useState(defaultActiveMenuItem || getMenuItemFromPath(window.location.pathname));
 
   useEffect(() => {
-    const unlisten = window.entando.router.listen(({ location }) => {
-      setActiveMenuItem(getMenuItemFromPath(location.pathname));
+    const unlisten = window.entando.router.listen(({ pathname }) => {
+      setActiveMenuItem(getMenuItemFromPath(pathname));
     });
 
     return () => {

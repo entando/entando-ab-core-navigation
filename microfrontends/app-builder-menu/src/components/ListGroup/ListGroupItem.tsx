@@ -39,6 +39,7 @@ const StyledListGroupItem = styled.li<ListGroupItemProps>`
 
 interface StyledLinkProps {
   isActive: boolean;
+  isDisabled?: boolean;
 }
 
 const StyledLink = styled.a<StyledLinkProps>`
@@ -48,6 +49,8 @@ const StyledLink = styled.a<StyledLinkProps>`
   color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.text)};
   cursor: pointer;
   display: block;
+  opacity: ${({ isDisabled }) => (isDisabled ? '0.5' : '1')};
+  pointer-events: ${({ isDisabled }) => (isDisabled ? 'none' : 'auto')};
   font-size: 14px;
   font-family: 'Open Sans', sans-serif;
   font-weight: ${({ isActive }) => (isActive ? '600' : '400')};
@@ -130,6 +133,8 @@ interface Props {
   href?: string;
   className?: string;
   dataId: string;
+  errorTooltipLabel?: string;
+  hasError?: boolean;
 }
 
 export function ListGroupItem(props: Props): JSX.Element {
@@ -142,7 +147,9 @@ export function ListGroupItem(props: Props): JSX.Element {
     onClick,
     href,
     dataId,
-    className = ''
+    className = '',
+    errorTooltipLabel = '',
+    hasError
   } = props;
 
   const {
@@ -157,8 +164,12 @@ export function ListGroupItem(props: Props): JSX.Element {
 
   const isActive = activeListGroupItemId === id;
   const hasChildren = !!children;
+  const isDisabled = hasError;
 
   const onClickHandler = () => {
+    if (isDisabled) {
+      return;
+    }
     setActiveListGroupItemId(id);
     if (hasChildren) {
       setSecondaryMenuOpen(true);
@@ -178,10 +189,15 @@ export function ListGroupItem(props: Props): JSX.Element {
       isActive={isActive}
       fixBottom={fixBottom}
       onClick={onClickHandler}
-      className={className}
+      className={`${className}`}
       data-id={dataId}
+      {...(hasError && {
+        'aria-label': errorTooltipLabel,
+        'data-balloon-pos': 'down',
+        'data-balloon-length': 'medium'
+      })}
     >
-      <StyledLink isActive={isActive} href={href}>
+      <StyledLink isActive={isActive} href={href} isDisabled={isDisabled}>
         <StyledIcon>
           {renderIcon({ fill: isActive ? COLORS.blue : COLORS.inactive })}
         </StyledIcon>

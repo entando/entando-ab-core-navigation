@@ -46,10 +46,11 @@ export function Menu(props: Props) {
     const request = async () => {
       try {
         const { data } = await getPBCNav(config);
-        setDynamicMenuItems(data?.payload || []);
-        // if data is empty, set error to true
-        if (!data) {
+
+        if (!data || !Array.isArray(data.payload)) {
           setEpcHasError(true);
+        } else {
+          setDynamicMenuItems(data?.payload || []);
         }
       } catch (error) {
         setEpcHasError(true);

@@ -193,7 +193,7 @@ export function ListGroupItem(props: Props): JSX.Element {
       data-id={dataId}
       {...(hasError && {
         'aria-label': errorTooltipLabel,
-        'data-balloon-pos': 'up',
+        'data-balloon-pos': 'down',
         'data-balloon-length': 'medium'
       })}
     >

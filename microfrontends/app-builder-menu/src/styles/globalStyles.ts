@@ -49,12 +49,13 @@ table {
   box-sizing: border-box;
 }
 
-:root {
+:host {
   --balloon-border-radius: 2px;
   --balloon-color: rgba(16, 16, 16, 0.95);
   --balloon-text-color: #fff;
   --balloon-font-size: 12px;
-  --balloon-move: 4px; }
+  --balloon-move: 4px;
+}
 
 button[aria-label][data-balloon-pos] {
   overflow: visible; }
@@ -184,8 +185,4 @@ button[aria-label][data-balloon-pos] {
   [aria-label][data-balloon-pos][data-balloon-length="fit"]:after {
     width: 100%; }
 
-    .tooltip-white {
-      --balloon-color: white;
-      opacity: 1;
-    }
 `;

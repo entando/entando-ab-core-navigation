@@ -189,7 +189,7 @@ export function ListGroupItem(props: Props): JSX.Element {
       isActive={isActive}
       fixBottom={fixBottom}
       onClick={onClickHandler}
-      className={`${className} tooltip-white`}
+      className={`${className}`}
       data-id={dataId}
       {...(hasError && {
         'aria-label': errorTooltipLabel,

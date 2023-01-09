@@ -67,7 +67,7 @@ test('Check toggling tertiary menu', async () => {
     userPermissions: ['superuser'],
     lang: 'en'
   };
-  window.entando.router = { push: jest.fn((val: string) => {}) };
+
   const { debug } = render(
     <Menu
       config={{

@@ -27,5 +27,6 @@
   "app.languageAndLabels": "Language & Labels",
   "app.emailConfiguration": "Email Configuration",
   "app.reloadConfiguration": "Reload Configuration",
-  "app.epcPlaceholder": "Install your first Entando Platform Capability"
+  "app.epcPlaceholder": "Install your first Entando Platform Capability",
+  "app.epcHasError": "EPCs not available, something went wrong during the installation of one EPC"
 }

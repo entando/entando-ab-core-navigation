@@ -35,6 +35,7 @@ export function Menu(props: Props) {
   const [loading, setLoading] = useState(true);
 
   const [dynamicMenuItems, setDynamicMenuItems] = useState<MenuItem[]>([]);
+  const [epcHasError, setEpcHasError] = useState(false);
 
   const menuOpen = sessionStorage.getItem('menu_open') || '';
 
@@ -43,9 +44,18 @@ export function Menu(props: Props) {
 
   useEffect(() => {
     const request = async () => {
-      const { data } = await getPBCNav(config);
+      try {
+        const { data } = await getPBCNav(config);
 
-      setDynamicMenuItems(data?.payload || []);
+        if (!data || !Array.isArray(data.payload)) {
+          setEpcHasError(true);
+        } else {
+          setDynamicMenuItems(data?.payload || []);
+        }
+      } catch (error) {
+        setEpcHasError(true);
+      }
+
       setLoading(false);
     };
 
@@ -65,6 +75,7 @@ export function Menu(props: Props) {
         window.removeEventListener('beforeunload', removeMenuOpenSession);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -83,6 +94,7 @@ export function Menu(props: Props) {
               config={config}
               dynamicMenuItems={dynamicMenuItems}
               openDefaultSubmenuId={menuOpen}
+              epcHasError={epcHasError}
             />
           </>
         )}

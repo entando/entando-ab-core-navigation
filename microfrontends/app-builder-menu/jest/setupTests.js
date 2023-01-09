@@ -6,7 +6,12 @@ beforeAll(() => {
     window.entando = {
         keycloak: {
             token: 'fake-token'
-        }
+        },
+        router: {
+          listen: jest.fn(() => () => {}),
+          push: jest.fn(),
+          replace: jest.fn(),
+        },
     }
 });
 afterEach(() => server.resetHandlers());

@@ -5,7 +5,9 @@ describe('useNavigation', () => {
     window.entando = {
       ...window.entando,
       router: {
-        push: jest.fn()
+        push: jest.fn(),
+        listen: jest.fn(),
+        replace: jest.fn()
       }
     };
     const navigate = useNavigation();

@@ -1,6 +1,7 @@
 window.entando = {
   router: {
-    push: route => console.log('navigating to', route)
+    push: route => console.log('navigating to', route),
+    listen: () => () => {},
   },
   globals: {
     userPermissions: [
@@ -19,7 +20,8 @@ window.entando = {
     adminConsoleUrl: 'http://localhost:8080/admin-console',
     systemReport: {
       contentSchedulerPluginInstalled: true
-    }
+    },
+    advancedSearchOn: true,
   },
   keycloak: {
     token: 'keycloak-token',

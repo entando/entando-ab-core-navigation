@@ -108,7 +108,7 @@ export function MenuUI(props: Props): JSX.Element {
     openDefaultSubmenuId = '',
     epcHasError
   } = props;
-  const { userPermissions, systemReport, adminConsoleUrl, lang } =
+  const { userPermissions, systemReport, adminConsoleUrl, lang, advancedSearchOn } =
     window.entando?.globals || {};
 
   const {
@@ -372,6 +372,17 @@ export function MenuUI(props: Props): JSX.Element {
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
                     'do/jacms/Content/Admin/openIndexProspect.action'
+                  )}
+                />
+              )}
+              {advancedSearchOn && (
+                <SecondaryMenuItem
+                  id="content-solr-configuration"
+                  dataId="solr-configuration"
+                  label={content.solrConfig}
+                  href={convertToAdminConsoleUrl(
+                    adminConsoleUrl,
+                    'do/jpsolr/config'
                   )}
                 />
               )}

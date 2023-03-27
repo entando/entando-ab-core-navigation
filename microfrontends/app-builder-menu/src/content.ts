@@ -128,6 +128,11 @@ export function getContent(intl: IntlShape): ContentType {
       id: 'app.epcHasError',
       defaultMessage:
         'EPCs not available, something went wrong during the installation of one EPC'
+    }),
+    solrConfig: intl.formatMessage({
+      id: 'app.solrConfig',
+      defaultMessage:
+        'SOLR configuration'
     })
   };
 }

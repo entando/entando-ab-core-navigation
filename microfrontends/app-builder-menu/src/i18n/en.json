@@ -28,5 +28,6 @@
   "app.emailConfiguration": "Email Configuration",
   "app.reloadConfiguration": "Reload Configuration",
   "app.epcPlaceholder": "Install your first Entando Platform Capability",
-  "app.epcHasError": "EPCs not available, something went wrong during the installation of one EPC"
+  "app.epcHasError": "EPCs not available, something went wrong during the installation of one EPC",
+  "app.solrConfig": "SOLR configuration"
 }

@@ -8,6 +8,7 @@ export interface EntandoGlobals {
   };
   adminConsoleUrl: string;
   advancedSearchOn: boolean;
+  disableContentMenu: boolean;
 }
 
 export interface MfeConfig {

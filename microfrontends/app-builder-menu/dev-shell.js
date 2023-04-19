@@ -22,6 +22,7 @@ window.entando = {
       contentSchedulerPluginInstalled: true
     },
     advancedSearchOn: true,
+    disableContentMenu: false,
   },
   keycloak: {
     token: 'keycloak-token',

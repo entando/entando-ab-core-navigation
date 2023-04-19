@@ -108,7 +108,9 @@ export function MenuUI(props: Props): JSX.Element {
     openDefaultSubmenuId = '',
     epcHasError
   } = props;
-  const { userPermissions, systemReport, adminConsoleUrl, lang, advancedSearchOn } =
+  const { userPermissions, systemReport, adminConsoleUrl, lang, advancedSearchOn,
+    disableContentMenu,
+  } =
     window.entando?.globals || {};
 
   const {
@@ -279,7 +281,7 @@ export function MenuUI(props: Props): JSX.Element {
               />
             </ListGroupItem>
           )}
-          {cmsHasAnyMenuItemAccess && (
+          {cmsHasAnyMenuItemAccess && !disableContentMenu && (
             <ListGroupItem
               id="content"
               dataId="content"

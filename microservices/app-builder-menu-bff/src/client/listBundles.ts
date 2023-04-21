@@ -14,7 +14,7 @@ export const listBundles = async (req: Request): Promise<IBundle[]> => {
 };
 
 export const listBundlesWidgets = async (req: Request): Promise<IBundleWidget[]> => {
-  const url = `${process.env.ENTANDO_ECR_INGRESS_URL}/bundles/all/widgets?filters[0].value=app-builder&filters[0].attribute=widgetType&filters[0].operator=eq`;
+  const url = `${process.env.ENTANDO_ECR_INGRESS_URL}/bundles/all/widgets?filters%5B0%5D.value=app-builder&filters%5B0%5D.attribute=widgetType&filters%5B0%5D.operator=eq`;
   try {
     const res = await axios.get(url, getRequestConfig(req));
     return res.data.payload;

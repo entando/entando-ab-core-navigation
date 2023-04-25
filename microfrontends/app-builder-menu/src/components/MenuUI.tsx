@@ -99,6 +99,7 @@ interface Props {
   dynamicMenuItems: MenuItem[];
   openDefaultSubmenuId?: string;
   epcHasError: boolean;
+  hideContentMenuItem?: boolean;
 }
 
 export function MenuUI(props: Props): JSX.Element {
@@ -106,10 +107,10 @@ export function MenuUI(props: Props): JSX.Element {
     config,
     dynamicMenuItems,
     openDefaultSubmenuId = '',
-    epcHasError
+    epcHasError,
+    hideContentMenuItem,
   } = props;
   const { userPermissions, systemReport, adminConsoleUrl, lang, advancedSearchOn,
-    disableContentMenu,
   } =
     window.entando?.globals || {};
 
@@ -281,7 +282,7 @@ export function MenuUI(props: Props): JSX.Element {
               />
             </ListGroupItem>
           )}
-          {cmsHasAnyMenuItemAccess && !disableContentMenu && (
+          {cmsHasAnyMenuItemAccess && !hideContentMenuItem && (
             <ListGroupItem
               id="content"
               dataId="content"

@@ -22,7 +22,6 @@ jobs:
         bash ./.github/functions/utils.sh setBundleVersion -$versionSuffix
         bash ./.github/functions/utils.sh setComponentVersions -$versionSuffix
         ent bundle build --all --stdout --fail-fast
-        pwd
         cd microservices/app-builder-menu-bff && ent npm run sonar && pwd && cd ../..
         cd microfrontends/app-builder-menu && ent npm run sonar && cd ../..
       working-directory: ./

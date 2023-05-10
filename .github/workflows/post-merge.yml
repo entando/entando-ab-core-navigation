@@ -26,11 +26,11 @@ jobs:
           DOCKER_ORG: entando
         run: |
           versionSuffix=SNAPSHOT
-          bash ../.github/functions/utils.sh setBundleVersion -$versionSuffix
-          bash ../.github/functions/utils.sh setComponentVersions -$versionSuffix
+          bash ./.github/functions/utils.sh setBundleVersion -$versionSuffix
+          bash ./.github/functions/utils.sh setComponentVersions -$versionSuffix
           ent --debug bundle pack --org $DOCKER_ORG --stdout --fail-fast
           ent --debug bundle publish
-          version=$(bash ../.github/functions/utils.sh getBundleImage)
+          version=$(bash ./.github/functions/utils.sh getBundleImage)
           echo "VERSION=$version" >> $GITHUB_OUTPUT
         working-directory: ./
   sonarqube:
@@ -46,8 +46,8 @@ jobs:
     - name: SonarQube Scan
       run: |
         versionSuffix=SNAPSHOT
-        bash ../.github/functions/utils.sh setBundleVersion -$versionSuffix
-        bash ../.github/functions/utils.sh setComponentVersions -$versionSuffix
+        bash ./.github/functions/utils.sh setBundleVersion -$versionSuffix
+        bash ./.github/functions/utils.sh setComponentVersions -$versionSuffix
         ent bundle build --all --stdout --fail-fast
         cd microservices/app-builder-menu-bff && ent npm run sonar && cd ../..
         cd microfrontends/app-builder-menu- && ent npm run sonar && cd ../..

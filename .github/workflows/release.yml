@@ -28,10 +28,10 @@ jobs:
           DOCKER_ORG: entando
           RELEASE_VERSION: ${{ steps.release.outputs.tag }}
         run: |
-          bash ../.github/functions/utils.sh setBundleVersionTag ${RELEASE_VERSION#v}
-          bash ../.github/functions/utils.sh setComponentVersionsTag ${RELEASE_VERSION#v}
+          bash ./.github/functions/utils.sh setBundleVersionTag ${RELEASE_VERSION#v}
+          bash ./.github/functions/utils.sh setComponentVersionsTag ${RELEASE_VERSION#v}
           ent --debug bundle pack --org $DOCKER_ORG --stdout --fail-fast
           ent --debug bundle publish
-          version=$(bash ../.github/functions/utils.sh getBundleImage)
+          version=$(bash ./.github/functions/utils.sh getBundleImage)
           echo "VERSION=$RELEASE_VERSION" >> $GITHUB_OUTPUT
         working-directory: ./

@@ -23,7 +23,7 @@ jobs:
         bash ./.github/functions/utils.sh setComponentVersions -$versionSuffix
         ent bundle build --all --stdout --fail-fast
         cd microservices/app-builder-menu-bff && ent npm run sonar && cd ../..
-        cd microfrontends/app-builder-menu- && ent npm run sonar && cd ../..
+        cd microfrontends/app-builder-menu && ent npm run sonar && cd ../..
       working-directory: ./
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

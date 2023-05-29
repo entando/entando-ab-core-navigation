@@ -36,11 +36,37 @@ export function Menu(props: Props) {
 
   const [dynamicMenuItems, setDynamicMenuItems] = useState<MenuItem[]>([]);
   const [epcHasError, setEpcHasError] = useState(false);
+  const [hideContentMenuItem, setHideContentMenuItem] = useState(false);
 
   const menuOpen = sessionStorage.getItem('menu_open') || '';
 
-  const { lang } = window.entando?.globals || {};
+  const { lang, disableContentMenu } = window.entando?.globals || {};
   const locale = lang || DEFAULT_LOCALE;
+
+  useEffect(() => {
+    const hideContentMenuItem = disableContentMenu || false;
+    setHideContentMenuItem(hideContentMenuItem);
+  }, [disableContentMenu]);
+
+  useEffect(() => {
+    const handleUserPreferencesUpdated = (event: any) => {
+      const { disableContentMenu } = event.detail;
+      const hideContentMenuItem = disableContentMenu || false;
+      setHideContentMenuItem(hideContentMenuItem);
+    };
+
+    window.addEventListener(
+      'user-preferences-updated',
+      handleUserPreferencesUpdated
+    );
+
+    return () => {
+      window.removeEventListener(
+        'user-preferences-updated',
+        handleUserPreferencesUpdated
+      );
+    };
+  }, []);
 
   useEffect(() => {
     const request = async () => {
@@ -95,6 +121,7 @@ export function Menu(props: Props) {
               dynamicMenuItems={dynamicMenuItems}
               openDefaultSubmenuId={menuOpen}
               epcHasError={epcHasError}
+              hideContentMenuItem={hideContentMenuItem}
             />
           </>
         )}

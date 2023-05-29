@@ -99,6 +99,7 @@ interface Props {
   dynamicMenuItems: MenuItem[];
   openDefaultSubmenuId?: string;
   epcHasError: boolean;
+  hideContentMenuItem?: boolean;
 }
 
 export function MenuUI(props: Props): JSX.Element {
@@ -106,9 +107,11 @@ export function MenuUI(props: Props): JSX.Element {
     config,
     dynamicMenuItems,
     openDefaultSubmenuId = '',
-    epcHasError
+    epcHasError,
+    hideContentMenuItem,
   } = props;
-  const { userPermissions, systemReport, adminConsoleUrl, lang } =
+  const { userPermissions, systemReport, adminConsoleUrl, lang, advancedSearchOn,
+  } =
     window.entando?.globals || {};
 
   const {
@@ -279,7 +282,7 @@ export function MenuUI(props: Props): JSX.Element {
               />
             </ListGroupItem>
           )}
-          {cmsHasAnyMenuItemAccess && (
+          {cmsHasAnyMenuItemAccess && !hideContentMenuItem && (
             <ListGroupItem
               id="content"
               dataId="content"
@@ -372,6 +375,17 @@ export function MenuUI(props: Props): JSX.Element {
                   href={convertToAdminConsoleUrl(
                     adminConsoleUrl,
                     'do/jacms/Content/Admin/openIndexProspect.action'
+                  )}
+                />
+              )}
+              {advancedSearchOn && (
+                <SecondaryMenuItem
+                  id="content-solr-configuration"
+                  dataId="solr-configuration"
+                  label={content.solrConfig}
+                  href={convertToAdminConsoleUrl(
+                    adminConsoleUrl,
+                    'do/jpsolr/config'
                   )}
                 />
               )}

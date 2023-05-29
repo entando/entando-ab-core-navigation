@@ -7,6 +7,8 @@ export interface EntandoGlobals {
     contentSchedulerPluginInstalled: boolean;
   };
   adminConsoleUrl: string;
+  advancedSearchOn: boolean;
+  disableContentMenu: boolean;
 }
 
 export interface MfeConfig {

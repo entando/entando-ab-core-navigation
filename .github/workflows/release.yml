@@ -1,37 +1,129 @@
 name: Release
+
 on:
   create:
     tags:
       - 'v*'
+
+
+env:
+  PPL_TEMPLATE_VERSION: "v2.0.0"
+  ENTANDO_BOT_TOKEN: ${{ secrets.ENTANDO_BOT_TOKEN }}
+  PR_CHECKER_PATH: ".github/pr-title-checker-config.json"
+
+  DOCKER_ORG: entando
+  DOCKER_MF_IMAGE_BASE_NAME: entando-ab-core-navigation
+  DOCKER_MS_IMAGE_BASE_NAME: app-builder-menu-bff
+  DOCKER_IMAGE_ARCHITECTURE: linux/amd64,linux/arm64
+  DOCKER_MF_IMAGE_CONTEXT: .
+  DOCKER_MS_IMAGE_CONTEXT: ./microservices/app-builder-menu-bff
+  DOCKER_MF_IMAGE_FILE: ./.entando/output/Dockerfile
+  DOCKER_MS_IMAGE_FILE: ./microservices/app-builder-menu-bff/Dockerfile
+  DOCKER_IMAGE_PUSH: true
+
 jobs:
-  app-build:
+
+  check-pr:
     runs-on: ubuntu-latest
+    steps:
+      - uses: thehanimo/pr-title-checker@v1.3.7
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          pass_on_octokit_error: false
+          configuration_path: ${{ env.PR_CHECKER_PATH }}
+
+  publication:
+    runs-on: ubuntu-latest
+
     container:
       image: entando/ent:v7.1.3
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
+
     steps:
+
       - name: Checkout Code
         uses: actions/checkout@v3
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          registry: registry.hub.docker.com
-          username: ${{ secrets.ENTANDO_OPT_DOCKER_USERNAME }}
-          password: ${{ secrets.ENTANDO_OPT_DOCKER_PASSWORD }}
+        
       - name: Get release tag
         id: release
         run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-      - name: Pack the application bundle
+      
+      - name: Run build command
         id: pack
         env:
-          DOCKER_ORG: entando
           RELEASE_VERSION: ${{ steps.release.outputs.tag }}
         run: |
           bash ./.github/functions/utils.sh setBundleVersionTag ${RELEASE_VERSION#v}
           bash ./.github/functions/utils.sh setComponentVersionsTag ${RELEASE_VERSION#v}
           ent --debug bundle pack --org $DOCKER_ORG --stdout --fail-fast
-          ent --debug bundle publish
           version=$(bash ./.github/functions/utils.sh getBundleImage)
           echo "VERSION=$RELEASE_VERSION" >> $GITHUB_OUTPUT
-        working-directory: ./
+
+      - name: Docker meta-mf
+        id: meta-mf
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            ${{ env.DOCKER_ORG }}/${{ env.DOCKER_MF_IMAGE_BASE_NAME }}
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr,value={{base_ref}}
+            type=ref,event=tag
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+            type=raw,event=pr,value={{base_ref}}
+
+      - name: Docker meta-ms
+        id: meta-ms
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            ${{ env.DOCKER_ORG }}/${{ env.DOCKER_MS_IMAGE_BASE_NAME }}
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=ref,event=tag
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+            type=raw,event=pr,value={{branch}}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          platforms: ${{ env.DOCKER_KEYCLOAK_IMAGE_ARCHITECTURE }}
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.ENTANDO_OPT_DOCKER_USERNAME }}
+          password: ${{ secrets.ENTANDO_OPT_DOCKER_PASSWORD }}
+
+      - name: Build and push microfrontend
+        uses: docker/build-push-action@v4
+        with:
+          context: ${{ env.DOCKER_MF_IMAGE_CONTEXT }}
+          file: ${{ env.DOCKER_MF_IMAGE_FILE }}
+          push: ${{ env.DOCKER_IMAGE_PUSH }}
+          tags: ${{ steps.meta-mf.outputs.tags }}
+          labels: ${{ steps.meta-mf.outputs.labels }}
+          platforms: ${{ env.DOCKER_IMAGE_ARCHITECTURE }}
+
+      - name: Build and push microservice
+        uses: docker/build-push-action@v4
+        with:
+          context: ${{ env.DOCKER_MS_IMAGE_CONTEXT }}
+          file: ${{ env.DOCKER_MS_IMAGE_FILE }}
+          push: ${{ env.DOCKER_IMAGE_PUSH }}
+          tags: ${{ steps.meta-ms.outputs.tags }}
+          labels: ${{ steps.meta-ms.outputs.labels }}
+          platforms: ${{ env.DOCKER_IMAGE_ARCHITECTURE }}

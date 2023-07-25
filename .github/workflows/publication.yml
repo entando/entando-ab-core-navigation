@@ -15,15 +15,6 @@ env:
   ENTANDO_BOT_TOKEN: ${{ secrets.ENTANDO_BOT_TOKEN }}
   PR_CHECKER_PATH: ".github/pr-title-checker-config.json"
 
-  BUILD_COMMANDS: |
-    bash ./.github/functions/utils.sh setBundleVersionTag ${RELEASE_VERSION#v}
-    bash ./.github/functions/utils.sh setComponentVersionsTag ${RELEASE_VERSION#v}
-    ent --debug bundle pack --org $DOCKER_ORG --stdout --fail-fast
-  POST_PUBLISH_COMMANDS: |
-    version=$(bash ./.github/functions/utils.sh getBundleImage)
-    echo "VERSION=$version" >> $GITHUB_OUTPUT
-
-
   DOCKER_ORG: riccardofadda
   DOCKER_MF_IMAGE_BASE_NAME: entando-ab-core-navigation
   DOCKER_MS_IMAGE_BASE_NAME: app-builder-menu-bff
@@ -65,7 +56,10 @@ jobs:
       - name: Run build command
         env:
           RELEASE_VERSION: ${{ steps.release.outputs.tag }}
-        run: ${{ env.BUILD_COMMANDS }}
+        run: |
+          bash ./.github/functions/utils.sh setBundleVersionTag ${RELEASE_VERSION#v}
+          bash ./.github/functions/utils.sh setComponentVersionsTag ${RELEASE_VERSION#v}
+          ent --debug bundle pack --org $DOCKER_ORG --stdout --fail-fast
 
       - name: Docker meta-mf
         id: meta-mf
@@ -136,4 +130,6 @@ jobs:
           platforms: ${{ env.DOCKER_IMAGE_ARCHITECTURE }}
 
       - name: Run post publish commands
-        run: ${{ env.POST_PUBLISH_COMMANDS }}
+        run: |
+          version=$(bash ./.github/functions/utils.sh getBundleImage)
+          echo "VERSION=$version" >> $GITHUB_OUTPUT

@@ -49,16 +49,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Get release tag
-        id: release
-        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-
       - name: Run build command
         env:
           RELEASE_VERSION: ${{ steps.release.outputs.tag }}
         run: |
-          bash ./.github/functions/utils.sh setBundleVersionTag ${RELEASE_VERSION#v}
-          bash ./.github/functions/utils.sh setComponentVersionsTag ${RELEASE_VERSION#v}
           ent --debug bundle pack --org $DOCKER_ORG --stdout --fail-fast
 
       - name: Docker meta-mf
@@ -128,8 +122,3 @@ jobs:
           tags: ${{ steps.meta-ms.outputs.tags }}
           labels: ${{ steps.meta-ms.outputs.labels }}
           platforms: ${{ env.DOCKER_IMAGE_ARCHITECTURE }}
-
-      - name: Run post publish commands
-        run: |
-          version=$(bash ./.github/functions/utils.sh getBundleImage)
-          echo "VERSION=$version" >> $GITHUB_OUTPUT

@@ -76,6 +76,7 @@ jobs:
             type=semver,pattern={{major}}
             type=sha
             type=raw,event=pr,value={{base_ref}}
+            type=custom,value=${{ steps.build.outputs.VERSION }}
 
       - name: Docker meta-ms
         id: meta-ms
@@ -93,6 +94,7 @@ jobs:
             type=semver,pattern={{major}}
             type=sha
             type=raw,event=pr,value={{branch}}
+            type=custom,value=${{ steps.build.outputs.VERSION }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2

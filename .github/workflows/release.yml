@@ -50,7 +50,7 @@ jobs:
         run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
       
       - name: Run build command
-        id: pack
+        id: build
         env:
           RELEASE_VERSION: ${{ steps.release.outputs.tag }}
         run: |
@@ -114,7 +114,9 @@ jobs:
           context: ${{ env.DOCKER_MF_IMAGE_CONTEXT }}
           file: ${{ env.DOCKER_MF_IMAGE_FILE }}
           push: ${{ env.DOCKER_IMAGE_PUSH }}
-          tags: ${{ steps.meta-mf.outputs.tags }}
+          tags: | 
+            ${{ steps.meta-mf.outputs.tags }}
+            ${{ env.DOCKER_ORG }}/${{ env.DOCKER_MF_IMAGE_BASE_NAME}}:${{ steps.build.outputs.VERSION }}
           labels: ${{ steps.meta-mf.outputs.labels }}
           platforms: ${{ env.DOCKER_IMAGE_ARCHITECTURE }}
 
@@ -124,6 +126,8 @@ jobs:
           context: ${{ env.DOCKER_MS_IMAGE_CONTEXT }}
           file: ${{ env.DOCKER_MS_IMAGE_FILE }}
           push: ${{ env.DOCKER_IMAGE_PUSH }}
-          tags: ${{ steps.meta-ms.outputs.tags }}
+          tags: | 
+            ${{ steps.meta-ms.outputs.tags }}
+            ${{ env.DOCKER_ORG }}/${{ env.DOCKER_MS_IMAGE_BASE_NAME}}:${{ steps.build.outputs.VERSION }}
           labels: ${{ steps.meta-ms.outputs.labels }}
           platforms: ${{ env.DOCKER_IMAGE_ARCHITECTURE }}

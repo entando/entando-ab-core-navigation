@@ -17,6 +17,10 @@ function getBundleImage() {
     ent bundle images | grep bundle | awk '{printf "%s:%s", $1, $2}'
 }
 
+function getBundleVersion() {
+    ent bundle images | grep bundle | awk '{printf "%s", $2}'
+}
+
 function setComponentVersions() {
     local versionSuffix=$1
 

@@ -10,7 +10,7 @@ export function getRequestConfig(req: Request) {
 
   // Forward Authorization header and add Entando TenantCode header
   const authHeader = req.header('Authorization');
-  const tenantCode = process.env.TENANT_CODE || 'primary';
+  const tenantCode = process.env.ENTANDO_TENANT_CODE || 'primary';
   if (authHeader !== undefined) {
     requestConfig.headers = { 
       Authorization: authHeader,

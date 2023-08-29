@@ -6,13 +6,19 @@ type RequestConfig = AxiosRequestConfig<{
 }>
 
 export function getRequestConfig(req: Request) {
-    const requestConfig: RequestConfig = {};
+  const requestConfig: RequestConfig = {};
 
-    // Forward Authorization header
-    const authHeader = req.header('Authorization');
-    if (authHeader !== undefined) {
-        requestConfig.headers = { Authorization: authHeader };
-    }
+  // Forward Authorization header and add Entando TenantCode header
+  const authHeader = req.header('Authorization');
+  const tenantCode = process.env.ENTANDO_TENANT_CODE || 'primary';
+  if (authHeader !== undefined) {
+    requestConfig.headers = { 
+      Authorization: authHeader,
+      'X-ENTANDO-TENANTCODE': tenantCode
+    };
+  } else {
+    requestConfig.headers = { 'X-ENTANDO-TENANTCODE': tenantCode };
+  }
 
-    return requestConfig;
+  return requestConfig;
 }

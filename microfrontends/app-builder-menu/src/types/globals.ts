@@ -5,6 +5,7 @@ export interface EntandoGlobals {
   lang: string;
   systemReport: {
     contentSchedulerPluginInstalled: boolean;
+    contentWorkFlowPluginInstalled: boolean;
   };
   adminConsoleUrl: string;
   advancedSearchOn: boolean;

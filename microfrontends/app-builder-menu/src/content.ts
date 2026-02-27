@@ -74,7 +74,11 @@ export function getContent(intl: IntlShape): ContentType {
     }),
     contentScheduler: intl.formatMessage({
       id: 'app.contentScheduler',
-      defaultMessage: 'Content Scheduler'
+      defaultMessage: 'Scheduler'
+    }),
+    contentWorkFlow: intl.formatMessage({
+      id: 'app.contentWorkFlow',
+      defaultMessage: 'WorkFlow'
     }),
     types: intl.formatMessage({
       id: 'app.types',

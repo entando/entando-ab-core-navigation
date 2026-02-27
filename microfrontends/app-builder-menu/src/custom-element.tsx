@@ -56,13 +56,13 @@ export class AppBuilderMenu extends HTMLElement {
       this.shadow.removeChild(findMainElem);
     }
 
+    this.shadow.appendChild(styleParent);
+    this.shadow.appendChild(element);
+
     root.render(
       <StyleSheetManager target={styleParent}>
         <Menu config={this.#config as MfeConfig} />
       </StyleSheetManager>
     );
-
-    this.shadow.appendChild(styleParent);
-    this.shadow.appendChild(element);
   }
 }

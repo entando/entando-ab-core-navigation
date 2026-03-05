@@ -356,6 +356,18 @@ export function MenuUI(props: Props): JSX.Element {
                     )}
                   />
                 )}
+              {cmsHasMenuContentsAccess &&
+                systemReport?.contentWorkFlowPluginInstalled && (
+                  <SecondaryMenuItem
+                    id="content-workflow"
+                    dataId="content-workflow"
+                    label={content.contentWorkFlow}
+                    href={convertToAdminConsoleUrl(
+                      adminConsoleUrl,
+                      'do/jpcontentworkflow/Workflow/list.action'
+                    )}
+                  />
+                )}
               {cmsHasMenuContentTypeAccess && (
                 <SecondaryMenuItem
                   id="content-types"

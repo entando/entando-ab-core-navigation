@@ -17,5 +17,3 @@ export const routeConverter = (
     route
   );
 };
-
-export const HOMEPAGE_CODE = 'homepage';

@@ -28,7 +28,6 @@ import {
 } from '../utils/permissions';
 import {
   convertToAdminConsoleUrl,
-  HOMEPAGE_CODE,
   routeConverter
 } from '../utils/links';
 import { COLORS } from './theme';
@@ -238,7 +237,7 @@ export function MenuUI(props: Props): JSX.Element {
                 onClick={() =>
                   navigate(
                     routeConverter(ROUTE_PAGE_CONFIG, {
-                      pageCode: HOMEPAGE_CODE
+                      pageCode: window.entando.globals.rootPageCode || 'homepage'
                     })
                   )
                 }

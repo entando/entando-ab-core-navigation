@@ -20,6 +20,7 @@ import {
   EDIT_USER_PROFILES_PERMISSION,
   ENTER_ECR_PERMISSION,
   hasAccess,
+  checkPermission,
   MANAGE_CATEGORIES_PERMISSION,
   MANAGE_PAGES_PERMISSION,
   MANAGE_RESOURCES_PERMISSION,
@@ -347,10 +348,7 @@ export function MenuUI(props: Props): JSX.Element {
               )}
               {systemReport
                 .filter(item =>
-                  hasAccess(
-                    item['appBuilderMenu.requiredPermission'].split(',').map(p => p.trim()),
-                    userPermissions,
-                  ))
+                  checkPermission(item['appBuilderMenu.requiredPermission'], userPermissions))
                 .map(item => (
                   <SecondaryMenuItem
                     key={item['appBuilderMenu.id']}

@@ -12,6 +12,7 @@ import { AdministrationIcon } from './Icons/AdministrationIcon';
 import { SecondaryMenuItem } from './SecondaryMenu/SecondaryMenuItem';
 import { TertiaryMenuItem } from './TertiaryMenu/TertiaryMenuItem';
 import { useState } from 'react';
+import { useIntl } from 'react-intl';
 import { MenuUIContext, MenuUIContextInterface } from './MenuUIContext';
 import {
   CRUD_CONTENTS_PERMISSION,
@@ -109,7 +110,7 @@ export function MenuUI(props: Props): JSX.Element {
     epcHasError,
     hideContentMenuItem,
   } = props;
-  const { userPermissions, systemReport, adminConsoleUrl, lang, advancedSearchOn,
+  const { userPermissions, systemReport = [], adminConsoleUrl, lang, advancedSearchOn,
   } =
     window.entando?.globals || {};
 
@@ -126,6 +127,7 @@ export function MenuUI(props: Props): JSX.Element {
   );
   const [tertiaryMenuOpen, setTertiaryMenuOpen] = useState(false);
   const content: ContentType = useContent();
+  const intl = useIntl();
 
   const navigate = useNavigation();
 
@@ -343,30 +345,27 @@ export function MenuUI(props: Props): JSX.Element {
                   )}
                 />
               )}
-              {cmsHasMenuContentsAccess &&
-                systemReport?.contentSchedulerPluginInstalled && (
+              {systemReport
+                .filter(item =>
+                  hasAccess(
+                    item['appBuilderMenu.requiredPermission'].split(',').map(p => p.trim()),
+                    userPermissions,
+                  ))
+                .map(item => (
                   <SecondaryMenuItem
-                    id="content-scheduler"
-                    dataId="content-scheduler"
-                    label={content.contentScheduler}
+                    key={item['appBuilderMenu.id']}
+                    id={item['appBuilderMenu.id']}
+                    dataId={item['appBuilderMenu.id']}
+                    label={intl.formatMessage({
+                      id: item['appBuilderMenu.labelId'],
+                      defaultMessage: item['appBuilderMenu.defaultLabel'],
+                    })}
                     href={convertToAdminConsoleUrl(
                       adminConsoleUrl,
-                      'do/jpcontentscheduler/config/viewItem.action'
+                      item['appBuilderMenu.href'],
                     )}
                   />
-                )}
-              {cmsHasMenuContentsAccess &&
-                systemReport?.contentWorkFlowPluginInstalled && (
-                  <SecondaryMenuItem
-                    id="content-workflow"
-                    dataId="content-workflow"
-                    label={content.contentWorkFlow}
-                    href={convertToAdminConsoleUrl(
-                      adminConsoleUrl,
-                      'do/jpcontentworkflow/Workflow/list.action'
-                    )}
-                  />
-                )}
+                ))}
               {cmsHasMenuContentTypeAccess && (
                 <SecondaryMenuItem
                   id="content-types"

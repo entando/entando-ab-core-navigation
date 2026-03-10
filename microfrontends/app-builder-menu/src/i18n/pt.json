@@ -30,5 +30,6 @@
   "app.reloadConfiguration": "Recarregar configuração",
   "app.epcPlaceholder": "Instale sua primeira Entando Platform Capability",
   "app.epcHasError": "EPC não disponível, algo deu errado durante a instalação",
-  "app.solrConfig": "SOLR configuração"
+  "app.solrConfig": "SOLR configuração",
+  "app.legacyPlugins": "Plugins Legados"
 }

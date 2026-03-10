@@ -12,7 +12,7 @@ import { AdministrationIcon } from './Icons/AdministrationIcon';
 import { SecondaryMenuItem } from './SecondaryMenu/SecondaryMenuItem';
 import { TertiaryMenuItem } from './TertiaryMenu/TertiaryMenuItem';
 import { useState } from 'react';
-import { useIntl } from 'react-intl';
+import { IntlShape, useIntl } from 'react-intl';
 import { MenuUIContext, MenuUIContextInterface } from './MenuUIContext';
 import {
   CRUD_CONTENTS_PERMISSION,
@@ -34,6 +34,9 @@ import {
 } from '../utils/links';
 import { COLORS } from './theme';
 import { MenuItem } from '../types/api';
+import { AppBuilderMenuGroup } from '../types/globals';
+import { LegacyPluginsIcon } from './Icons/LegacyPluginsIcon';
+import { SecondaryMenuHeader } from './SecondaryMenu/SecondaryMenuHeader';
 import { generateDynamicMenuItems, TARGET_BLANK } from '../utils/dynamicTree';
 import {
   ROUTE_DASHBOARD,
@@ -94,6 +97,67 @@ const StyledPlaceholder = styled.a`
     text-decoration: underline;
   }
 `;
+
+const getGroupsByHook = (systemReport: AppBuilderMenuGroup[], hook: string) =>
+  systemReport.filter(e => e['appBuilderMenu.hook'] === hook);
+
+const getGroupItems = (group: AppBuilderMenuGroup) =>
+  Array.isArray(group['appBuilderMenu.items']) ? group['appBuilderMenu.items'] : [];
+
+const renderDynamicItems = (
+  items: AppBuilderMenuGroup['appBuilderMenu.items'],
+  intl: IntlShape,
+  userPermissions: string[],
+  adminConsoleUrl: string,
+) =>
+  items
+    .filter(item => checkPermission(item.requiredPermission, userPermissions))
+    .map(item => (
+      <SecondaryMenuItem
+        key={item.id}
+        id={item.id}
+        dataId={item.id}
+        label={intl.formatMessage({
+          id: item.labelId,
+          defaultMessage: item.defaultLabel,
+        })}
+        href={convertToAdminConsoleUrl(adminConsoleUrl, item.href)}
+      />
+    ));
+
+const renderLegacyPluginsMenu = (
+  systemReport: AppBuilderMenuGroup[],
+  intl: IntlShape,
+  userPermissions: string[],
+  adminConsoleUrl: string,
+  content: ContentType,
+) => {
+  const pluginGroups = getGroupsByHook(systemReport, 'legacyPlugins')
+    .filter(g => getGroupItems(g)
+      .some(item => checkPermission(item.requiredPermission, userPermissions)));
+
+  if (pluginGroups.length === 0) return null;
+
+  return (
+    <ListGroupItem
+      id="legacy-plugins"
+      dataId="legacy-plugins"
+      label={content.legacyPlugins}
+      renderIcon={props => <LegacyPluginsIcon {...props} />}
+    >
+      {pluginGroups.flatMap((group) => {
+        const items = getGroupItems(group)
+          .filter(item => checkPermission(item.requiredPermission, userPermissions));
+        const pluginId = group['appBuilderMenu.pluginId'] || '';
+        const pluginLabel = group['appBuilderMenu.pluginLabel'] || pluginId;
+        return [
+          <SecondaryMenuHeader key={`header-${pluginId}`} label={pluginLabel} />,
+          ...renderDynamicItems(items, intl, userPermissions, adminConsoleUrl),
+        ];
+      })}
+    </ListGroupItem>
+  );
+};
 
 interface Props {
   config: MfeConfig;
@@ -346,24 +410,10 @@ export function MenuUI(props: Props): JSX.Element {
                   )}
                 />
               )}
-              {systemReport
-                .filter(item =>
-                  checkPermission(item['appBuilderMenu.requiredPermission'], userPermissions))
-                .map(item => (
-                  <SecondaryMenuItem
-                    key={item['appBuilderMenu.id']}
-                    id={item['appBuilderMenu.id']}
-                    dataId={item['appBuilderMenu.id']}
-                    label={intl.formatMessage({
-                      id: item['appBuilderMenu.labelId'],
-                      defaultMessage: item['appBuilderMenu.defaultLabel'],
-                    })}
-                    href={convertToAdminConsoleUrl(
-                      adminConsoleUrl,
-                      item['appBuilderMenu.href'],
-                    )}
-                  />
-                ))}
+              {renderDynamicItems(
+                getGroupsByHook(systemReport, 'cms').flatMap(getGroupItems),
+                intl, userPermissions, adminConsoleUrl,
+              )}
               {cmsHasMenuContentTypeAccess && (
                 <SecondaryMenuItem
                   id="content-types"
@@ -399,6 +449,7 @@ export function MenuUI(props: Props): JSX.Element {
               )}
             </ListGroupItem>
           )}
+          {renderLegacyPluginsMenu(systemReport, intl, userPermissions, adminConsoleUrl, content)}
           {usersHasAnyMenuItemAccess && (
             <ListGroupItem
               id="users"

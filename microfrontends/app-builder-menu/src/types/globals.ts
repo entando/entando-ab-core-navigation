@@ -1,17 +1,24 @@
 import { rest } from 'msw';
 
-export interface AppBuilderMenuItem {
-  'appBuilderMenu.id': string;
-  'appBuilderMenu.labelId': string;
-  'appBuilderMenu.defaultLabel': string;
-  'appBuilderMenu.href': string;
-  'appBuilderMenu.requiredPermission': string;
+export interface AppBuilderMenuItemEntry {
+  id: string;
+  labelId?: string;
+  defaultLabel: string;
+  href: string;
+  requiredPermission: string;
+}
+
+export interface AppBuilderMenuGroup {
+  'appBuilderMenu.hook': string;
+  'appBuilderMenu.items': AppBuilderMenuItemEntry[];
+  'appBuilderMenu.pluginId'?: string;
+  'appBuilderMenu.pluginLabel'?: string;
 }
 
 export interface EntandoGlobals {
   userPermissions: string[];
   lang: string;
-  systemReport: AppBuilderMenuItem[];
+  systemReport: AppBuilderMenuGroup[];
   adminConsoleUrl: string;
   advancedSearchOn: boolean;
   disableContentMenu: boolean;

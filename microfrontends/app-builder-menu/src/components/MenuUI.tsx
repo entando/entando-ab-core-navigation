@@ -118,7 +118,7 @@ const renderDynamicItems = (
         id={item.id}
         dataId={item.id}
         label={intl.formatMessage({
-          id: item.labelId,
+          id: item.labelId || item.id,
           defaultMessage: item.defaultLabel,
         })}
         href={convertToAdminConsoleUrl(adminConsoleUrl, item.href)}
@@ -150,8 +150,11 @@ const renderLegacyPluginsMenu = (
           .filter(item => checkPermission(item.requiredPermission, userPermissions));
         const pluginId = group['appBuilderMenu.pluginId'] || '';
         const pluginLabel = group['appBuilderMenu.pluginLabel'] || pluginId;
-        return [
+        const header = pluginId ? [
           <SecondaryMenuHeader key={`header-${pluginId}`} label={pluginLabel} />,
+        ] : [];
+        return [
+          ...header,
           ...renderDynamicItems(items, intl, userPermissions, adminConsoleUrl),
         ];
       })}

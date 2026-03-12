@@ -35,6 +35,23 @@ const StyledLabel = styled.span`
   line-height: 26px;
 `;
 
+const StyledSeparator = styled.li`
+  position: relative;
+  padding: 0;
+  margin-top: 4px;
+  pointer-events: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10px;
+    right: 10px;
+    height: 1px;
+    background-color: ${COLORS.secondary};
+  }
+`;
+
 interface Props {
   label: string;
 }
@@ -45,4 +62,8 @@ export function SecondaryMenuHeader({ label }: Props): JSX.Element {
       <StyledLabel>{label}</StyledLabel>
     </StyledHeader>
   );
+}
+
+export function SecondaryMenuSeparator(): JSX.Element {
+  return <StyledSeparator />;
 }

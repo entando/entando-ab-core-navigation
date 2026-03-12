@@ -36,7 +36,7 @@ import { COLORS } from './theme';
 import { MenuItem } from '../types/api';
 import { AppBuilderMenuGroup } from '../types/globals';
 import { LegacyPluginsIcon } from './Icons/LegacyPluginsIcon';
-import { SecondaryMenuHeader } from './SecondaryMenu/SecondaryMenuHeader';
+import { SecondaryMenuHeader, SecondaryMenuSeparator } from './SecondaryMenu/SecondaryMenuHeader';
 import { generateDynamicMenuItems, TARGET_BLANK } from '../utils/dynamicTree';
 import {
   ROUTE_DASHBOARD,
@@ -153,9 +153,13 @@ const renderLegacyPluginsMenu = (
         const header = pluginId ? [
           <SecondaryMenuHeader key={`header-${pluginId}`} label={pluginLabel} />,
         ] : [];
+        const footer = pluginId ? [
+          <SecondaryMenuSeparator key={`separator-${pluginId}`} />,
+        ] : [];
         return [
           ...header,
           ...renderDynamicItems(items, intl, userPermissions, adminConsoleUrl),
+          ...footer,
         ];
       })}
     </ListGroupItem>

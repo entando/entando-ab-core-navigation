@@ -137,6 +137,10 @@ export function getContent(intl: IntlShape): ContentType {
       id: 'app.solrConfig',
       defaultMessage:
         'SOLR configuration'
+    }),
+    legacyPlugins: intl.formatMessage({
+      id: 'app.legacyPlugins',
+      defaultMessage: 'Legacy Plugins'
     })
   };
 }

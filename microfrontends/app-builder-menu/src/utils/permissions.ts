@@ -26,3 +26,39 @@ export const hasAccess = (
   }
   return userPermissions.includes(requiredPermissions);
 };
+
+/**
+ * Evaluates a boolean permission expression against user permissions.
+ * Supports & (AND), | (OR), and parentheses for grouping.
+ * Example: "(editContents|validateContents)&superuser"
+ */
+export const checkPermission = (expr: string | undefined, userPermissions: string[]): boolean => {
+  if (!expr) return false;
+  let i = 0;
+
+  const parseOr = (): boolean => {
+    let result = parseAnd();
+    while (expr[i] === '|') { i++; result = parseAnd() || result; }
+    return result;
+  };
+
+  const parseAnd = (): boolean => {
+    let result = parseAtom();
+    while (expr[i] === '&') { i++; result = parseAtom() && result; }
+    return result;
+  };
+
+  const parseAtom = (): boolean => {
+    if (expr[i] === '(') {
+      i++;
+      const result = parseOr();
+      i++;
+      return result;
+    }
+    let name = '';
+    while (i < expr.length && /\w/.test(expr[i])) name += expr[i++];
+    return userPermissions.includes(name);
+  };
+
+  return parseOr();
+};

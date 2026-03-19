@@ -12,6 +12,7 @@ import { AdministrationIcon } from './Icons/AdministrationIcon';
 import { SecondaryMenuItem } from './SecondaryMenu/SecondaryMenuItem';
 import { TertiaryMenuItem } from './TertiaryMenu/TertiaryMenuItem';
 import { useState } from 'react';
+import { IntlShape, useIntl } from 'react-intl';
 import { MenuUIContext, MenuUIContextInterface } from './MenuUIContext';
 import {
   CRUD_CONTENTS_PERMISSION,
@@ -19,6 +20,7 @@ import {
   EDIT_USER_PROFILES_PERMISSION,
   ENTER_ECR_PERMISSION,
   hasAccess,
+  checkPermission,
   MANAGE_CATEGORIES_PERMISSION,
   MANAGE_PAGES_PERMISSION,
   MANAGE_RESOURCES_PERMISSION,
@@ -32,6 +34,9 @@ import {
 } from '../utils/links';
 import { COLORS } from './theme';
 import { MenuItem } from '../types/api';
+import { AppBuilderMenuGroup } from '../types/globals';
+import { LegacyPluginsIcon } from './Icons/LegacyPluginsIcon';
+import { SecondaryMenuHeader, SecondaryMenuSeparator } from './SecondaryMenu/SecondaryMenuHeader';
 import { generateDynamicMenuItems, TARGET_BLANK } from '../utils/dynamicTree';
 import {
   ROUTE_DASHBOARD,
@@ -93,6 +98,74 @@ const StyledPlaceholder = styled.a`
   }
 `;
 
+const getGroupsByHook = (systemReport: AppBuilderMenuGroup[], hook: string) =>
+  systemReport.filter(e => e['appBuilderMenu.hook'] === hook);
+
+const getGroupItems = (group: AppBuilderMenuGroup) =>
+  Array.isArray(group['appBuilderMenu.items']) ? group['appBuilderMenu.items'] : [];
+
+const renderDynamicItems = (
+  items: AppBuilderMenuGroup['appBuilderMenu.items'],
+  intl: IntlShape,
+  userPermissions: string[],
+  adminConsoleUrl: string,
+) =>
+  items
+    .filter(item => checkPermission(item.requiredPermission, userPermissions))
+    .map(item => (
+      <SecondaryMenuItem
+        key={item.id}
+        id={item.id}
+        dataId={item.id}
+        label={intl.formatMessage({
+          id: item.labelId || item.id,
+          defaultMessage: item.defaultLabel,
+        })}
+        href={convertToAdminConsoleUrl(adminConsoleUrl, item.href)}
+      />
+    ));
+
+const renderLegacyPluginsMenu = (
+  systemReport: AppBuilderMenuGroup[],
+  intl: IntlShape,
+  userPermissions: string[],
+  adminConsoleUrl: string,
+  content: ContentType,
+) => {
+  const pluginGroups = getGroupsByHook(systemReport, 'legacyPlugins')
+    .filter(g => getGroupItems(g)
+      .some(item => checkPermission(item.requiredPermission, userPermissions)));
+
+  if (pluginGroups.length === 0) return null;
+
+  return (
+    <ListGroupItem
+      id="legacy-plugins"
+      dataId="legacy-plugins"
+      label={content.legacyPlugins}
+      renderIcon={props => <LegacyPluginsIcon {...props} />}
+    >
+      {pluginGroups.flatMap((group) => {
+        const items = getGroupItems(group)
+          .filter(item => checkPermission(item.requiredPermission, userPermissions));
+        const pluginId = group['appBuilderMenu.pluginId'] || '';
+        const pluginLabel = group['appBuilderMenu.pluginLabel'] || pluginId;
+        const header = pluginId ? [
+          <SecondaryMenuHeader key={`header-${pluginId}`} label={pluginLabel} />,
+        ] : [];
+        const footer = pluginId ? [
+          <SecondaryMenuSeparator key={`separator-${pluginId}`} />,
+        ] : [];
+        return [
+          ...header,
+          ...renderDynamicItems(items, intl, userPermissions, adminConsoleUrl),
+          ...footer,
+        ];
+      })}
+    </ListGroupItem>
+  );
+};
+
 interface Props {
   config: MfeConfig;
   dynamicMenuItems: MenuItem[];
@@ -109,7 +182,7 @@ export function MenuUI(props: Props): JSX.Element {
     epcHasError,
     hideContentMenuItem,
   } = props;
-  const { userPermissions, systemReport, adminConsoleUrl, lang, advancedSearchOn,
+  const { userPermissions, systemReport = [], adminConsoleUrl, lang, advancedSearchOn,
   } =
     window.entando?.globals || {};
 
@@ -126,6 +199,7 @@ export function MenuUI(props: Props): JSX.Element {
   );
   const [tertiaryMenuOpen, setTertiaryMenuOpen] = useState(false);
   const content: ContentType = useContent();
+  const intl = useIntl();
 
   const navigate = useNavigation();
 
@@ -343,30 +417,10 @@ export function MenuUI(props: Props): JSX.Element {
                   )}
                 />
               )}
-              {cmsHasMenuContentsAccess &&
-                systemReport?.contentSchedulerPluginInstalled && (
-                  <SecondaryMenuItem
-                    id="content-scheduler"
-                    dataId="content-scheduler"
-                    label={content.contentScheduler}
-                    href={convertToAdminConsoleUrl(
-                      adminConsoleUrl,
-                      'do/jpcontentscheduler/config/viewItem.action'
-                    )}
-                  />
-                )}
-              {cmsHasMenuContentsAccess &&
-                systemReport?.contentWorkFlowPluginInstalled && (
-                  <SecondaryMenuItem
-                    id="content-workflow"
-                    dataId="content-workflow"
-                    label={content.contentWorkFlow}
-                    href={convertToAdminConsoleUrl(
-                      adminConsoleUrl,
-                      'do/jpcontentworkflow/Workflow/list.action'
-                    )}
-                  />
-                )}
+              {renderDynamicItems(
+                getGroupsByHook(systemReport, 'cms').flatMap(getGroupItems),
+                intl, userPermissions, adminConsoleUrl,
+              )}
               {cmsHasMenuContentTypeAccess && (
                 <SecondaryMenuItem
                   id="content-types"
@@ -402,6 +456,7 @@ export function MenuUI(props: Props): JSX.Element {
               )}
             </ListGroupItem>
           )}
+          {renderLegacyPluginsMenu(systemReport, intl, userPermissions, adminConsoleUrl, content)}
           {usersHasAnyMenuItemAccess && (
             <ListGroupItem
               id="users"

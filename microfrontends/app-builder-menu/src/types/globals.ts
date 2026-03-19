@@ -1,12 +1,24 @@
 import { rest } from 'msw';
 
+export interface AppBuilderMenuItemEntry {
+  id: string;
+  labelId?: string;
+  defaultLabel: string;
+  href: string;
+  requiredPermission: string;
+}
+
+export interface AppBuilderMenuGroup {
+  'appBuilderMenu.hook': string;
+  'appBuilderMenu.items': AppBuilderMenuItemEntry[];
+  'appBuilderMenu.pluginId'?: string;
+  'appBuilderMenu.pluginLabel'?: string;
+}
+
 export interface EntandoGlobals {
   userPermissions: string[];
   lang: string;
-  systemReport: {
-    contentSchedulerPluginInstalled: boolean;
-    contentWorkFlowPluginInstalled: boolean;
-  };
+  systemReport: AppBuilderMenuGroup[];
   adminConsoleUrl: string;
   advancedSearchOn: boolean;
   disableContentMenu: boolean;

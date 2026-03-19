@@ -18,9 +18,15 @@ window.entando = {
     ],
     lang: 'en',
     adminConsoleUrl: 'http://localhost:8080/admin-console',
-    systemReport: {
-      contentSchedulerPluginInstalled: true
-    },
+    systemReport: [
+      {
+        'appBuilderMenu.id': 'menu-scheduler',
+        'appBuilderMenu.labelId': 'cms.menu.scheduler',
+        'appBuilderMenu.defaultLabel': 'Scheduler',
+        'appBuilderMenu.href': 'do/jpcontentscheduler/config/viewItem.action',
+        'appBuilderMenu.requiredPermission': 'editContents,validateContents',
+      },
+    ],
     advancedSearchOn: true,
     disableContentMenu: false,
   },

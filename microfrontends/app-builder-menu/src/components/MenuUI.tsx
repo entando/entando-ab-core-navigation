@@ -182,9 +182,15 @@ export function MenuUI(props: Props): JSX.Element {
     epcHasError,
     hideContentMenuItem,
   } = props;
-  const { userPermissions, systemReport = [], adminConsoleUrl, lang, advancedSearchOn,
-  } =
-    window.entando?.globals || {};
+  const {
+    userPermissions,
+    systemReport: rawSystemReport,
+    adminConsoleUrl,
+    lang,
+    advancedSearchOn,
+  } = window.entando?.globals || {};
+
+  const systemReport = Array.isArray(rawSystemReport) ? rawSystemReport : [];
 
   const {
     activeMenuItem: activeListGroupItemId,

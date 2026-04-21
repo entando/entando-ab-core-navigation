@@ -8,7 +8,7 @@ import it_messages from '../i18n/it.json';
 import pt_messages from '../i18n/pt.json';
 import { ContentProvider } from '../hooks/useContent';
 import { MenuItem } from '../types/api';
-import { MfeConfig } from '../types/globals';
+import { EntandoGlobals, MfeConfig } from '../types/globals';
 import { GlobalStyle } from '../styles/globalStyles';
 import { DEFAULT_LOCALE } from '../content';
 import { getPBCNav } from '../api/getPBCNav';
@@ -40,8 +40,22 @@ export function Menu(props: Props) {
 
   const menuOpen = sessionStorage.getItem('menu_open') || '';
 
-  const { lang, disableContentMenu } = window.entando?.globals || {};
+  const [globals, setGlobals] = useState<Partial<EntandoGlobals>>(
+    () => window.entando?.globals || {}
+  );
+  const { lang, disableContentMenu } = globals;
   const locale = lang || DEFAULT_LOCALE;
+
+  useEffect(() => {
+    const handleGlobalsUpdated = (event: Event) => {
+      const detail = (event as CustomEvent<Partial<EntandoGlobals>>).detail;
+      if (detail) setGlobals(detail);
+    };
+    window.addEventListener('entando-globals-updated', handleGlobalsUpdated);
+    return () => {
+      window.removeEventListener('entando-globals-updated', handleGlobalsUpdated);
+    };
+  }, []);
 
   useEffect(() => {
     const hideContentMenuItem = disableContentMenu || false;

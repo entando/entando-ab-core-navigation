@@ -11,7 +11,7 @@ import { EPCsIcon } from './Icons/EPCsIcon';
 import { AdministrationIcon } from './Icons/AdministrationIcon';
 import { SecondaryMenuItem } from './SecondaryMenu/SecondaryMenuItem';
 import { TertiaryMenuItem } from './TertiaryMenu/TertiaryMenuItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 import { MenuUIContext, MenuUIContextInterface } from './MenuUIContext';
 import {
@@ -34,7 +34,7 @@ import {
 } from '../utils/links';
 import { COLORS } from './theme';
 import { MenuItem } from '../types/api';
-import { AppBuilderMenuGroup } from '../types/globals';
+import { AppBuilderMenuGroup, EntandoGlobals } from '../types/globals';
 import { LegacyPluginsIcon } from './Icons/LegacyPluginsIcon';
 import { SecondaryMenuHeader, SecondaryMenuSeparator } from './SecondaryMenu/SecondaryMenuHeader';
 import { generateDynamicMenuItems, TARGET_BLANK } from '../utils/dynamicTree';
@@ -182,13 +182,28 @@ export function MenuUI(props: Props): JSX.Element {
     epcHasError,
     hideContentMenuItem,
   } = props;
+  const [globals, setGlobals] = useState<Partial<EntandoGlobals>>(
+    () => window.entando?.globals || {}
+  );
+
+  useEffect(() => {
+    const handleGlobalsUpdated = (event: Event) => {
+      const detail = (event as CustomEvent<Partial<EntandoGlobals>>).detail;
+      if (detail) setGlobals(detail);
+    };
+    window.addEventListener('entando-globals-updated', handleGlobalsUpdated);
+    return () => {
+      window.removeEventListener('entando-globals-updated', handleGlobalsUpdated);
+    };
+  }, []);
+
   const {
     userPermissions,
     systemReport: rawSystemReport,
     adminConsoleUrl,
     lang,
     advancedSearchOn,
-  } = window.entando?.globals || {};
+  } = globals;
 
   const systemReport = Array.isArray(rawSystemReport) ? rawSystemReport : [];
 
